@@ -157,6 +157,14 @@ def join_tables(tables):
 
 def get_player_tables(url, tooltip_info):
     print(f'Getting player tables (url: {url})...')
+
+    team_name = url.split('/')[-1]
+    team_hyphen_count = team_name.count('-')
+    if team_hyphen_count == 1:
+        team_name = team_name.split('-')[0]
+    elif team_hyphen_count > 1:
+        team_name = ' '.join(team_name.split('-')[:-1])
+
     time.sleep(10)
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
@@ -197,10 +205,10 @@ def get_player_tables(url, tooltip_info):
             # Only append the table if it's not empty after removing rows
             if not table.empty:
                 processed_tables.append(table)
-        
-    return processed_tables
+    
+    return processed_tables, team_name
 
-def join_player_tables(tables):
+def join_player_tables(tables, team_name):
     # Join all player tables on 'Player' column
 
     for i, table in enumerate(tables):
@@ -212,6 +220,8 @@ def join_player_tables(tables):
 
     # Replace NaN values with 0
     tables[0] = tables[0].fillna(0)
+
+    tables[0]['Player_Team_Name'] = team_name
 
     return tables[0]
 
@@ -232,8 +242,8 @@ def fbref_main():
     player_tables_list = []
     for team_link in team_links:
         # Get and join player tables for the current team
-        individual_team_player_tables = get_player_tables(team_link, player_tooltip_info)
-        combined_individual_team_player_table = join_player_tables(individual_team_player_tables)
+        individual_team_player_tables, player_team_name = get_player_tables(team_link, player_tooltip_info)
+        combined_individual_team_player_table = join_player_tables(individual_team_player_tables, player_team_name)
         # Add the player data for this team to the list
         player_tables_list.append(combined_individual_team_player_table)
     
@@ -244,3 +254,7 @@ def fbref_main():
 
 if __name__ == '__main__':
     team, player = fbref_main()
+
+    # export to fbref_player_cols and fbref_team_cols in templates/fbref/HERE
+    team.to_csv('templates/fbref/fbref_team_cols.csv', index=False)
+    player.to_csv('templates/fbref/fbref_player_cols.csv', index=False)
