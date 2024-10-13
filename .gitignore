@@ -4,3 +4,4 @@ __pycache__/
 **/gameweek_projections.csv
 **/player_fbref_stats.csv
 **/team_fbref_stats.csv
+**/optimal_solution.txt
