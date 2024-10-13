@@ -254,7 +254,3 @@ def fbref_main():
 
 if __name__ == '__main__':
     team, player = fbref_main()
-
-    # export to fbref_player_cols and fbref_team_cols in templates/fbref/HERE
-    team.to_csv('templates/fbref/fbref_team_cols.csv', index=False)
-    player.to_csv('templates/fbref/fbref_player_cols.csv', index=False)
