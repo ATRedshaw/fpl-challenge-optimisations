@@ -226,5 +226,29 @@
     "35": {
         "country": "Burkina Faso",
         "continent": "Africa"
+    },
+    "14": {
+        "country": "Austria",
+        "continent": "Europe"
+    },
+    "238": {
+        "country": "Zambia",
+        "continent": "Africa"
+    },
+    "90": {
+        "country": "Guinea-Bissau",
+        "continent": "Africa"
+    },
+    "103": {
+        "country": "Irag",
+        "continent": "Asia"
+    },
+    "177": {
+        "country": "Romania",
+        "continent": "Europe"
+    },
+    "44": {
+        "country": "Chile",
+        "continent": "South America"
     }
 }

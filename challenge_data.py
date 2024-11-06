@@ -88,9 +88,17 @@ def get_gameweek_data(gameweek, bootstrap_data):
             player_id = player['id']
             if player_id in player_lookup:
                 player_info = player_lookup[player_id]
+                
+                # Handle region like in projections.py
+                region = player_info['region']
+                if pd.isna(region):
+                    region = -1
+                region = str(region)
+                
                 player_data = {
                     'ID': player_id,
                     'Name': player_info['web_name'],
+                    'Region': region,
                     'Team': team_lookup[player_info['team']],
                     'Position': position_map[player_info['element_type']],
                     'Cost': player_info['now_cost'] / 10,
