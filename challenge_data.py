@@ -57,12 +57,18 @@ def get_gameweek_data(gameweek, bootstrap_data):
             - Cost: Player cost
             - Points: Actual points scored in the gameweek
     """
-    url = f'https://fplchallenge.premierleague.com/api/bootstrap-event/{gameweek}/'
+    url = f'https://fplchallenge.premierleague.com/api/event/{gameweek}/live/'
     
     try:
         response = requests.get(url)
         response.raise_for_status()
         event_data = response.json()
+        
+        # Get bootstrap event data for additional player info
+        bootstrap_url = f'https://fplchallenge.premierleague.com/api/bootstrap-event/{gameweek}/'
+        bootstrap_response = requests.get(bootstrap_url)
+        bootstrap_response.raise_for_status()
+        bootstrap_event = bootstrap_response.json()
         
         players = []
         position_map = {
@@ -75,16 +81,22 @@ def get_gameweek_data(gameweek, bootstrap_data):
         # Create team lookup dictionary from bootstrap data
         team_lookup = {team['id']: team['name'] for team in bootstrap_data['teams']}
         
+        # Create player lookup from bootstrap event
+        player_lookup = {p['id']: p for p in bootstrap_event['elements']}
+        
         for player in event_data['elements']:
-            player_data = {
-                'ID': player['id'],
-                'Name': f"{player['first_name']} {player['second_name']}",
-                'Team': team_lookup[player['team']],
-                'Position': position_map[player['element_type']],
-                'Cost': player['now_cost'] / 10,
-                'Points': player['event_points']
-            }
-            players.append(player_data)
+            player_id = player['id']
+            if player_id in player_lookup:
+                player_info = player_lookup[player_id]
+                player_data = {
+                    'ID': player_id,
+                    'Name': player_info['web_name'],
+                    'Team': team_lookup[player_info['team']],
+                    'Position': position_map[player_info['element_type']],
+                    'Cost': player_info['now_cost'] / 10,
+                    'Points': player['stats']['total_points']
+                }
+                players.append(player_data)
             
         df = pd.DataFrame(players)
         df = df.sort_values(by='ID')
@@ -94,7 +106,6 @@ def get_gameweek_data(gameweek, bootstrap_data):
     except requests.RequestException as e:
         print(f"Error fetching gameweek data: {e}")
         return None
-
 def update_with_gameweek_cost(df, season, gameweek):
     """
     Updates player costs in the DataFrame using historical cost data from a GitHub repository.
@@ -151,7 +162,7 @@ def update_with_gameweek_cost(df, season, gameweek):
             df.at[idx, 'Cost'] = cost_dict[player_id] / 10
 
     return df
-    
+
 if __name__ == "__main__":
     bootstrap_data = get_bootstrap_static_data()
     current_gameweek = get_current_gameweek(bootstrap_data)
