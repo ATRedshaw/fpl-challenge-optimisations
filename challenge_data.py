@@ -65,10 +65,10 @@ def get_gameweek_data(gameweek, bootstrap_data):
         event_data = response.json()
         
         # Get bootstrap event data for additional player info
-        bootstrap_url = f'https://fplchallenge.premierleague.com/api/bootstrap-event/{gameweek}/'
+        bootstrap_url = 'https://fplchallenge.premierleague.com/api/bootstrap-static/'
         bootstrap_response = requests.get(bootstrap_url)
         bootstrap_response.raise_for_status()
-        bootstrap_event = bootstrap_response.json()
+        bootstrap_data = bootstrap_response.json()
         
         players = []
         position_map = {
@@ -82,7 +82,16 @@ def get_gameweek_data(gameweek, bootstrap_data):
         team_lookup = {team['id']: team['name'] for team in bootstrap_data['teams']}
         
         # Create player lookup from bootstrap event
-        player_lookup = {p['id']: p for p in bootstrap_event['elements']}
+        player_lookup = {
+            player['id']: {
+                'Name': player['web_name'],
+                'Region': player['region'],
+                'Team': player['team'],
+                'Position': player['element_type'],
+                'Cost': player['now_cost']
+            }
+            for player in bootstrap_data['elements']
+        }
         
         for player in event_data['elements']:
             player_id = player['id']
@@ -90,18 +99,18 @@ def get_gameweek_data(gameweek, bootstrap_data):
                 player_info = player_lookup[player_id]
                 
                 # Handle region like in projections.py
-                region = player_info['region']
+                region = player_info['Region']
                 if pd.isna(region):
                     region = -1
                 region = str(region)
                 
                 player_data = {
                     'ID': player_id,
-                    'Name': player_info['web_name'],
+                    'Name': player_info['Name'],
                     'Region': region,
-                    'Team': team_lookup[player_info['team']],
-                    'Position': position_map[player_info['element_type']],
-                    'Cost': player_info['now_cost'] / 10,
+                    'Team': team_lookup[player_info['Team']],
+                    'Position': position_map[player_info['Position']],
+                    'Cost': player_info['Cost'] / 10,
                     'Points': player['stats']['total_points']
                 }
                 players.append(player_data)
