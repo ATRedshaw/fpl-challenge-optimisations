@@ -5,3 +5,4 @@ __pycache__/
 **/player_fbref_stats.csv
 **/team_fbref_stats.csv
 **/optimal_solution.txt
+**/understat_shot_summary.csv
