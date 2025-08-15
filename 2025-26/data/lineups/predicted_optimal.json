@@ -1,0 +1,58 @@
+{
+    "1": {
+        "Players": {
+            "Forward": [
+                {
+                    "Name": "João Pedro",
+                    "Team": "Chelsea",
+                    "Cost": 7.5,
+                    "Predicted_Points": 10.4,
+                    "Captain": false
+                },
+                {
+                    "Name": "Gyökeres",
+                    "Team": "Arsenal",
+                    "Cost": 9.0,
+                    "Predicted_Points": 9.52,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "Name": "Wirtz",
+                    "Team": "Liverpool",
+                    "Cost": 8.5,
+                    "Predicted_Points": 24.36,
+                    "Captain": true
+                },
+                {
+                    "Name": "Cunha",
+                    "Team": "Man Utd",
+                    "Cost": 8.0,
+                    "Predicted_Points": 10.3,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "Name": "Aït-Nouri",
+                    "Team": "Man City",
+                    "Cost": 6.0,
+                    "Predicted_Points": 9.58,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "Name": "Perri",
+                    "Team": "Leeds",
+                    "Cost": 4.5,
+                    "Predicted_Points": 7.52,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 43.5,
+        "Total_Points": 71.68
+    }
+}

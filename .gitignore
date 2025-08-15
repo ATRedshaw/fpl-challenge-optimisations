@@ -6,3 +6,5 @@ __pycache__/
 **/team_fbref_stats.csv
 **/optimal_solution.txt
 **/understat_shot_summary.csv
+
+**/data/projections/
