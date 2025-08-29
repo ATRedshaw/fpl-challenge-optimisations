@@ -8,13 +8,6 @@
                     "Cost": 7.5,
                     "Predicted_Points": 10.4,
                     "Captain": false
-                },
-                {
-                    "Name": "Gyökeres",
-                    "Team": "Arsenal",
-                    "Cost": 9.0,
-                    "Predicted_Points": 9.52,
-                    "Captain": false
                 }
             ],
             "Midfielder": [
@@ -30,6 +23,13 @@
                     "Team": "Man Utd",
                     "Cost": 8.0,
                     "Predicted_Points": 10.3,
+                    "Captain": false
+                },
+                {
+                    "Name": "Kudus",
+                    "Team": "Spurs",
+                    "Cost": 6.5,
+                    "Predicted_Points": 9.34,
                     "Captain": false
                 }
             ],
@@ -52,7 +52,63 @@
                 }
             ]
         },
-        "Total_Cost": 43.5,
-        "Total_Points": 71.68
+        "Total_Cost": 41.0,
+        "Total_Points": 71.5
+    },
+    "2": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "Name": "Saka",
+                    "Team": "Arsenal",
+                    "Cost": 10.0,
+                    "Predicted_Points": 7.06,
+                    "Captain": false
+                },
+                {
+                    "Name": "M.Salah",
+                    "Team": "Liverpool",
+                    "Cost": 14.5,
+                    "Predicted_Points": 7.23,
+                    "Captain": false
+                },
+                {
+                    "Name": "Adingra",
+                    "Team": "Sunderland",
+                    "Cost": 5.5,
+                    "Predicted_Points": 17.6,
+                    "Captain": true
+                }
+            ],
+            "Defender": [
+                {
+                    "Name": "Estève",
+                    "Team": "Burnley",
+                    "Cost": 4.0,
+                    "Predicted_Points": 8.3,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.0,
+                    "Predicted_Points": 7.14,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "Name": "Perri",
+                    "Team": "Leeds",
+                    "Cost": 4.5,
+                    "Predicted_Points": 6.28,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 52.5,
+        "Total_Points": 53.61
     }
 }

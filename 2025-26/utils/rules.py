@@ -17,3 +17,8 @@ def gw1_rules(projections, api_url='https://fplchallenge.premierleague.com/api/b
     projections = projections.drop('team_join_date', axis=1)
 
     return projections
+
+def gw2_rules(projections):
+    promoted_teams = ['Sunderland', 'Leeds', 'Burnley']
+    projections.loc[projections['Team'].isin(promoted_teams), 'Predicted_Points'] *= 2
+    return projections
