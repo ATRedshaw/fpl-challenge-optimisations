@@ -22,7 +22,7 @@ def gw3_rules(projections: pd.DataFrame) -> pd.DataFrame:
     """
 
     leagues = "ENG-Premier League"
-    season = "25-26"
+    season = "24-25"
     fbref = sd.FBref(leagues=leagues, seasons=season)
 
     # Load defense and misc stats
@@ -131,7 +131,8 @@ def gw3_rules(projections: pd.DataFrame) -> pd.DataFrame:
             return 0
         if row["fbref_90s"] == 0:
             return 0
-        if row["fbref_90s"] <= 0.15:
+        # Don't include players <= 5 games worth of data as prone to variance
+        if row["fbref_90s"] <= 5.00:
             return 0
 
         tackles_per_90 = row["fbref_TklW"] / row["fbref_90s"]
