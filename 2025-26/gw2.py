@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import yaml
 from utils.projections import generate_projections
-from utils.rules import gw2_rules
+from utils.rules.gw2 import gw2_rules
 from utils.decisions import run_ban_force
 from utils.solver import FPLChallengeOptimiser
 from utils.data import save_projections, save_optimal_prediction
