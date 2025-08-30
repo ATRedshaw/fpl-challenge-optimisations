@@ -115,20 +115,25 @@
         "Players": {
             "Midfielder": [
                 {
-                    "Name": "O.Dango",
-                    "Team": "Brentford",
-                    "Cost": 6.0,
-                    "Predicted_Points": 13.5,
-                    "Captain": false
-                }
-            ],
-            "Goalkeeper": [
-                {
-                    "Name": "Sánchez",
+                    "Name": "Caicedo",
                     "Team": "Chelsea",
-                    "Cost": 5.0,
-                    "Predicted_Points": 4.0,
+                    "Cost": 5.5,
+                    "Predicted_Points": 9.7,
                     "Captain": false
+                },
+                {
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 9.0,
+                    "Predicted_Points": 10.1,
+                    "Captain": false
+                },
+                {
+                    "Name": "Anderson",
+                    "Team": "Nott'm Forest",
+                    "Cost": 5.5,
+                    "Predicted_Points": 23.8,
+                    "Captain": true
                 }
             ],
             "Defender": [
@@ -136,21 +141,7 @@
                     "Name": "Tarkowski",
                     "Team": "Everton",
                     "Cost": 5.5,
-                    "Predicted_Points": 12.3,
-                    "Captain": false
-                },
-                {
-                    "Name": "Virgil",
-                    "Team": "Liverpool",
-                    "Cost": 6.0,
-                    "Predicted_Points": 29.0,
-                    "Captain": true
-                },
-                {
-                    "Name": "De Ligt",
-                    "Team": "Man Utd",
-                    "Cost": 5.0,
-                    "Predicted_Points": 12.6,
+                    "Predicted_Points": 10.7,
                     "Captain": false
                 }
             ],
@@ -162,9 +153,18 @@
                     "Predicted_Points": 6.6,
                     "Captain": false
                 }
+            ],
+            "Goalkeeper": [
+                {
+                    "Name": "José Sá",
+                    "Team": "Wolves",
+                    "Cost": 4.5,
+                    "Predicted_Points": 3.8,
+                    "Captain": false
+                }
             ]
         },
-        "Total_Cost": 41.6,
-        "Total_Points": 78.0
+        "Total_Cost": 44.1,
+        "Total_Points": 64.7
     }
 }
