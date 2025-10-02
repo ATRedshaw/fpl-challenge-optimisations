@@ -33,11 +33,13 @@ if __name__ == "__main__":
         projections = gw7_rules(projections)
     except Exception as e:
         print(f"Error generating projections. Loading saved predictions.")
+        print(e)
         try:
             saved_path = os.path.join(SEASON, 'data', 'projections', f'gw{GAMEWEEK}.csv')
             projections = pd.read_csv(saved_path)
         except Exception as e:
             print(f"Error loading saved projections. Terminating.")
+            print(e)
             exit()
 
     print(f"Projections generated for GW{GAMEWEEK}")
@@ -57,7 +59,8 @@ if __name__ == "__main__":
     solver.total_players_constraint(constraints['total_players'])
     solver.captain_count_constraint(constraints['captain_count'])
     solver.position_count_constraints(constraints['position_constraints'])
-    solver.max_players_from_same_team_constraint(constraints['max_per_team'])
+    solver.max_players_from_same_team_constraint(1)
+    solver.budget_constraint(9999)
     
     # Solve and print results
     # ===================================================================
