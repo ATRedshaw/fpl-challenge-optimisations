@@ -20,6 +20,7 @@ def gw8_rules(projections: pd.DataFrame) -> pd.DataFrame:
     """
     shot_data = get_shot_data_with_minutes()
     
+    # Calculate big chance xG rate per 90 minutes
     shot_data['big_chance_xG_per90'] = np.where(
         shot_data['Minutes'] > 0,
         (shot_data['Total_Big_Chance_xG'] / shot_data['Minutes']) * 90,
@@ -39,6 +40,7 @@ def gw8_rules(projections: pd.DataFrame) -> pd.DataFrame:
     fbref_players = shot_data['Player'].tolist()
     enhanced_projections['fbref_big_chance_xG_per90'] = 0.0
     
+    # Match each player to fbref data and populate big chance xG rate
     for idx, row in enhanced_projections.iterrows():
         fuzzy_name = row['Fuzzy']
         best_match, score = find_best_match(fuzzy_name, fbref_players)
@@ -46,16 +48,22 @@ def gw8_rules(projections: pd.DataFrame) -> pd.DataFrame:
             fbref_row = shot_data[shot_data['Player'] == best_match].iloc[0]
             enhanced_projections.at[idx, 'fbref_big_chance_xG_per90'] = fbref_row['big_chance_xG_per90']
     
+    # Calculate expected big chance xG for this gameweek based on expected minutes
     enhanced_projections['expected_big_chance_xG_gw'] = (
         enhanced_projections['fbref_big_chance_xG_per90'] * (enhanced_projections['xMins'] / 90)
     )
     
+    # Apply 6 points per expected big chance xG
     enhanced_projections['additional_xpts'] = enhanced_projections['expected_big_chance_xG_gw'] * 6
+    
+    # Exclude goalkeepers from receiving additional points
+    enhanced_projections.loc[enhanced_projections['Position'] == 'Goalkeeper', 'additional_xpts'] = 0
     
     enhanced_projections['Predicted_Points'] = (
         enhanced_projections['Predicted_Points'] + enhanced_projections['additional_xpts']
     ).round(2)
     
+    # Remove temporary calculation columns
     enhanced_projections = enhanced_projections.drop(
         columns=['fbref_big_chance_xG_per90', 'expected_big_chance_xG_gw', 'additional_xpts']
     )
@@ -79,13 +87,15 @@ def get_shot_data():
     shots.columns = shots.columns.droplevel(1)
 
     # Remove (pen) if present from player name
-    shots['player'] = shots['player'].str.replace(r'\s\(\w+\)$', '', regex=True)
+    shots['player'] = shots['player'].str.replace(r'\sKATEX_INLINE_OPEN\w+KATEX_INLINE_CLOSE$', '', regex=True)
     
+    # Define big chance as xG >= 0.4
     shots['is_goal'] = shots['outcome'] == 'Goal'
     shots['is_big_chance'] = shots['xG'] >= 0.4
     shots['is_big_chance_scored'] = (shots['xG'] >= 0.4) & (shots['outcome'] == 'Goal')
     shots['big_chance_xg'] = shots['xG'].where(shots['xG'] >= 0.4, 0)
     
+    # Aggregate shot statistics per player
     player_stats = shots.groupby('player').agg(
         Total_Shots=('player', 'count'),
         Total_xG=('xG', 'sum'),
@@ -118,6 +128,7 @@ def get_minutes_played():
     player_stats = fbref.read_player_season_stats(stat_type="standard")
 
     player_stats = player_stats.reset_index()
+    # Extract only player name and minutes played columns
     player_stats = player_stats[[("player", ""), ("Playing Time", "Min")]]
     player_stats.columns = ["Player", "Minutes"]
 
@@ -133,6 +144,7 @@ def get_shot_data_with_minutes():
     shot_data = get_shot_data()
     minutes_data = get_minutes_played()
     
+    # Merge shot statistics with minutes played on player name
     combined_data = shot_data.merge(minutes_data, on='Player', how='left')
     
     return combined_data
