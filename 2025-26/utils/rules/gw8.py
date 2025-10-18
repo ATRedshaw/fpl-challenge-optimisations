@@ -87,7 +87,7 @@ def get_shot_data():
     shots.columns = shots.columns.droplevel(1)
 
     # Remove (pen) if present from player name
-    shots['player'] = shots['player'].str.replace(r'\sKATEX_INLINE_OPEN\w+KATEX_INLINE_CLOSE$', '', regex=True)
+    shots['player'] = shots['player'].str.replace(r'\s\(pen\)$', '', regex=True)
     
     # Define big chance as xG >= 0.4
     shots['is_goal'] = shots['outcome'] == 'Goal'
