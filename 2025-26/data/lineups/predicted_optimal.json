@@ -446,5 +446,61 @@
         },
         "Total_Cost": 48.3,
         "Total_Points": 56.35
+    },
+    "9": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "Name": "Saka",
+                    "Team": "Arsenal",
+                    "Cost": 10.0,
+                    "Predicted_Points": 12.44,
+                    "Captain": false
+                },
+                {
+                    "Name": "M.Salah",
+                    "Team": "Liverpool",
+                    "Cost": 14.3,
+                    "Predicted_Points": 25.76,
+                    "Captain": true
+                }
+            ],
+            "Defender": [
+                {
+                    "Name": "Chalobah",
+                    "Team": "Chelsea",
+                    "Cost": 5.1,
+                    "Predicted_Points": 10.6,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "Name": "Pickford",
+                    "Team": "Everton",
+                    "Cost": 5.5,
+                    "Predicted_Points": 7.02,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.7,
+                    "Predicted_Points": 7.5,
+                    "Captain": false
+                },
+                {
+                    "Name": "Bowen",
+                    "Team": "West Ham",
+                    "Cost": 7.8,
+                    "Predicted_Points": 9.08,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 57.4,
+        "Total_Points": 72.4
     }
 }
