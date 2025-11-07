@@ -502,5 +502,61 @@
         },
         "Total_Cost": 57.4,
         "Total_Points": 72.4
+    },
+    "10": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "Name": "Saka",
+                    "Team": "Arsenal",
+                    "Cost": 10.1,
+                    "Predicted_Points": 6.7,
+                    "Captain": false
+                },
+                {
+                    "Name": "M.Salah",
+                    "Team": "Liverpool",
+                    "Cost": 14.2,
+                    "Predicted_Points": 7.49,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "Name": "Mateta",
+                    "Team": "Crystal Palace",
+                    "Cost": 7.8,
+                    "Predicted_Points": 7.41,
+                    "Captain": false
+                },
+                {
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.8,
+                    "Predicted_Points": 16.3,
+                    "Captain": true
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "Name": "Leno",
+                    "Team": "Fulham",
+                    "Cost": 5.0,
+                    "Predicted_Points": 3.91,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "Name": "Mukiele",
+                    "Team": "Sunderland",
+                    "Cost": 4.1,
+                    "Predicted_Points": 5.3,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 56.0,
+        "Total_Points": 47.11
     }
 }
