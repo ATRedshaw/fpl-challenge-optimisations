@@ -558,5 +558,61 @@
         },
         "Total_Cost": 56.0,
         "Total_Points": 47.11
+    },
+    "11": {
+        "Players": {
+            "Defender": [
+                {
+                    "Name": "Gabriel",
+                    "Team": "Arsenal",
+                    "Cost": 6.6,
+                    "Predicted_Points": 7.12,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "Name": "João Pedro",
+                    "Team": "Chelsea",
+                    "Cost": 7.4,
+                    "Predicted_Points": 6.82,
+                    "Captain": false
+                },
+                {
+                    "Name": "Mateta",
+                    "Team": "Crystal Palace",
+                    "Cost": 8.0,
+                    "Predicted_Points": 6.96,
+                    "Captain": false
+                },
+                {
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.8,
+                    "Predicted_Points": 20.68,
+                    "Captain": true
+                }
+            ],
+            "Midfielder": [
+                {
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 8.9,
+                    "Predicted_Points": 6.38,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "Name": "Vicario",
+                    "Team": "Spurs",
+                    "Cost": 5.1,
+                    "Predicted_Points": 4.27,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 50.8,
+        "Total_Points": 52.23
     }
 }
