@@ -100,7 +100,7 @@ def get_passing_data():
     Returns:
         pd.DataFrame: DataFrame with 'Player', 'Total_Att', 'Total_Cmp'.
     """
-    fbref = sd.FBref(leagues=["ENG-Premier League"], seasons=["2526"])
+    fbref = sd.FBref(leagues=["ENG-Premier League"], seasons=["2526"], no_cache=True)
     
     # Stat type 'passing' returns MultiIndex columns (Total, Short, Medium, Long)
     passing = fbref.read_player_season_stats(stat_type="passing")
@@ -125,7 +125,7 @@ def get_minutes_played():
     Returns:
         pd.DataFrame: DataFrame with 'Player' and 'Minutes'.
     """
-    fbref = sd.FBref(leagues=["ENG-Premier League"], seasons=["2526"])
+    fbref = sd.FBref(leagues=["ENG-Premier League"], seasons=["2526"], no_cache=True)
     stats = fbref.read_player_season_stats(stat_type="standard")
     
     stats = stats.reset_index()
