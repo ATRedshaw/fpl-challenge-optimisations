@@ -219,3 +219,20 @@ GW13:
     Forward:
       min_count: 1
       max_count: 3
+GW14:
+  total_players: 6
+  captain_count: 1
+  max_per_team: 1
+  position_constraints:
+    Goalkeeper:
+      min_count: 1
+      max_count: 1
+    Defender:
+      min_count: 1
+      max_count: 3
+    Midfielder:
+      min_count: 1
+      max_count: 3
+    Forward:
+      min_count: 1
+      max_count: 3
