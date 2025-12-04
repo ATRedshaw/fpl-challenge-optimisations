@@ -726,5 +726,61 @@
         },
         "Total_Cost": 48.9,
         "Total_Points": 74.49
+    },
+    "14": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "Name": "Rice",
+                    "Team": "Arsenal",
+                    "Cost": 7.0,
+                    "Predicted_Points": 11.54,
+                    "Captain": false
+                },
+                {
+                    "Name": "Szoboszlai",
+                    "Team": "Liverpool",
+                    "Cost": 6.6,
+                    "Predicted_Points": 10.54,
+                    "Captain": false
+                },
+                {
+                    "Name": "Amad",
+                    "Team": "Man Utd",
+                    "Cost": 6.3,
+                    "Predicted_Points": 23.6,
+                    "Captain": true
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "Name": "Petrović",
+                    "Team": "Bournemouth",
+                    "Cost": 4.5,
+                    "Predicted_Points": 4.02,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "Name": "Muñoz",
+                    "Team": "Crystal Palace",
+                    "Cost": 6.0,
+                    "Predicted_Points": 4.93,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.9,
+                    "Predicted_Points": 7.66,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 45.3,
+        "Total_Points": 62.29
     }
 }
