@@ -5,7 +5,7 @@ def gw15_rules(projections: pd.DataFrame) -> pd.DataFrame:
     Apply Gameweek 15 "Big Save" rules to player projections.
 
     Rules:
-        - Double Points for Defenders priced at 5m or under.
+        - Double Points for Defenders and Goalkeepers priced at 5m or under.
 
     Args:
         projections (pd.DataFrame): DataFrame of player projections containing
