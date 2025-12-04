@@ -1,5 +1,4 @@
 import pandas as pd
-# No API calls needed as the necessary data (Position, Cost) is in the projections DataFrame.
 
 def gw14_rules(projections: pd.DataFrame) -> pd.DataFrame:
     """
