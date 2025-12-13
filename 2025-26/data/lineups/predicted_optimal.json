@@ -782,5 +782,61 @@
         },
         "Total_Cost": 45.3,
         "Total_Points": 62.29
+    },
+    "15": {
+        "Players": {
+            "Goalkeeper": [
+                {
+                    "Name": "Verbruggen",
+                    "Team": "Brighton",
+                    "Cost": 4.4,
+                    "Predicted_Points": 7.36,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "Name": "Andersen",
+                    "Team": "Fulham",
+                    "Cost": 4.5,
+                    "Predicted_Points": 8.96,
+                    "Captain": false
+                },
+                {
+                    "Name": "Romero",
+                    "Team": "Spurs",
+                    "Cost": 5.0,
+                    "Predicted_Points": 10.26,
+                    "Captain": false
+                },
+                {
+                    "Name": "Thiaw",
+                    "Team": "Newcastle",
+                    "Cost": 5.0,
+                    "Predicted_Points": 21.32,
+                    "Captain": true
+                }
+            ],
+            "Forward": [
+                {
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.9,
+                    "Predicted_Points": 9.28,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 9.0,
+                    "Predicted_Points": 5.8,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 42.8,
+        "Total_Points": 62.98
     }
 }
