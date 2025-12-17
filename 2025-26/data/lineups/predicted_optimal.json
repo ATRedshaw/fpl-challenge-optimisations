@@ -838,5 +838,61 @@
         },
         "Total_Cost": 42.8,
         "Total_Points": 62.98
+    },
+    "16": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "Name": "Saka",
+                    "Team": "Arsenal",
+                    "Cost": 10.2,
+                    "Predicted_Points": 6.5,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "Name": "Thiago",
+                    "Team": "Brentford",
+                    "Cost": 7.1,
+                    "Predicted_Points": 20.36,
+                    "Captain": true
+                },
+                {
+                    "Name": "Raúl",
+                    "Team": "Fulham",
+                    "Cost": 6.3,
+                    "Predicted_Points": 9.38,
+                    "Captain": false
+                },
+                {
+                    "Name": "Bowen",
+                    "Team": "West Ham",
+                    "Cost": 7.5,
+                    "Predicted_Points": 9.22,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "Name": "Sánchez",
+                    "Team": "Chelsea",
+                    "Cost": 4.9,
+                    "Predicted_Points": 4.19,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "Name": "Konaté",
+                    "Team": "Liverpool",
+                    "Cost": 5.4,
+                    "Predicted_Points": 5.09,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 41.4,
+        "Total_Points": 54.74
     }
 }
