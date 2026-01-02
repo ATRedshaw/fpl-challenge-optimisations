@@ -1006,5 +1006,61 @@
         },
         "Total_Cost": 35.3,
         "Total_Points": 66.02
+    },
+    "19": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "Name": "Saka",
+                    "Team": "Arsenal",
+                    "Cost": 10.3,
+                    "Predicted_Points": 8.78,
+                    "Captain": false
+                },
+                {
+                    "Name": "Semenyo",
+                    "Team": "Bournemouth",
+                    "Cost": 7.7,
+                    "Predicted_Points": 8.47,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "Name": "James",
+                    "Team": "Chelsea",
+                    "Cost": 5.7,
+                    "Predicted_Points": 6.61,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 15.1,
+                    "Predicted_Points": 26.86,
+                    "Captain": true
+                },
+                {
+                    "Name": "Ekitiké",
+                    "Team": "Liverpool",
+                    "Cost": 9.1,
+                    "Predicted_Points": 8.62,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "Name": "Pope",
+                    "Team": "Newcastle",
+                    "Cost": 5.1,
+                    "Predicted_Points": 4.27,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 53.0,
+        "Total_Points": 63.61
     }
 }
