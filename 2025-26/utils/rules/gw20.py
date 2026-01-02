@@ -1,7 +1,7 @@
 import pandas as pd
 import requests
 
-def gw20_rules(projections: pd.DataFrame) -> pd.DataFrame:
+def gw20_rules(projections: pd.DataFrame, min_minutes: int = 300) -> pd.DataFrame:
     """
     Apply Gameweek 20 'Clean Start' rules to player projections.
 
@@ -19,6 +19,8 @@ def gw20_rules(projections: pd.DataFrame) -> pd.DataFrame:
     Args:
         projections (pd.DataFrame): DataFrame of player projections containing
             'ID', 'xMins', 'Position', and 'Predicted_Points'.
+        min_minutes (int, optional): Minimum historical minutes required to 
+            calculate a valid rate. Defaults to 300.
 
     Returns:
         pd.DataFrame: Updated DataFrame with modified Predicted_Points.
@@ -36,10 +38,10 @@ def gw20_rules(projections: pd.DataFrame) -> pd.DataFrame:
     # Merge stats into projections
     projections = projections.merge(stats_df, on='ID', how='left')
 
-    # Calculate per-90 rates, handling division by zero
-    # If minutes are 0, the rate is 0
+    # Calculate per-90 rates, handling division by zero and minimum minutes threshold
+    # If minutes are below threshold, the rate is 0 to avoid small sample size bias
     projections['clean_sheets_per_90'] = projections.apply(
-        lambda row: (row['clean_sheets'] / row['minutes'] * 90) if row['minutes'] > 0 else 0, axis=1
+        lambda row: (row['clean_sheets'] / row['minutes'] * 90) if row['minutes'] >= min_minutes else 0, axis=1
     )
 
     # Estimate expected clean sheets for the upcoming gameweek based on xMins
