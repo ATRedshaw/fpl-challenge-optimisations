@@ -1062,5 +1062,61 @@
         },
         "Total_Cost": 53.0,
         "Total_Points": 63.61
+    },
+    "21": {
+        "Players": {
+            "Goalkeeper": [
+                {
+                    "Name": "Kelleher",
+                    "Team": "Brentford",
+                    "Cost": 4.5,
+                    "Predicted_Points": 4.26,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "Name": "Veltman",
+                    "Team": "Brighton",
+                    "Cost": 4.3,
+                    "Predicted_Points": 10.33,
+                    "Captain": false
+                },
+                {
+                    "Name": "Hall",
+                    "Team": "Newcastle",
+                    "Cost": 5.3,
+                    "Predicted_Points": 10.25,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "Name": "Iroegbunam",
+                    "Team": "Everton",
+                    "Cost": 4.8,
+                    "Predicted_Points": 24.9,
+                    "Captain": true
+                },
+                {
+                    "Name": "S.Magassa",
+                    "Team": "West Ham",
+                    "Cost": 5.0,
+                    "Predicted_Points": 10.67,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 15.1,
+                    "Predicted_Points": 9.34,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 39.0,
+        "Total_Points": 69.75
     }
 }
