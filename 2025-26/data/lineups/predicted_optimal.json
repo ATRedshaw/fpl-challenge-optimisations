@@ -1118,5 +1118,61 @@
         },
         "Total_Cost": 39.0,
         "Total_Points": 69.75
+    },
+    "22": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "Name": "Rice",
+                    "Team": "Arsenal",
+                    "Cost": 7.3,
+                    "Predicted_Points": 6.33,
+                    "Captain": false
+                },
+                {
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 9.1,
+                    "Predicted_Points": 6.63,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "Name": "Sánchez",
+                    "Team": "Chelsea",
+                    "Cost": 4.9,
+                    "Predicted_Points": 4.15,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 15.1,
+                    "Predicted_Points": 16.06,
+                    "Captain": true
+                },
+                {
+                    "Name": "Ekitiké",
+                    "Team": "Liverpool",
+                    "Cost": 8.9,
+                    "Predicted_Points": 7.2,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "Name": "Romero",
+                    "Team": "Spurs",
+                    "Cost": 5.0,
+                    "Predicted_Points": 5.99,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 50.3,
+        "Total_Points": 46.36
     }
 }
