@@ -1230,5 +1230,61 @@
         },
         "Total_Cost": 38.2,
         "Total_Points": 63.47
+    },
+    "24": {
+        "Players": {
+            "Defender": [
+                {
+                    "Name": "Gabriel",
+                    "Team": "Arsenal",
+                    "Cost": 6.9,
+                    "Predicted_Points": 8.03,
+                    "Captain": false
+                },
+                {
+                    "Name": "Ballard",
+                    "Team": "Sunderland",
+                    "Cost": 4.6,
+                    "Predicted_Points": 9.11,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "Name": "Enzo",
+                    "Team": "Chelsea",
+                    "Cost": 6.7,
+                    "Predicted_Points": 7.5,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 15.0,
+                    "Predicted_Points": 21.64,
+                    "Captain": true
+                },
+                {
+                    "Name": "Igor Jesus",
+                    "Team": "Nott'm Forest",
+                    "Cost": 5.8,
+                    "Predicted_Points": 8.47,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "Name": "Lammens",
+                    "Team": "Man Utd",
+                    "Cost": 5.0,
+                    "Predicted_Points": 5.82,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 44.0,
+        "Total_Points": 60.57
     }
 }
