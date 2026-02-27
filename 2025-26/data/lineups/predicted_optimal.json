@@ -1342,5 +1342,61 @@
         },
         "Total_Cost": 42.4,
         "Total_Points": 60.26
+    },
+    "27": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "Name": "M.Salah",
+                    "Team": "Liverpool",
+                    "Cost": 14.0,
+                    "Predicted_Points": 22.2,
+                    "Captain": true
+                },
+                {
+                    "Name": "Gakpo",
+                    "Team": "Liverpool",
+                    "Cost": 7.3,
+                    "Predicted_Points": 8.94,
+                    "Captain": false
+                },
+                {
+                    "Name": "Anderson",
+                    "Team": "Nott'm Forest",
+                    "Cost": 5.4,
+                    "Predicted_Points": 9.08,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "Name": "Ortega Moreno",
+                    "Team": "Nott'm Forest",
+                    "Cost": 4.7,
+                    "Predicted_Points": 6.62,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "Name": "Murillo",
+                    "Team": "Nott'm Forest",
+                    "Cost": 5.2,
+                    "Predicted_Points": 7.78,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "Name": "Ekitiké",
+                    "Team": "Liverpool",
+                    "Cost": 8.9,
+                    "Predicted_Points": 10.3,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 45.5,
+        "Total_Points": 64.92
     }
 }
