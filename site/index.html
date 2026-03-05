@@ -532,6 +532,31 @@
       margin-bottom: 8px;
     }
     .about-section p:last-child { margin-bottom: 0; }
+    .about-list {
+      margin: 8px 0 8px 4px;
+      padding: 0;
+      list-style: none;
+    }
+    .about-list li {
+      position: relative;
+      padding: 6px 0 6px 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .about-list li:last-child { border-bottom: none; }
+    .about-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 13px;
+      width: 4px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .about-list li strong { color: var(--text); font-weight: 500; }
     .about-callout {
       background: var(--surface-raised);
       border: 1px solid var(--border);
@@ -995,6 +1020,92 @@
       </div>
 
       <div class="about-section">
+        <h3>What you see on the challenge cards</h3>
+        <p>
+          Each completed challenge card gives a quick summary of how the prediction performed.
+          Here is what each element means.
+        </p>
+        <ul class="about-list">
+          <li>
+            <strong>xPts &rarr; Optimal pts.</strong> The two numbers separated by an arrow are the
+            model's forecast point total for the predicted lineup (xPts) and the actual points that
+            the hindsight-optimal lineup scored. The arrow is not a judgement. It is just an arrow.
+          </li>
+          <li>
+            <strong>Prediction ratio.</strong> The percentage shown alongside those two figures is
+            the prediction ratio: the model's xPts forecast expressed as a share of the hindsight
+            ceiling. A higher figure means the model's forecast was closer to the best achievable
+            result.
+          </li>
+          <li>
+            <strong>Match rate.</strong> The colour-coded percentage and progress bar below show how
+            many players in the predicted lineup also appeared in the hindsight-optimal squad. This
+            is discussed in more detail further down.
+          </li>
+          <li>
+            <strong>Scored pts and GW rank.</strong> When a personal result has been recorded for
+            a challenge, the card also shows the actual points scored and the gameweek rank achieved
+            with that submission.
+          </li>
+        </ul>
+      </div>
+
+      <div class="about-section">
+        <h3>Inside the challenge view</h3>
+        <p>
+          Opening a completed challenge reveals both lineups side by side along with a detailed
+          breakdown of the comparison. The totals panel at the top shows three figures: the personal
+          submission score and gameweek rank, the model's xPts forecast for the predicted squad and
+          the hindsight-optimal lineup's actual score with its budget usage.
+        </p>
+        <p>
+          The comparison panel at the bottom is where the meaningful analysis lives. It contains the
+          following statistics.
+        </p>
+        <ul class="about-list">
+          <li>
+            <strong>Match rate.</strong> The number of players the predicted lineup shares with the
+            hindsight optimal, expressed as a percentage of the total squad size.
+          </li>
+          <li>
+            <strong>Hindsight gap.</strong> The raw points difference between the hindsight-optimal
+            score and the model's xPts forecast. This tells you how far the ceiling was above what
+            the model expected to achieve.
+          </li>
+          <li>
+            <strong>Prediction ratio.</strong> The model's xPts forecast as a percentage of the
+            hindsight-optimal score. The closer to 100%, the better the model judged the points
+            available in that particular challenge.
+          </li>
+        </ul>
+        <p>
+          When a personal result is available, a second block of figures appears beneath the
+          prediction analysis.
+        </p>
+        <ul class="about-list">
+          <li>
+            <strong>GW rank.</strong> Where the actual submission finished relative to all other
+            participants in that specific gameweek's challenge.
+          </li>
+          <li>
+            <strong>Overall rank.</strong> The season-long cumulative rank at the time of that
+            gameweek, shown alongside a percentile for context. Raw rank numbers are easier to
+            interpret when you know what fraction of the field they represent.
+          </li>
+          <li>
+            <strong>Pts vs optimal.</strong> The submission's actual score minus the hindsight
+            ceiling. This will almost always be negative. A positive figure would mean the submission
+            outscored the theoretically perfect lineup, which would be quite the achievement.
+          </li>
+          <li>
+            <strong>Pts vs predicted.</strong> The submission's actual score minus the model's xPts
+            forecast. Positive means the lineup outperformed what the model expected. The model
+            quietly keeps track.
+          </li>
+        </ul>
+      </div>
+
+      <div class="about-section">
         <h3>Reading the match rate</h3>
         <p>
           Match rate is the share of players the predicted lineup has in common with the hindsight-optimal.
@@ -1027,30 +1138,44 @@
       </div>
 
       <div class="about-section">
-        <h3>The points gap matters more</h3>
+        <h3>The prediction ratio matters more</h3>
         <p>
           Player overlap only tells part of the story. Two completely different squads can score nearly
           identical points when the market has priced in the same likely contributors. The more telling
-          measure is how close the predicted lineup's actual score comes to the hindsight maximum,
-          expressed here as a prediction ratio.
+          measure is how close the model's xPts forecast comes to the hindsight ceiling, expressed
+          here as the prediction ratio.
         </p>
         <p>
-          The prediction ratio is the predicted lineup's actual score as a percentage of the
-          hindsight-optimal score. 100% would mean the predicted squad scored exactly as many points
-          as the best possible selection. The number will never reach that in practice and, unlike
-          match rate, there is no comfortable statistical argument for why a lower figure is still
-          impressive. The hindsight optimal is simply the ceiling, and the ratio tells you how close
-          the model got.
+          The prediction ratio is the model's xPts forecast as a percentage of the hindsight-optimal
+          score. A figure of 100% would mean the model forecast exactly as many points as the best
+          possible lineup actually scored. That will never happen in practice, and unlike match rate,
+          there is no comfortable statistical argument for why a lower figure is still impressive.
+          The hindsight optimal is the ceiling, and the ratio tells you how close the model got.
         </p>
         <div class="about-callout">
           A prediction ratio in the <strong>high sixties</strong> is a strong result. It means the
-          predicted lineup captured roughly two-thirds of the maximum points available, chosen before
-          a single match was played and with no knowledge of injuries, rotations or who would have
-          an unexpected standout game.
+          model forecast roughly two-thirds of the maximum points available, chosen before a single
+          match was played and with no knowledge of injuries, rotations or who would have an
+          unexpectedly brilliant afternoon.
         </div>
+      </div>
+
+      <div class="about-section">
+        <h3>The season standing</h3>
         <p>
-          Open any completed challenge to see the predicted xPts alongside the actual score for each
-          lineup and the points gap to the hindsight optimal in the comparison panel at the bottom.
+          The standing bar beneath the stats strip shows the current overall rank across all
+          challenges played so far this season. It updates after each gameweek as results are
+          recorded. Clicking it opens a chart of how rank has progressed gameweek by gameweek.
+        </p>
+        <p>
+          The chart panel also shows the season-high rank, the percentile at the current standing
+          and the total rank movement since the first challenge. Whether that movement is upwards or
+          downwards is, diplomatically, left as an exercise for the reader.
+        </p>
+        <p>
+          The overall rank is cumulative across the entire season rather than a snapshot from a
+          single gameweek, so it tends to be a more stable and meaningful reflection of consistent
+          performance than any individual challenge result.
         </p>
       </div>
 
