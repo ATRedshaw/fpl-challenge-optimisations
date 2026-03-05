@@ -292,6 +292,16 @@
     }
     .acc-track { height: 2px; background: var(--border); border-radius: 2px; overflow: hidden; }
     .acc-fill  { height: 100%; border-radius: 2px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
+    .outcome-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 6px;
+      padding-top: 5px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 11px;
+      color: var(--text-faint);
+    }
 
     /* Status badges */
     .badge {
@@ -359,7 +369,8 @@
 
     /* Modal totals + lineups — grid split by a 1px divider */
     .modal-split { display: grid; }
-    .modal-split--two-col { grid-template-columns: 1fr 1px 1fr; }
+    .modal-split--two-col   { grid-template-columns: 1fr 1px 1fr; }
+    .modal-split--three-col  { grid-template-columns: 1fr 1px 1fr 1px 1fr; }
     .split-divider { background: var(--border); }
     .split-col { min-width: 0; }
 
@@ -806,8 +817,10 @@
       <select class="sort-select" id="sort-select" aria-label="Sort order">
         <option value="num-asc">Challenge no. ↑</option>
         <option value="num-desc">Challenge no. ↓</option>
+        <option value="scored-desc">Scored pts (high→low)</option>
+        <option value="gw-rank-asc">Best GW rank</option>
         <option value="overlap-desc">Best match rate</option>
-        <option value="pts-desc">Highest actual pts</option>
+        <option value="pts-desc">Highest optimal pts</option>
         <option value="ratio-desc">Highest prediction ratio</option>
         <option value="ratio-asc">Lowest prediction ratio</option>
       </select>
@@ -1023,6 +1036,10 @@ function fmt(n, dp = 1) {
   return typeof n === 'number' ? n.toFixed(dp) : '—';
 }
 
+function fmtNum(n) {
+  return n.toLocaleString('en-GB');
+}
+
 function playersFlat(lineup) {
   const out = [];
   for (const pos of POS_ORDER) {
@@ -1144,7 +1161,6 @@ function renderStanding() {
   if (!ranks?.overall_rank) { section.style.display = 'none'; return; }
 
   const totalPlayers = typeof outcome.total_players === 'number' ? outcome.total_players : null;
-  const fmtNum       = n => n.toLocaleString('en-GB');
 
   // Percentage position: rank / total * 100, rounded to one decimal place
   const pctText = (totalPlayers && ranks.overall_rank)
@@ -1203,6 +1219,16 @@ function sortedKeys() {
         if (rb === null) return -1;
         return sortKey === 'ratio-desc' ? rb - ra || a - b : ra - rb || a - b;
       }
+      case 'scored-desc': {
+        const pa = store.outcome?.[ka]?.Total_Points ?? -1;
+        const pb = store.outcome?.[kb]?.Total_Points ?? -1;
+        return pb - pa || a - b;
+      }
+      case 'gw-rank-asc': {
+        const ra = store.outcome?.[ka]?.Ranks?.rank ?? Infinity;
+        const rb = store.outcome?.[kb]?.Ranks?.rank ?? Infinity;
+        return ra - rb || a - b;
+      }
       default: // num-asc
         return a - b;
     }
@@ -1212,7 +1238,7 @@ function sortedKeys() {
 }
 
 function renderGrid() {
-  const { challenges, predicted, actual } = store;
+  const { challenges, predicted, actual, outcome } = store;
   const grid = document.getElementById('challenge-grid');
   const keys = sortedKeys();
 
@@ -1238,6 +1264,10 @@ function renderGrid() {
       const fillW  = (ov.pct * 100).toFixed(1);
       const fillCls = ov.pct >= 0.5 ? 'good' : ov.pct >= 0.25 ? 'fair' : 'poor';
       const ratio  = actual[key].Total_Points > 0 ? Math.round(predicted[key].Total_Points / actual[key].Total_Points * 100) : 0;
+      const oe      = outcome?.[key];
+      const outcomeRow = oe?.Ranks?.rank != null
+        ? `<div class="outcome-row"><span>Scored <span class="mono" style="color:var(--text-muted);">${oe.Total_Points} pts</span></span><span>GW #${fmtNum(oe.Ranks.rank)}</span></div>`
+        : '';
       footer = `
         <div class="card-footer">
           <div class="pts-row">
@@ -1253,6 +1283,7 @@ function renderGrid() {
           <div class="acc-track">
             <div class="acc-fill ${fillCls}" style="width:${fillW}%; background:${colour};"></div>
           </div>
+          ${outcomeRow}
         </div>`;
     } else if (hasPred) {
       footer = `
@@ -1262,11 +1293,16 @@ function renderGrid() {
           </span>
         </div>`;
     } else if (hasAct) {
+      const oe      = outcome?.[key];
+      const outcomeRow = oe?.Ranks?.rank != null
+        ? `<div class="outcome-row"><span>Scored <span class="mono" style="color:var(--text-muted);">${oe.Total_Points} pts</span></span><span>GW #${fmtNum(oe.Ranks.rank)}</span></div>`
+        : '';
       footer = `
         <div class="card-footer">
           <span style="font-size:12px; color:var(--text-muted);">
             Actual optimal <span class="mono" style="color:var(--text);">${fmt(actual[key].Total_Points)} pts</span>
           </span>
+          ${outcomeRow}
         </div>`;
     }
 
@@ -1316,14 +1352,19 @@ document.getElementById('sort-select').addEventListener('change', e => {
 });
 
 /* ── Modal ────────────────────────────────────────────────────────────────────── */
-function positionSection(players, isActual, sharedIds) {
+function positionSection(players, isActual, sharedIds, outcomeMap = null) {
   return players.map(p => {
     const isShared  = sharedIds.has(p.ID);
     const isCaptain = p.Captain;
     const rowCls    = isShared ? 'shared' : isCaptain ? 'is-captain' : '';
     const ptsValue  = isActual ? p.Points : p.Predicted_Points;
-    const ptsLabel  = isActual ? 'pts' : 'xPts';
     const ptsColour = isActual ? 'color:var(--text);' : 'color:var(--text-muted);';
+    const actualPts = (!isActual && outcomeMap) ? (outcomeMap[p.ID] ?? null) : null;
+    const ptsLabel  = isActual
+      ? 'pts'
+      : actualPts != null
+        ? `xPts · <span style="color:var(--text-muted);">${actualPts}pts</span>`
+        : 'xPts';
 
     return `
       <div class="player-row ${rowCls}">
@@ -1346,10 +1387,11 @@ function positionSection(players, isActual, sharedIds) {
 
 function openModal(id) {
   const { challenges, predicted, actual } = store;
-  const key  = String(id);
-  const ch   = challenges[key];
-  const pred = predicted[key];
-  const act  = actual[key];
+  const key         = String(id);
+  const ch          = challenges[key];
+  const pred        = predicted[key];
+  const act         = actual[key];
+  const outcomeData = store.outcome?.[key] ?? null;
 
   // Header
   document.getElementById('modal-challenge-num').textContent = `Challenge ${String(id).padStart(2, '0')}`;
@@ -1364,10 +1406,44 @@ function openModal(id) {
     for (const id of pIds) if (aIds.has(id)) sharedIds.add(id);
   }
 
+  // Build player ID → actual points map so the predicted column can show real scores
+  const outcomeMap = {};
+  if (act) playersFlat(act).forEach(p => { outcomeMap[p.ID] = p.Points; });
+  if (outcomeData) playersFlat(outcomeData).forEach(p => {
+    if (!(p.ID in outcomeMap)) outcomeMap[p.ID] = p.Points;
+  });
+  const predOutcomeMap = (pred && (act || outcomeData)) ? outcomeMap : null;
+
   // Totals row
   const totals = document.getElementById('modal-totals');
   totals.className = 'modal-split';
-  if (pred && act) {
+  if (pred && act && outcomeData) {
+    totals.classList.add('modal-split--three-col');
+    totals.innerHTML = `
+      <div class="split-col">
+        <div class="total-cell">
+          <div class="eyebrow total-label">Predicted</div>
+          <div class="total-val" style="color:var(--text-muted);">${fmt(pred.Total_Points)}</div>
+          <div class="total-sub">xPts projection &middot; &pound;${fmt(pred.Total_Cost)}m budget used</div>
+        </div>
+      </div>
+      <div class="split-divider"></div>
+      <div class="split-col">
+        <div class="total-cell">
+          <div class="eyebrow total-label">My Result</div>
+          <div class="total-val" style="color:var(--blue);">${outcomeData.Total_Points}</div>
+          <div class="total-sub">points scored &middot; GW rank #${fmtNum(outcomeData.Ranks.rank)}</div>
+        </div>
+      </div>
+      <div class="split-divider"></div>
+      <div class="split-col">
+        <div class="total-cell">
+          <div class="eyebrow total-label">Actual Optimal</div>
+          <div class="total-val" style="color:var(--text);">${fmt(act.Total_Points)}</div>
+          <div class="total-sub">points scored &middot; &pound;${fmt(act.Total_Cost)}m budget used</div>
+        </div>
+      </div>`;
+  } else if (pred && act) {
     totals.classList.add('modal-split--two-col');
     totals.innerHTML = `
       <div class="split-col">
@@ -1392,6 +1468,24 @@ function openModal(id) {
         <div class="total-val" style="color:var(--blue);">${fmt(pred.Total_Points)}</div>
         <div class="total-sub">projected pts &middot; awaiting result</div>
       </div>`;
+  } else if (act && outcomeData) {
+    totals.classList.add('modal-split--two-col');
+    totals.innerHTML = `
+      <div class="split-col">
+        <div class="total-cell">
+          <div class="eyebrow total-label">My Result</div>
+          <div class="total-val" style="color:var(--blue);">${outcomeData.Total_Points}</div>
+          <div class="total-sub">points scored &middot; GW rank #${fmtNum(outcomeData.Ranks.rank)}</div>
+        </div>
+      </div>
+      <div class="split-divider"></div>
+      <div class="split-col">
+        <div class="total-cell">
+          <div class="eyebrow total-label">Actual Optimal</div>
+          <div class="total-val" style="color:var(--text);">${fmt(act.Total_Points)}</div>
+          <div class="total-sub">points scored &middot; no pre-gameweek prediction recorded</div>
+        </div>
+      </div>`;
   } else if (act) {
     totals.innerHTML = `
       <div class="total-cell">
@@ -1409,18 +1503,18 @@ function openModal(id) {
     lineups.innerHTML = `
       <div class="split-col">
         <div class="col-header-row"><span class="eyebrow">Predicted selection</span></div>
-        ${positionSection(playersFlat(pred), false, sharedIds)}
+        ${positionSection(playersFlat(pred), false, sharedIds, predOutcomeMap)}
       </div>
       <div class="split-divider"></div>
       <div class="split-col">
-        <div class="col-header-row"><span class="eyebrow">Actual optimal</span></div>
+        <div class="col-header-row"><span class="eyebrow">Hindsight optimal</span></div>
         ${positionSection(playersFlat(act), true, sharedIds)}
       </div>`;
   } else if (pred) {
     lineups.innerHTML = `
       <div class="split-col">
         <div class="col-header-row"><span class="eyebrow">Predicted selection</span></div>
-        ${positionSection(playersFlat(pred), false, sharedIds)}
+        ${positionSection(playersFlat(pred), false, sharedIds, predOutcomeMap)}
       </div>`;
   } else if (act) {
     lineups.innerHTML = `
@@ -1438,29 +1532,67 @@ function openModal(id) {
     const fillCls  = ov.pct >= 0.5 ? 'good' : ov.pct >= 0.25 ? 'fair' : 'poor';
     const ptsDiff  = act.Total_Points - pred.Total_Points;
 
-    footer.innerHTML = `
-      <div class="comparison-grid">
+    let rankStats = '';
+    if (outcomeData?.Ranks) {
+      const totalPlayers = store.outcome?.total_players;
+      const pctText      = totalPlayers
+        ? `top ${(outcomeData.Ranks.overall_rank / totalPlayers * 100).toFixed(1)}% of players`
+        : '';
+      const gap          = outcomeData.Total_Points - act.Total_Points;
+      const gapColor     = gap < 0 ? 'var(--red)' : 'var(--accent)';
+      const gapPred      = outcomeData.Total_Points - pred.Total_Points;
+      const gapPredColor = gapPred >= 0 ? 'var(--accent)' : 'var(--red)';
+      rankStats = `
         <div class="comp-stat">
-          <div class="eyebrow" style="margin-bottom:6px;">Player match rate</div>
-          <div class="comp-val" style="color:${colour};">${(ov.pct * 100).toFixed(0)}%</div>
-          <div class="comp-sub">${ov.shared} of ${ov.total} players in common</div>
+          <div class="eyebrow" style="margin-bottom:6px;">GW rank</div>
+          <div class="comp-val">#${fmtNum(outcomeData.Ranks.rank)}</div>
+          <div class="comp-sub">within this gameweek</div>
         </div>
         <div class="comp-stat">
-          <div class="eyebrow" style="margin-bottom:6px;">Points gap</div>
+          <div class="eyebrow" style="margin-bottom:6px;">Overall rank</div>
+          <div class="comp-val">#${fmtNum(outcomeData.Ranks.overall_rank)}</div>
+          <div class="comp-sub">${pctText}</div>
+        </div>
+        <div class="comp-stat">
+          <div class="eyebrow" style="margin-bottom:6px;">Pts vs optimal</div>
+          <div class="comp-val" style="color:${gapColor};">${gap >= 0 ? '+' : ''}${gap}</div>
+          <div class="comp-sub">my score vs hindsight optimal</div>
+        </div>
+        <div class="comp-stat">
+          <div class="eyebrow" style="margin-bottom:6px;">Pts vs predicted</div>
+          <div class="comp-val" style="color:${gapPredColor};">${gapPred >= 0 ? '+' : ''}${gapPred}</div>
+          <div class="comp-sub">my score vs model prediction</div>
+        </div>`;
+    }
+
+    footer.innerHTML = `
+      <div class="eyebrow" style="margin-bottom:12px;">Prediction analysis</div>
+      <div class="comparison-grid">
+        <div class="comp-stat">
+          <div class="eyebrow" style="margin-bottom:6px;">Match rate</div>
+          <div class="comp-val" style="color:${colour};">${(ov.pct * 100).toFixed(0)}%</div>
+          <div class="comp-sub">${ov.shared} of ${ov.total} players predicted correctly</div>
+          <div class="acc-track" style="margin-top:8px; width:80px;">
+            <div class="acc-fill ${fillCls}" style="width:${(ov.pct*100).toFixed(1)}%; background:${colour};"></div>
+          </div>
+        </div>
+        <div class="comp-stat">
+          <div class="eyebrow" style="margin-bottom:6px;">Hindsight gap</div>
           <div class="comp-val">+${fmt(ptsDiff)}</div>
-          <div class="comp-sub">actual exceeded projection</div>
+          <div class="comp-sub">hindsight optimal over model prediction</div>
         </div>
         <div class="comp-stat">
           <div class="eyebrow" style="margin-bottom:6px;">Prediction ratio</div>
           <div class="comp-val" style="color:var(--text-muted);">${fmt(pred.Total_Points / act.Total_Points * 100, 0)}%</div>
-          <div class="comp-sub">projected vs actual optimal</div>
+          <div class="comp-sub">model prediction vs hindsight optimal</div>
         </div>
       </div>
-      <div class="acc-track" style="height:3px; margin-bottom:0;">
-        <div class="acc-fill ${fillCls}" style="width:${(ov.pct*100).toFixed(1)}%; background:${colour};"></div>
-      </div>
+      ${rankStats ? `
+      <div style="height:1px; background:var(--border); margin:16px 0;"></div>
+      <div class="eyebrow" style="margin-bottom:12px;">My result</div>
+      <div class="comparison-grid">${rankStats}</div>` : ''}
       <p class="note-text">
-        Highlighted rows &mdash; green tick &mdash; indicate players selected in both the predicted and actual optimal lineups.
+        Green-ticked rows appear in both the predicted and hindsight-optimal lineups.
         The captain (C) is the model&rsquo;s highest-projected or highest-scoring player.
       </p>`;
   } else {
