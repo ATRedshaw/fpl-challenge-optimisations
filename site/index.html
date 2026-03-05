@@ -16,6 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 
   <style>
     /* ── Custom properties ────────────────────────────────────────────────────── */
@@ -632,6 +633,66 @@
       background: var(--surface);
       gap: 16px;
       flex-wrap: wrap;
+      cursor: pointer;
+      transition: background 0.12s ease;
+    }
+    .standing-bar:hover { background: var(--surface-raised); }
+    .standing-view-hint {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: var(--text-faint);
+      transition: color 0.12s ease;
+      margin-top: 2px;
+    }
+    .standing-bar:hover .standing-view-hint { color: var(--text-muted); }
+
+    /* ── Season standing chart modal ───────────────────────────────────────────── */
+    #standing-chart-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 48px 20px;
+      overflow-y: auto;
+    }
+    #standing-chart-overlay.open { display: flex; }
+    #standing-chart-box {
+      width: 100%;
+      max-width: 760px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      animation: modal-in 0.18s ease;
+    }
+    .chart-canvas-wrap {
+      padding: 24px 24px 12px;
+      position: relative;
+    }
+    .chart-canvas-wrap canvas {
+      height: 280px !important;
+    }
+    .chart-stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--border);
+    }
+    .chart-stat-cell {
+      padding: 16px 20px;
+      border-right: 1px solid var(--border);
+    }
+    .chart-stat-cell:last-child { border-right: none; }
+    .chart-stat-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px;
+      font-weight: 500;
+      margin-top: 6px;
+      line-height: 1;
     }
     .standing-rank-row {
       display: flex;
@@ -724,6 +785,33 @@
       .standing-bar   { padding: 14px 16px; }
       .standing-rank  { font-size: 24px; }
       .standing-right { align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 8px; }
+
+      /* Standing chart modal — bottom sheet on mobile */
+      #standing-chart-overlay {
+        align-items: flex-end;
+        padding: 0;
+        overflow-y: hidden;
+      }
+      #standing-chart-box {
+        max-height: 92dvh;
+        overflow-y: auto;
+        border-radius: 12px 12px 0 0;
+        animation: modal-in-mobile 0.24s cubic-bezier(0.32, 0.72, 0, 1);
+      }
+      #standing-chart-box::before {
+        content: '';
+        display: block;
+        width: 36px;
+        height: 4px;
+        background: var(--border);
+        border-radius: 2px;
+        margin: 10px auto 0;
+      }
+      .chart-canvas-wrap canvas { height: 200px !important; }
+      .chart-stats-row { grid-template-columns: repeat(2, 1fr); }
+      .chart-stat-cell:nth-child(2) { border-right: none; }
+      .chart-stat-cell:nth-child(3) { border-top: 1px solid var(--border); border-right: 1px solid var(--border); }
+      .chart-stat-cell:nth-child(4) { border-top: 1px solid var(--border); }
     }
   </style>
 </head>
@@ -789,7 +877,7 @@
     <div class="stat-cell"><div class="eyebrow">Avg match rate</div><div class="stat-value" style="color:var(--text-faint);">—</div></div>
   </div>
   <!-- Season standing — populated by JS when actual_outcome.json is available -->
-  <div class="standing-bar" id="standing-section" style="display:none;">
+  <div class="standing-bar" id="standing-section" role="button" tabindex="0" style="display:none;" aria-label="View season standing progression">
     <div>
       <div class="eyebrow">Season standing</div>
       <div class="standing-rank-row">
@@ -800,6 +888,10 @@
     <div class="standing-right">
       <span class="standing-pct-badge" id="standing-pct"></span>
       <span class="standing-gw-label" id="standing-gw"></span>
+      <span class="standing-view-hint">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        View progression
+      </span>
     </div>
   </div>
 </div>
@@ -978,6 +1070,31 @@
       </div>
 
     </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ STANDING CHART MODAL ═══════════════════════ -->
+<div id="standing-chart-overlay" role="dialog" aria-modal="true" aria-labelledby="standing-chart-title">
+  <div id="standing-chart-box">
+
+    <div class="modal-header">
+      <div>
+        <p class="eyebrow" style="margin-bottom:8px;">Season progression</p>
+        <h2 id="standing-chart-title" style="font-size:18px; font-weight:600; letter-spacing:-0.02em;">Overall standing over time</h2>
+      </div>
+      <button class="modal-close" id="standing-chart-close" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="chart-canvas-wrap">
+      <canvas id="standing-chart-canvas"></canvas>
+    </div>
+
+    <div class="chart-stats-row" id="standing-chart-stats"></div>
+
   </div>
 </div>
 
@@ -1658,6 +1775,187 @@ async function loadSeason() {
   }
 }
 
+/* ── Season standing chart ────────────────────────────────────────────────────── */
+let standingChartInstance = null;
+
+function openStandingChart() {
+  const outcome = store?.outcome;
+  if (!outcome) return;
+
+  const gwKeys = Object.keys(outcome)
+    .filter(k => !isNaN(Number(k)))
+    .map(Number)
+    .sort((a, b) => a - b);
+
+  if (gwKeys.length === 0) return;
+
+  const totalPlayers = typeof outcome.total_players === 'number' ? outcome.total_players : null;
+  const ranks        = gwKeys.map(k => outcome[String(k)]?.Ranks?.overall_rank ?? null);
+  const validRanks   = ranks.filter(r => r !== null);
+
+  if (validRanks.length === 0) return;
+
+  const currentRank = validRanks[validRanks.length - 1];
+  const bestRank    = Math.min(...validRanks);
+  const worstRank   = Math.max(...validRanks);
+  // Positive = improved (rank number dropped), negative = declined
+  const rankChange  = validRanks.length >= 2 ? validRanks[0] - currentRank : null;
+
+  // ── Stats panel ────────────────────────────────────────────────────────────────
+  const pctText = (totalPlayers && currentRank)
+    ? `top ${(currentRank / totalPlayers * 100).toFixed(1)}%`
+    : '';
+  const changeColour = rankChange === null || rankChange === 0
+    ? 'var(--text-muted)'
+    : rankChange > 0 ? 'var(--accent)' : 'var(--red)';
+  const changeDisplay = rankChange === null || rankChange === 0
+    ? '—'
+    : rankChange > 0 ? `+${fmtNum(rankChange)}` : fmtNum(rankChange);
+  const changeSub = rankChange === null || rankChange === 0
+    ? 'no change'
+    : rankChange > 0 ? 'places improved' : 'places declined';
+
+  document.getElementById('standing-chart-stats').innerHTML = `
+    <div class="chart-stat-cell">
+      <div class="eyebrow">Current rank</div>
+      <div class="chart-stat-val" style="color:var(--accent);">#${fmtNum(currentRank)}</div>
+      <div style="font-size:11px; color:var(--text-faint); margin-top:5px;">${pctText}</div>
+    </div>
+    <div class="chart-stat-cell">
+      <div class="eyebrow">Best rank</div>
+      <div class="chart-stat-val" style="color:var(--text);">#${fmtNum(bestRank)}</div>
+      <div style="font-size:11px; color:var(--text-faint); margin-top:5px;">season high</div>
+    </div>
+    <div class="chart-stat-cell">
+      <div class="eyebrow">Since GW${gwKeys[0]}</div>
+      <div class="chart-stat-val" style="color:${changeColour};">${changeDisplay}</div>
+      <div style="font-size:11px; color:var(--text-faint); margin-top:5px;">${changeSub}</div>
+    </div>
+    <div class="chart-stat-cell">
+      <div class="eyebrow">GWs tracked</div>
+      <div class="chart-stat-val" style="color:var(--text-muted);">${validRanks.length}</div>
+      <div style="font-size:11px; color:var(--text-faint); margin-top:5px;">of ${gwKeys.length} total</div>
+    </div>`;
+
+  // Open overlay before rendering so the canvas has dimensions
+  const overlay = document.getElementById('standing-chart-overlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('standing-chart-close').focus();
+
+  // Destroy stale instance before re-creating
+  if (standingChartInstance) {
+    standingChartInstance.destroy();
+    standingChartInstance = null;
+  }
+
+  // ── Chart ──────────────────────────────────────────────────────────────────────
+  const rankPad = (worstRank - bestRank) * 0.12 || worstRank * 0.05;
+  const ctx     = document.getElementById('standing-chart-canvas').getContext('2d');
+
+  standingChartInstance = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: gwKeys.map(k => `GW${k}`),
+      datasets: [{
+        label: 'Overall rank',
+        data: ranks,
+        borderColor: '#3fb950',
+        borderWidth: 2,
+        backgroundColor: 'rgba(63, 185, 80, 0.07)',
+        fill: 'end',
+        tension: 0.35,
+        pointRadius: gwKeys.length > 25 ? 3 : 4,
+        pointHoverRadius: 6,
+        pointBackgroundColor: '#3fb950',
+        pointBorderColor: '#0d1117',
+        pointBorderWidth: 2,
+        spanGaps: false,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 500, easing: 'easeOutQuart' },
+      interaction: { mode: 'index', intersect: false },
+      scales: {
+        y: {
+          reverse: true,
+          min: Math.max(1, Math.floor(bestRank - rankPad)),
+          max: Math.ceil(worstRank + rankPad),
+          title: {
+            display: true,
+            text: 'Overall rank',
+            color: '#7d8590',
+            font: { family: "'JetBrains Mono', monospace", size: 10 },
+          },
+          ticks: {
+            color: '#7d8590',
+            font: { family: "'JetBrains Mono', monospace", size: 10 },
+            callback: v => `#${fmtNum(Math.round(v))}`,
+            maxTicksLimit: 6,
+          },
+          grid: { color: '#21262d' },
+          border: { color: '#21262d' },
+        },
+        x: {
+          ticks: {
+            color: '#7d8590',
+            font: { family: "'JetBrains Mono', monospace", size: 10 },
+            maxRotation: 0,
+          },
+          grid: { color: 'rgba(33, 38, 45, 0.6)' },
+          border: { color: '#21262d' },
+        },
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#161b22',
+          borderColor: '#30363d',
+          borderWidth: 1,
+          titleColor: '#e6edf3',
+          titleFont: { family: "'JetBrains Mono', monospace", size: 12, weight: '500' },
+          bodyColor: '#7d8590',
+          bodyFont: { family: "'Inter', sans-serif", size: 12 },
+          padding: 12,
+          displayColors: false,
+          callbacks: {
+            title: items => items[0].label,
+            label: item => {
+              if (item.raw === null) return 'No data';
+              const rank = item.raw;
+              const pct  = totalPlayers ? ` · top ${(rank / totalPlayers * 100).toFixed(1)}%` : '';
+              return `Rank #${fmtNum(rank)}${pct}`;
+            },
+            afterLabel: item => {
+              const gw  = gwKeys[item.dataIndex];
+              const pts = outcome[String(gw)]?.Total_Points;
+              return pts != null ? `${pts} pts this GW` : '';
+            },
+          },
+        },
+      },
+    },
+  });
+}
+
+function closeStandingChart() {
+  document.getElementById('standing-chart-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('standing-section').addEventListener('click', () => {
+  if (store?.outcome) openStandingChart();
+});
+document.getElementById('standing-section').addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (store?.outcome) openStandingChart(); }
+});
+document.getElementById('standing-chart-close').addEventListener('click', closeStandingChart);
+document.getElementById('standing-chart-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('standing-chart-overlay')) closeStandingChart();
+});
+
 /* ── About modal ─────────────────────────────────────────────────────────────── */
 function openAbout() {
   document.getElementById('about-overlay').classList.add('open');
@@ -1678,7 +1976,7 @@ document.getElementById('about-overlay').addEventListener('click', e => {
 });
 
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeModal(); closeAbout(); }
+  if (e.key === 'Escape') { closeModal(); closeAbout(); closeStandingChart(); }
 });
 
 /* ── Bootstrap ────────────────────────────────────────────────────────────────── */
