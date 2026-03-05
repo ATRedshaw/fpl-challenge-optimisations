@@ -1363,8 +1363,8 @@ function positionSection(players, isActual, sharedIds, outcomeMap = null) {
     const ptsLabel  = isActual
       ? 'pts'
       : actualPts != null
-        ? `xPts · <span style="color:var(--text-muted);">${actualPts}pts</span>`
-        : 'xPts';
+        ? `<span style="color:var(--text-faint);">${actualPts}pts &middot;</span> <span style="color:var(--text-muted);">xPts</span>`
+        : '<span style="color:var(--text-muted);">xPts</span>';
 
     return `
       <div class="player-row ${rowCls}">
@@ -1555,12 +1555,12 @@ function openModal(id) {
         </div>
         <div class="comp-stat">
           <div class="eyebrow" style="margin-bottom:6px;">Pts vs optimal</div>
-          <div class="comp-val" style="color:${gapColor};">${gap >= 0 ? '+' : ''}${gap}</div>
+          <div class="comp-val" style="color:${gapColor};">${gap >= 0 ? '+' : ''}${fmt(gap, 1)}</div>
           <div class="comp-sub">my score vs hindsight optimal</div>
         </div>
         <div class="comp-stat">
           <div class="eyebrow" style="margin-bottom:6px;">Pts vs predicted</div>
-          <div class="comp-val" style="color:${gapPredColor};">${gapPred >= 0 ? '+' : ''}${gapPred}</div>
+          <div class="comp-val" style="color:${gapPredColor};">${gapPred >= 0 ? '+' : ''}${fmt(gapPred, 1)}</div>
           <div class="comp-sub">my score vs model prediction</div>
         </div>`;
     }
@@ -1643,6 +1643,8 @@ async function initSeasons() {
 async function loadSeason() {
   document.getElementById('hero-summary').innerHTML = 'Loading&hellip;';
   document.getElementById('standing-section').style.display = 'none';
+  sortKey = 'num-asc';
+  document.getElementById('sort-select').value = 'num-asc';
   try {
     store = await loadData();
     renderStats();
