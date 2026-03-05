@@ -1444,11 +1444,13 @@ function positionSection(players, isActual, sharedIds, outcomeMap = null) {
     const rowCls    = isShared ? 'shared' : isCaptain ? 'is-captain' : '';
     const ptsValue  = isActual ? p.Points : p.Predicted_Points;
     const ptsColour = isActual ? 'color:var(--text);' : 'color:var(--text-muted);';
-    const actualPts = (!isActual && outcomeMap) ? (outcomeMap[p.ID] ?? null) : null;
+    const baseActualPts    = (!isActual && outcomeMap) ? (outcomeMap[p.ID] ?? null) : null;
+    // Apply captain doubling relative to this column's captain, not the source lineup's
+    const displayActualPts  = baseActualPts != null ? baseActualPts * (isCaptain ? 2 : 1) : null;
     const ptsLabel  = isActual
       ? 'pts'
-      : actualPts != null
-        ? `<span style="color:var(--text-faint);">${actualPts}pts &middot;</span> <span style="color:var(--text-muted);">xPts</span>`
+      : displayActualPts != null
+        ? `<span style="color:var(--text-faint);">${displayActualPts}pts &middot;</span> <span style="color:var(--text-muted);">xPts</span>`
         : '<span style="color:var(--text-muted);">xPts</span>';
 
     return `
@@ -1491,11 +1493,12 @@ function openModal(id) {
     for (const id of pIds) if (aIds.has(id)) sharedIds.add(id);
   }
 
-  // Build player ID → actual points map so the predicted column can show real scores
+  // Build player ID → BASE points map (captain doubling stripped) so each column
+  // can apply the multiplier relative to its own captain, not the source lineup's.
   const outcomeMap = {};
-  if (act) playersFlat(act).forEach(p => { outcomeMap[p.ID] = p.Points; });
+  if (act) playersFlat(act).forEach(p => { outcomeMap[p.ID] = p.Captain ? p.Points / 2 : p.Points; });
   if (outcomeData) playersFlat(outcomeData).forEach(p => {
-    if (!(p.ID in outcomeMap)) outcomeMap[p.ID] = p.Points;
+    if (!(p.ID in outcomeMap)) outcomeMap[p.ID] = p.Captain ? p.Points / 2 : p.Points;
   });
   const predOutcomeMap = (pred && (act || outcomeData)) ? outcomeMap : null;
 
