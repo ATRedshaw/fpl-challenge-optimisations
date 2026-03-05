@@ -546,6 +546,20 @@
       margin-top: 10px;
     }
     .about-callout strong { color: var(--text); font-weight: 500; }
+    .about-example {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--blue);
+      border-radius: 3px;
+      padding: 12px 14px;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-top: 10px;
+    }
+    .about-example strong { color: var(--text); font-weight: 500; }
+    .about-example p { font-size: 12px; line-height: 1.65; color: var(--text-muted); margin-bottom: 6px; }
+    .about-example p:last-child { margin-bottom: 0; }
     .about-pipeline {
       display: flex;
       align-items: stretch;
@@ -830,6 +844,22 @@
           A <strong>50% match rate</strong> means half the predicted squad matched the best possible
           selection chosen from roughly 600 players. The probability of landing that by chance is
           effectively zero. The model is finding real signal.
+        </div>
+        <div class="about-example">
+          <p>
+            <strong>A quick illustration.</strong> Take a simplified version: a 7-player squad built
+            from pools of just 50 players per position, with one goalkeeper and between one and three
+            players from each outfield position. The number of valid combinations already comes to
+            roughly <strong>452 billion</strong>. Real FPL Challenge has around 600 players in total,
+            squad sizes that change every week, captaincy to assign and budget limits on top. The true
+            search space is orders of magnitude larger.
+          </p>
+          <p>
+            Granted, a fair few of those 452 billion options involve three suspended players and
+            someone who last started a match in October. Realistic picks narrow things down
+            considerably, but the scale illustrates why landing a meaningful share of the optimal
+            squad, without the benefit of hindsight, is harder than it sounds.
+          </p>
         </div>
       </div>
 
