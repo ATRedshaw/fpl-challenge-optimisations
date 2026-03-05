@@ -198,7 +198,7 @@ if __name__ == '__main__':
     if os.path.exists(output_path):
         with open(output_path, 'r', encoding='utf-8') as f:
             existing_data: dict = json.load(f)
-        already_processed: set[int] = {int(k) for k in existing_data}
+        already_processed: set[int] = {int(k) for k in existing_data if k.lstrip('-').isdigit()}
     else:
         already_processed = set()
 
@@ -206,7 +206,7 @@ if __name__ == '__main__':
     if os.path.exists(outcome_path):
         with open(outcome_path, 'r', encoding='utf-8') as f:
             existing_outcomes: dict = json.load(f)
-        outcome_processed: set[int] = {int(k) for k in existing_outcomes}
+        outcome_processed: set[int] = {int(k) for k in existing_outcomes if k.lstrip('-').isdigit()}
     else:
         outcome_processed = set()
 
