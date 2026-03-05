@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import yaml
+from utils.challenges import update_challenges
 from utils.projections import generate_projections
 from utils.rules.gw30 import gw30_rules
 from utils.decisions import run_ban_force
@@ -12,6 +13,10 @@ if __name__ == "__main__":
     SEASON = FILE_PATH.split('/')[-2]
     GAMEWEEK = int(FILE_PATH.split('/')[-1].replace('gw','').replace('.py',''))
     print('\nRunning GW', GAMEWEEK, 'for', SEASON)
+
+    # Refresh challenge metadata from the FPL JS bundle
+    # ==================================================================
+    update_challenges()
 
     # Load constraints from YAML
     # ==================================================================
