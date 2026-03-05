@@ -7,6 +7,7 @@ import numpy as np
 from collections import defaultdict
 from utils.solver import FPLChallengeOptimiser
 from utils.data import ensure_season_in_registry
+from utils.actual import process_actual_outcome
 
 BASE_URL = 'https://fplchallenge.premierleague.com/api'
 
@@ -201,6 +202,14 @@ if __name__ == '__main__':
     else:
         already_processed = set()
 
+    outcome_path = os.path.join(SEASON, 'data', 'lineups', 'actual_outcome.json')
+    if os.path.exists(outcome_path):
+        with open(outcome_path, 'r', encoding='utf-8') as f:
+            existing_outcomes: dict = json.load(f)
+        outcome_processed: set[int] = {int(k) for k in existing_outcomes}
+    else:
+        outcome_processed = set()
+
     print('Fetching bootstrap data...')
     bootstrap = fetch_bootstrap()
 
@@ -208,37 +217,44 @@ if __name__ == '__main__':
     print(f"Completed gameweeks: {completed_gameweeks}")
 
     for gw in completed_gameweeks:
-        if gw in already_processed:
+        optimal_done = gw in already_processed
+        outcome_done = gw in outcome_processed
+
+        if optimal_done and outcome_done:
             print(f"\nGW{gw} already processed — skipping.")
             continue
-
-        constraints_key = f'GW{gw}'
-        if constraints_key not in all_constraints:
-            print(f"\nNo constraints found for GW{gw} — skipping.")
-            continue
-
-        constraints = all_constraints[constraints_key]
 
         print(f"\n{'='*50}")
         print(f"Processing GW{gw}...")
         print(f"{'='*50}")
 
         live_data = fetch_live(gw)
-        projections = build_player_dataframe(bootstrap, live_data)
 
-        solver = FPLChallengeOptimiser(gw, projections)
-        solver.setup_problem(
-            f"fpl-hindsight-{SEASON.replace('-', '')}-gw{gw}"
-        )
+        if not optimal_done:
+            constraints_key = f'GW{gw}'
+            if constraints_key not in all_constraints:
+                print(f"No constraints found for GW{gw} — skipping optimal solver.")
+            else:
+                constraints = all_constraints[constraints_key]
+                projections = build_player_dataframe(bootstrap, live_data)
 
-        solver.total_players_constraint(constraints['total_players'])
-        solver.captain_count_constraint(constraints['captain_count'])
-        solver.position_count_constraints(constraints['position_constraints'])
-        solver.max_players_from_same_team_constraint(constraints['max_per_team'])
+                solver = FPLChallengeOptimiser(gw, projections)
+                solver.setup_problem(
+                    f"fpl-hindsight-{SEASON.replace('-', '')}-gw{gw}"
+                )
 
-        solver.solve()
-        solver.print_players_by_position()
+                solver.total_players_constraint(constraints['total_players'])
+                solver.captain_count_constraint(constraints['captain_count'])
+                solver.position_count_constraints(constraints['position_constraints'])
+                solver.max_players_from_same_team_constraint(constraints['max_per_team'])
 
-        save_actual_optimal(solver.selected_players, SEASON, gw, output_path)
+                solver.solve()
+                solver.print_players_by_position()
+
+                save_actual_optimal(solver.selected_players, SEASON, gw, output_path)
+
+        if not outcome_done:
+            is_last = gw == completed_gameweeks[-1]
+            process_actual_outcome(SEASON, gw, live_data, bootstrap, is_last_gameweek=is_last)
 
     print('\nHindsight optimisation complete.')
