@@ -1,0 +1,1738 @@
+{
+    "1": {
+        "Players": {
+            "Forward": [
+                {
+                    "ID": 249,
+                    "Name": "João Pedro",
+                    "Team": "Chelsea",
+                    "Cost": 7.5,
+                    "Predicted_Points": 10.4,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 382,
+                    "Name": "Wirtz",
+                    "Team": "Liverpool",
+                    "Cost": 8.5,
+                    "Predicted_Points": 24.36,
+                    "Captain": true
+                },
+                {
+                    "ID": 450,
+                    "Name": "Cunha",
+                    "Team": "Man Utd",
+                    "Cost": 8.0,
+                    "Predicted_Points": 10.3,
+                    "Captain": false
+                },
+                {
+                    "ID": 582,
+                    "Name": "Kudus",
+                    "Team": "Spurs",
+                    "Cost": 6.5,
+                    "Predicted_Points": 9.34,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 402,
+                    "Name": "Aït-Nouri",
+                    "Team": "Man City",
+                    "Cost": 6.0,
+                    "Predicted_Points": 9.58,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 665,
+                    "Name": "Perri",
+                    "Team": "Leeds",
+                    "Cost": 4.5,
+                    "Predicted_Points": 7.52,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 41.0,
+        "Total_Points": 71.5
+    },
+    "2": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 16,
+                    "Name": "Saka",
+                    "Team": "Arsenal",
+                    "Cost": 10.0,
+                    "Predicted_Points": 7.06,
+                    "Captain": false
+                },
+                {
+                    "ID": 381,
+                    "Name": "M.Salah",
+                    "Team": "Liverpool",
+                    "Cost": 14.5,
+                    "Predicted_Points": 7.23,
+                    "Captain": false
+                },
+                {
+                    "ID": 543,
+                    "Name": "Adingra",
+                    "Team": "Sunderland",
+                    "Cost": 5.5,
+                    "Predicted_Points": 17.6,
+                    "Captain": true
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 191,
+                    "Name": "Estève",
+                    "Team": "Burnley",
+                    "Cost": 4.0,
+                    "Predicted_Points": 8.3,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.0,
+                    "Predicted_Points": 7.14,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 665,
+                    "Name": "Perri",
+                    "Team": "Leeds",
+                    "Cost": 4.5,
+                    "Predicted_Points": 6.28,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 52.5,
+        "Total_Points": 53.61
+    },
+    "3": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 241,
+                    "Name": "Caicedo",
+                    "Team": "Chelsea",
+                    "Cost": 5.5,
+                    "Predicted_Points": 9.7,
+                    "Captain": false
+                },
+                {
+                    "ID": 449,
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 9.0,
+                    "Predicted_Points": 10.1,
+                    "Captain": false
+                },
+                {
+                    "ID": 517,
+                    "Name": "Anderson",
+                    "Team": "Nott'm Forest",
+                    "Cost": 5.5,
+                    "Predicted_Points": 23.8,
+                    "Captain": true
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 291,
+                    "Name": "Tarkowski",
+                    "Team": "Everton",
+                    "Cost": 5.5,
+                    "Predicted_Points": 10.7,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.1,
+                    "Predicted_Points": 6.6,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 628,
+                    "Name": "José Sá",
+                    "Team": "Wolves",
+                    "Cost": 4.5,
+                    "Predicted_Points": 3.8,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 44.1,
+        "Total_Points": 64.7
+    },
+    "4": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 119,
+                    "Name": "Mbeumo",
+                    "Team": "Man Utd",
+                    "Cost": 8.1,
+                    "Predicted_Points": 9.12,
+                    "Captain": false
+                },
+                {
+                    "ID": 381,
+                    "Name": "M.Salah",
+                    "Team": "Liverpool",
+                    "Cost": 14.5,
+                    "Predicted_Points": 8.01,
+                    "Captain": false
+                },
+                {
+                    "ID": 449,
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 9.0,
+                    "Predicted_Points": 10.42,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 403,
+                    "Name": "Gvardiol",
+                    "Team": "Man City",
+                    "Cost": 5.8,
+                    "Predicted_Points": 9.56,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.1,
+                    "Predicted_Points": 28.8,
+                    "Captain": true
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 736,
+                    "Name": "Donnarumma",
+                    "Team": "Man City",
+                    "Cost": 5.5,
+                    "Predicted_Points": 8.24,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 57.0,
+        "Total_Points": 74.15
+    },
+    "5": {
+        "Players": {
+            "Goalkeeper": [
+                {
+                    "ID": 287,
+                    "Name": "Pickford",
+                    "Team": "Everton",
+                    "Cost": 5.5,
+                    "Predicted_Points": 6.46,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 299,
+                    "Name": "Ndiaye",
+                    "Team": "Everton",
+                    "Cost": 6.5,
+                    "Predicted_Points": 8.54,
+                    "Captain": false
+                },
+                {
+                    "ID": 381,
+                    "Name": "M.Salah",
+                    "Team": "Liverpool",
+                    "Cost": 14.5,
+                    "Predicted_Points": 30.32,
+                    "Captain": true
+                },
+                {
+                    "ID": 419,
+                    "Name": "Grealish",
+                    "Team": "Everton",
+                    "Cost": 6.8,
+                    "Predicted_Points": 8.08,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 373,
+                    "Name": "Virgil",
+                    "Team": "Liverpool",
+                    "Cost": 6.1,
+                    "Predicted_Points": 11.14,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 661,
+                    "Name": "Ekitiké",
+                    "Team": "Liverpool",
+                    "Cost": 8.8,
+                    "Predicted_Points": 10.8,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 48.2,
+        "Total_Points": 75.34
+    },
+    "6": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 120,
+                    "Name": "Schade",
+                    "Team": "Brentford",
+                    "Cost": 7.0,
+                    "Predicted_Points": 9.4,
+                    "Captain": false
+                },
+                {
+                    "ID": 160,
+                    "Name": "Minteh",
+                    "Team": "Brighton",
+                    "Cost": 5.9,
+                    "Predicted_Points": 8.92,
+                    "Captain": false
+                },
+                {
+                    "ID": 517,
+                    "Name": "Anderson",
+                    "Team": "Nott'm Forest",
+                    "Cost": 5.5,
+                    "Predicted_Points": 9.24,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 411,
+                    "Name": "O’Reilly",
+                    "Team": "Man City",
+                    "Cost": 4.9,
+                    "Predicted_Points": 22.08,
+                    "Captain": true
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 714,
+                    "Name": "Woltemade",
+                    "Team": "Newcastle",
+                    "Cost": 7.1,
+                    "Predicted_Points": 7.46,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 733,
+                    "Name": "Lammens",
+                    "Team": "Man Utd",
+                    "Cost": 5.0,
+                    "Predicted_Points": 6.88,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 35.4,
+        "Total_Points": 63.98
+    },
+    "7": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 8,
+                    "Name": "J.Timber",
+                    "Team": "Arsenal",
+                    "Cost": 5.8,
+                    "Predicted_Points": 15.0,
+                    "Captain": true
+                },
+                {
+                    "ID": 436,
+                    "Name": "De Ligt",
+                    "Team": "Man Utd",
+                    "Cost": 5.0,
+                    "Predicted_Points": 6.9,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 32,
+                    "Name": "Martinez",
+                    "Team": "Aston Villa",
+                    "Cost": 5.0,
+                    "Predicted_Points": 6.0,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 82,
+                    "Name": "Semenyo",
+                    "Team": "Bournemouth",
+                    "Cost": 7.8,
+                    "Predicted_Points": 6.5,
+                    "Captain": false
+                },
+                {
+                    "ID": 381,
+                    "Name": "M.Salah",
+                    "Team": "Liverpool",
+                    "Cost": 14.5,
+                    "Predicted_Points": 6.5,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.4,
+                    "Predicted_Points": 6.9,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 52.5,
+        "Total_Points": 47.8
+    },
+    "8": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 8,
+                    "Name": "J.Timber",
+                    "Team": "Arsenal",
+                    "Cost": 5.9,
+                    "Predicted_Points": 5.53,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 82,
+                    "Name": "Semenyo",
+                    "Team": "Bournemouth",
+                    "Cost": 8.0,
+                    "Predicted_Points": 7.51,
+                    "Captain": false
+                },
+                {
+                    "ID": 267,
+                    "Name": "Sarr",
+                    "Team": "Crystal Palace",
+                    "Cost": 6.5,
+                    "Predicted_Points": 8.51,
+                    "Captain": false
+                },
+                {
+                    "ID": 449,
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 9.0,
+                    "Predicted_Points": 7.77,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 367,
+                    "Name": "Mamardashvili",
+                    "Team": "Liverpool",
+                    "Cost": 4.3,
+                    "Predicted_Points": 4.23,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.6,
+                    "Predicted_Points": 22.8,
+                    "Captain": true
+                }
+            ]
+        },
+        "Total_Cost": 48.3,
+        "Total_Points": 56.35
+    },
+    "9": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 16,
+                    "Name": "Saka",
+                    "Team": "Arsenal",
+                    "Cost": 10.0,
+                    "Predicted_Points": 12.44,
+                    "Captain": false
+                },
+                {
+                    "ID": 381,
+                    "Name": "M.Salah",
+                    "Team": "Liverpool",
+                    "Cost": 14.3,
+                    "Predicted_Points": 25.76,
+                    "Captain": true
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 226,
+                    "Name": "Chalobah",
+                    "Team": "Chelsea",
+                    "Cost": 5.1,
+                    "Predicted_Points": 10.6,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 287,
+                    "Name": "Pickford",
+                    "Team": "Everton",
+                    "Cost": 5.5,
+                    "Predicted_Points": 7.02,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.7,
+                    "Predicted_Points": 7.5,
+                    "Captain": false
+                },
+                {
+                    "ID": 624,
+                    "Name": "Bowen",
+                    "Team": "West Ham",
+                    "Cost": 7.8,
+                    "Predicted_Points": 9.08,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 57.4,
+        "Total_Points": 72.4
+    },
+    "10": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 16,
+                    "Name": "Saka",
+                    "Team": "Arsenal",
+                    "Cost": 10.1,
+                    "Predicted_Points": 6.7,
+                    "Captain": false
+                },
+                {
+                    "ID": 381,
+                    "Name": "M.Salah",
+                    "Team": "Liverpool",
+                    "Cost": 14.2,
+                    "Predicted_Points": 7.49,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 283,
+                    "Name": "Mateta",
+                    "Team": "Crystal Palace",
+                    "Cost": 7.8,
+                    "Predicted_Points": 7.41,
+                    "Captain": false
+                },
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.8,
+                    "Predicted_Points": 16.3,
+                    "Captain": true
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 314,
+                    "Name": "Leno",
+                    "Team": "Fulham",
+                    "Cost": 5.0,
+                    "Predicted_Points": 3.91,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 694,
+                    "Name": "Mukiele",
+                    "Team": "Sunderland",
+                    "Cost": 4.1,
+                    "Predicted_Points": 5.3,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 56.0,
+        "Total_Points": 47.11
+    },
+    "11": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 5,
+                    "Name": "Gabriel",
+                    "Team": "Arsenal",
+                    "Cost": 6.6,
+                    "Predicted_Points": 7.12,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 249,
+                    "Name": "João Pedro",
+                    "Team": "Chelsea",
+                    "Cost": 7.4,
+                    "Predicted_Points": 6.82,
+                    "Captain": false
+                },
+                {
+                    "ID": 283,
+                    "Name": "Mateta",
+                    "Team": "Crystal Palace",
+                    "Cost": 8.0,
+                    "Predicted_Points": 6.96,
+                    "Captain": false
+                },
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.8,
+                    "Predicted_Points": 20.68,
+                    "Captain": true
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 449,
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 8.9,
+                    "Predicted_Points": 6.38,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 565,
+                    "Name": "Vicario",
+                    "Team": "Spurs",
+                    "Cost": 5.1,
+                    "Predicted_Points": 4.27,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 50.8,
+        "Total_Points": 52.23
+    },
+    "12": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 6,
+                    "Name": "Saliba",
+                    "Team": "Arsenal",
+                    "Cost": 6.0,
+                    "Predicted_Points": 19.36,
+                    "Captain": true
+                },
+                {
+                    "ID": 38,
+                    "Name": "Konsa",
+                    "Team": "Aston Villa",
+                    "Cost": 4.4,
+                    "Predicted_Points": 7.94,
+                    "Captain": false
+                },
+                {
+                    "ID": 226,
+                    "Name": "Chalobah",
+                    "Team": "Chelsea",
+                    "Cost": 5.1,
+                    "Predicted_Points": 9.09,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 366,
+                    "Name": "A.Becker",
+                    "Team": "Liverpool",
+                    "Cost": 5.4,
+                    "Predicted_Points": 4.65,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.9,
+                    "Predicted_Points": 7.4,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 452,
+                    "Name": "Amad",
+                    "Team": "Man Utd",
+                    "Cost": 6.3,
+                    "Predicted_Points": 7.07,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 42.1,
+        "Total_Points": 55.51
+    },
+    "13": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 16,
+                    "Name": "Saka",
+                    "Team": "Arsenal",
+                    "Cost": 10.1,
+                    "Predicted_Points": 11.49,
+                    "Captain": false
+                },
+                {
+                    "ID": 449,
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 8.9,
+                    "Predicted_Points": 11.6,
+                    "Captain": false
+                },
+                {
+                    "ID": 517,
+                    "Name": "Anderson",
+                    "Team": "Nott'm Forest",
+                    "Cost": 5.3,
+                    "Predicted_Points": 25.54,
+                    "Captain": true
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 258,
+                    "Name": "Mitchell",
+                    "Team": "Crystal Palace",
+                    "Cost": 5.0,
+                    "Predicted_Points": 9.97,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.9,
+                    "Predicted_Points": 9.88,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 670,
+                    "Name": "Roefs",
+                    "Team": "Sunderland",
+                    "Cost": 4.7,
+                    "Predicted_Points": 6.01,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 48.9,
+        "Total_Points": 74.49
+    },
+    "14": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 21,
+                    "Name": "Rice",
+                    "Team": "Arsenal",
+                    "Cost": 7.0,
+                    "Predicted_Points": 11.54,
+                    "Captain": false
+                },
+                {
+                    "ID": 387,
+                    "Name": "Szoboszlai",
+                    "Team": "Liverpool",
+                    "Cost": 6.6,
+                    "Predicted_Points": 10.54,
+                    "Captain": false
+                },
+                {
+                    "ID": 452,
+                    "Name": "Amad",
+                    "Team": "Man Utd",
+                    "Cost": 6.3,
+                    "Predicted_Points": 23.6,
+                    "Captain": true
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 67,
+                    "Name": "Petrović",
+                    "Team": "Bournemouth",
+                    "Cost": 4.5,
+                    "Predicted_Points": 4.02,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 256,
+                    "Name": "Muñoz",
+                    "Team": "Crystal Palace",
+                    "Cost": 6.0,
+                    "Predicted_Points": 4.93,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.9,
+                    "Predicted_Points": 7.66,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 45.3,
+        "Total_Points": 62.29
+    },
+    "15": {
+        "Players": {
+            "Goalkeeper": [
+                {
+                    "ID": 139,
+                    "Name": "Verbruggen",
+                    "Team": "Brighton",
+                    "Cost": 4.4,
+                    "Predicted_Points": 7.36,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 317,
+                    "Name": "Andersen",
+                    "Team": "Fulham",
+                    "Cost": 4.5,
+                    "Predicted_Points": 8.96,
+                    "Captain": false
+                },
+                {
+                    "ID": 569,
+                    "Name": "Romero",
+                    "Team": "Spurs",
+                    "Cost": 5.0,
+                    "Predicted_Points": 10.26,
+                    "Captain": false
+                },
+                {
+                    "ID": 684,
+                    "Name": "Thiaw",
+                    "Team": "Newcastle",
+                    "Cost": 5.0,
+                    "Predicted_Points": 21.32,
+                    "Captain": true
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.9,
+                    "Predicted_Points": 9.28,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 449,
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 9.0,
+                    "Predicted_Points": 5.8,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 42.8,
+        "Total_Points": 62.98
+    },
+    "16": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 16,
+                    "Name": "Saka",
+                    "Team": "Arsenal",
+                    "Cost": 10.2,
+                    "Predicted_Points": 6.5,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 136,
+                    "Name": "Thiago",
+                    "Team": "Brentford",
+                    "Cost": 7.1,
+                    "Predicted_Points": 20.36,
+                    "Captain": true
+                },
+                {
+                    "ID": 337,
+                    "Name": "Raúl",
+                    "Team": "Fulham",
+                    "Cost": 6.3,
+                    "Predicted_Points": 9.38,
+                    "Captain": false
+                },
+                {
+                    "ID": 624,
+                    "Name": "Bowen",
+                    "Team": "West Ham",
+                    "Cost": 7.5,
+                    "Predicted_Points": 9.22,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 220,
+                    "Name": "Sánchez",
+                    "Team": "Chelsea",
+                    "Cost": 4.9,
+                    "Predicted_Points": 4.19,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 374,
+                    "Name": "Konaté",
+                    "Team": "Liverpool",
+                    "Cost": 5.4,
+                    "Predicted_Points": 5.09,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 41.4,
+        "Total_Points": 54.74
+    },
+    "17": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 47,
+                    "Name": "Rogers",
+                    "Team": "Aston Villa",
+                    "Cost": 7.1,
+                    "Predicted_Points": 9.36,
+                    "Captain": false
+                },
+                {
+                    "ID": 82,
+                    "Name": "Semenyo",
+                    "Team": "Bournemouth",
+                    "Cost": 7.5,
+                    "Predicted_Points": 12.24,
+                    "Captain": false
+                },
+                {
+                    "ID": 488,
+                    "Name": "Bruno G.",
+                    "Team": "Newcastle",
+                    "Cost": 7.0,
+                    "Predicted_Points": 9.42,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 139,
+                    "Name": "Verbruggen",
+                    "Team": "Brighton",
+                    "Cost": 4.4,
+                    "Predicted_Points": 8.16,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 317,
+                    "Name": "Andersen",
+                    "Team": "Fulham",
+                    "Cost": 4.6,
+                    "Predicted_Points": 8.8,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 15.0,
+                    "Predicted_Points": 37.8,
+                    "Captain": true
+                }
+            ]
+        },
+        "Total_Cost": 45.6,
+        "Total_Points": 85.78
+    },
+    "18": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 21,
+                    "Name": "Rice",
+                    "Team": "Arsenal",
+                    "Cost": 7.2,
+                    "Predicted_Points": 11.39,
+                    "Captain": false
+                },
+                {
+                    "ID": 273,
+                    "Name": "Wharton",
+                    "Team": "Crystal Palace",
+                    "Cost": 5.0,
+                    "Predicted_Points": 9.28,
+                    "Captain": false
+                },
+                {
+                    "ID": 417,
+                    "Name": "Cherki",
+                    "Team": "Man City",
+                    "Cost": 6.6,
+                    "Predicted_Points": 26.28,
+                    "Captain": true
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 39,
+                    "Name": "Maatsen",
+                    "Team": "Aston Villa",
+                    "Cost": 4.2,
+                    "Predicted_Points": 6.74,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 366,
+                    "Name": "A.Becker",
+                    "Team": "Liverpool",
+                    "Cost": 5.4,
+                    "Predicted_Points": 4.36,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 726,
+                    "Name": "Kolo Muani",
+                    "Team": "Spurs",
+                    "Cost": 6.9,
+                    "Predicted_Points": 7.97,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 35.3,
+        "Total_Points": 66.02
+    },
+    "19": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 16,
+                    "Name": "Saka",
+                    "Team": "Arsenal",
+                    "Cost": 10.3,
+                    "Predicted_Points": 8.78,
+                    "Captain": false
+                },
+                {
+                    "ID": 82,
+                    "Name": "Semenyo",
+                    "Team": "Bournemouth",
+                    "Cost": 7.7,
+                    "Predicted_Points": 8.47,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 225,
+                    "Name": "James",
+                    "Team": "Chelsea",
+                    "Cost": 5.7,
+                    "Predicted_Points": 6.61,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 15.1,
+                    "Predicted_Points": 26.86,
+                    "Captain": true
+                },
+                {
+                    "ID": 661,
+                    "Name": "Ekitiké",
+                    "Team": "Liverpool",
+                    "Cost": 9.1,
+                    "Predicted_Points": 8.62,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 469,
+                    "Name": "Pope",
+                    "Team": "Newcastle",
+                    "Cost": 5.1,
+                    "Predicted_Points": 4.27,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 53.0,
+        "Total_Points": 63.61
+    },
+    "21": {
+        "Players": {
+            "Goalkeeper": [
+                {
+                    "ID": 101,
+                    "Name": "Kelleher",
+                    "Team": "Brentford",
+                    "Cost": 4.5,
+                    "Predicted_Points": 4.26,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 152,
+                    "Name": "Veltman",
+                    "Team": "Brighton",
+                    "Cost": 4.3,
+                    "Predicted_Points": 10.33,
+                    "Captain": false
+                },
+                {
+                    "ID": 473,
+                    "Name": "Hall",
+                    "Team": "Newcastle",
+                    "Cost": 5.3,
+                    "Predicted_Points": 10.25,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 304,
+                    "Name": "Iroegbunam",
+                    "Team": "Everton",
+                    "Cost": 4.8,
+                    "Predicted_Points": 24.9,
+                    "Captain": true
+                },
+                {
+                    "ID": 718,
+                    "Name": "S.Magassa",
+                    "Team": "West Ham",
+                    "Cost": 5.0,
+                    "Predicted_Points": 10.67,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 15.1,
+                    "Predicted_Points": 9.34,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 39.0,
+        "Total_Points": 69.75
+    },
+    "22": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 21,
+                    "Name": "Rice",
+                    "Team": "Arsenal",
+                    "Cost": 7.3,
+                    "Predicted_Points": 6.33,
+                    "Captain": false
+                },
+                {
+                    "ID": 449,
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 9.1,
+                    "Predicted_Points": 6.63,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 220,
+                    "Name": "Sánchez",
+                    "Team": "Chelsea",
+                    "Cost": 4.9,
+                    "Predicted_Points": 4.15,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 15.1,
+                    "Predicted_Points": 16.06,
+                    "Captain": true
+                },
+                {
+                    "ID": 661,
+                    "Name": "Ekitiké",
+                    "Team": "Liverpool",
+                    "Cost": 8.9,
+                    "Predicted_Points": 7.2,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 569,
+                    "Name": "Romero",
+                    "Team": "Spurs",
+                    "Cost": 5.0,
+                    "Predicted_Points": 5.99,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 50.3,
+        "Total_Points": 46.36
+    },
+    "23": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 16,
+                    "Name": "Saka",
+                    "Team": "Arsenal",
+                    "Cost": 10.1,
+                    "Predicted_Points": 9.37,
+                    "Captain": false
+                },
+                {
+                    "ID": 418,
+                    "Name": "Doku",
+                    "Team": "Man City",
+                    "Cost": 6.4,
+                    "Predicted_Points": 23.06,
+                    "Captain": true
+                },
+                {
+                    "ID": 727,
+                    "Name": "Chukwueze",
+                    "Team": "Fulham",
+                    "Cost": 5.3,
+                    "Predicted_Points": 9.48,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 287,
+                    "Name": "Pickford",
+                    "Team": "Everton",
+                    "Cost": 5.6,
+                    "Predicted_Points": 4.22,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 706,
+                    "Name": "Justin",
+                    "Team": "Leeds",
+                    "Cost": 3.9,
+                    "Predicted_Points": 8.91,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 726,
+                    "Name": "Kolo Muani",
+                    "Team": "Spurs",
+                    "Cost": 6.9,
+                    "Predicted_Points": 8.43,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 38.2,
+        "Total_Points": 63.47
+    },
+    "24": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 5,
+                    "Name": "Gabriel",
+                    "Team": "Arsenal",
+                    "Cost": 6.9,
+                    "Predicted_Points": 8.03,
+                    "Captain": false
+                },
+                {
+                    "ID": 531,
+                    "Name": "Ballard",
+                    "Team": "Sunderland",
+                    "Cost": 4.6,
+                    "Predicted_Points": 9.11,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 237,
+                    "Name": "Enzo",
+                    "Team": "Chelsea",
+                    "Cost": 6.7,
+                    "Predicted_Points": 7.5,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 15.0,
+                    "Predicted_Points": 21.64,
+                    "Captain": true
+                },
+                {
+                    "ID": 526,
+                    "Name": "Igor Jesus",
+                    "Team": "Nott'm Forest",
+                    "Cost": 5.8,
+                    "Predicted_Points": 8.47,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 733,
+                    "Name": "Lammens",
+                    "Team": "Man Utd",
+                    "Cost": 5.0,
+                    "Predicted_Points": 5.82,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 44.0,
+        "Total_Points": 60.57
+    },
+    "25": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 151,
+                    "Name": "Van Hecke",
+                    "Team": "Brighton",
+                    "Cost": 4.5,
+                    "Predicted_Points": 9.24,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 157,
+                    "Name": "Mitoma",
+                    "Team": "Brighton",
+                    "Cost": 6.1,
+                    "Predicted_Points": 9.02,
+                    "Captain": false
+                },
+                {
+                    "ID": 267,
+                    "Name": "Sarr",
+                    "Team": "Crystal Palace",
+                    "Cost": 6.3,
+                    "Predicted_Points": 8.54,
+                    "Captain": false
+                },
+                {
+                    "ID": 783,
+                    "Name": "Groß",
+                    "Team": "Brighton",
+                    "Cost": 5.5,
+                    "Predicted_Points": 20.48,
+                    "Captain": true
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 253,
+                    "Name": "Henderson",
+                    "Team": "Crystal Palace",
+                    "Cost": 5.0,
+                    "Predicted_Points": 6.32,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 15.0,
+                    "Predicted_Points": 6.66,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 42.4,
+        "Total_Points": 60.26
+    },
+    "27": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 381,
+                    "Name": "M.Salah",
+                    "Team": "Liverpool",
+                    "Cost": 14.0,
+                    "Predicted_Points": 22.2,
+                    "Captain": true
+                },
+                {
+                    "ID": 384,
+                    "Name": "Gakpo",
+                    "Team": "Liverpool",
+                    "Cost": 7.3,
+                    "Predicted_Points": 8.94,
+                    "Captain": false
+                },
+                {
+                    "ID": 517,
+                    "Name": "Anderson",
+                    "Team": "Nott'm Forest",
+                    "Cost": 5.4,
+                    "Predicted_Points": 9.08,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 400,
+                    "Name": "Ortega Moreno",
+                    "Team": "Nott'm Forest",
+                    "Cost": 4.7,
+                    "Predicted_Points": 6.62,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 506,
+                    "Name": "Murillo",
+                    "Team": "Nott'm Forest",
+                    "Cost": 5.2,
+                    "Predicted_Points": 7.78,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 661,
+                    "Name": "Ekitiké",
+                    "Team": "Liverpool",
+                    "Cost": 8.9,
+                    "Predicted_Points": 10.3,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 45.5,
+        "Total_Points": 64.92
+    },
+    "28": {
+        "Players": {
+            "Goalkeeper": [
+                {
+                    "ID": 32,
+                    "Name": "Martinez",
+                    "Team": "Aston Villa",
+                    "Cost": 5.1,
+                    "Predicted_Points": 8.2,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 47,
+                    "Name": "Rogers",
+                    "Team": "Aston Villa",
+                    "Cost": 7.7,
+                    "Predicted_Points": 9.4,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 64,
+                    "Name": "Watkins",
+                    "Team": "Aston Villa",
+                    "Cost": 8.6,
+                    "Predicted_Points": 19.56,
+                    "Captain": true
+                },
+                {
+                    "ID": 720,
+                    "Name": "Tolu",
+                    "Team": "Wolves",
+                    "Cost": 5.4,
+                    "Predicted_Points": 7.78,
+                    "Captain": false
+                },
+                {
+                    "ID": 749,
+                    "Name": "Mané",
+                    "Team": "Wolves",
+                    "Cost": 4.6,
+                    "Predicted_Points": 7.82,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 635,
+                    "Name": "R.Gomes",
+                    "Team": "Wolves",
+                    "Cost": 4.4,
+                    "Predicted_Points": 7.54,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 35.8,
+        "Total_Points": 60.3
+    },
+    "29": {
+        "Players": {
+            "Goalkeeper": [
+                {
+                    "ID": 1,
+                    "Name": "Raya",
+                    "Team": "Arsenal",
+                    "Cost": 6.0,
+                    "Predicted_Points": 9.9,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 136,
+                    "Name": "Thiago",
+                    "Team": "Brentford",
+                    "Cost": 7.2,
+                    "Predicted_Points": 10.25,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 260,
+                    "Name": "Guéhi",
+                    "Team": "Man City",
+                    "Cost": 5.2,
+                    "Predicted_Points": 11.4,
+                    "Captain": false
+                },
+                {
+                    "ID": 291,
+                    "Name": "Tarkowski",
+                    "Team": "Everton",
+                    "Cost": 5.7,
+                    "Predicted_Points": 23.28,
+                    "Captain": true
+                },
+                {
+                    "ID": 373,
+                    "Name": "Virgil",
+                    "Team": "Liverpool",
+                    "Cost": 6.1,
+                    "Predicted_Points": 11.02,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 449,
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 10.0,
+                    "Predicted_Points": 10.1,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 40.2,
+        "Total_Points": 75.95
+    },
+    "30": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 5,
+                    "Name": "Gabriel",
+                    "Team": "Arsenal",
+                    "Cost": 7.2,
+                    "Predicted_Points": 6.93,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 136,
+                    "Name": "Thiago",
+                    "Team": "Brentford",
+                    "Cost": 7.2,
+                    "Predicted_Points": 8.98,
+                    "Captain": false
+                },
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.6,
+                    "Predicted_Points": 22.22,
+                    "Captain": true
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 381,
+                    "Name": "M.Salah",
+                    "Team": "Liverpool",
+                    "Cost": 14.0,
+                    "Predicted_Points": 8.62,
+                    "Captain": false
+                },
+                {
+                    "ID": 449,
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 10.0,
+                    "Predicted_Points": 8.61,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 502,
+                    "Name": "Sels",
+                    "Team": "Nott'm Forest",
+                    "Cost": 4.6,
+                    "Predicted_Points": 3.88,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 57.6,
+        "Total_Points": 59.24
+    }
+}

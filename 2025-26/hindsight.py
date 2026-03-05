@@ -171,6 +171,14 @@ def save_actual_optimal(
 
     print(f"Actual optimal for GW{gameweek} saved to {output_path}")
 
+    # Mirror to the site data directory for the frontend
+    site_path = os.path.join('site', 'data', season, 'actual_optimal.json')
+    os.makedirs(os.path.dirname(site_path), exist_ok=True)
+    with open(site_path, 'w', encoding='utf-8') as f:
+        json.dump(all_gameweeks, f, indent=4, ensure_ascii=False)
+
+    print(f"Actual optimal for GW{gameweek} mirrored to {site_path}")
+
 
 if __name__ == '__main__':
     FILE_PATH = os.path.abspath(__file__)

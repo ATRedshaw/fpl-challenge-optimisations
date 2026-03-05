@@ -72,4 +72,12 @@ def save_optimal_prediction(lineup_prediction, season, gameweek):
         json.dump(all_gameweeks, f, indent=4, ensure_ascii=False)
 
     print(f"Optimal prediction saved to {optimal_prediction_path}")
+
+    # Mirror to the site data directory for the frontend
+    site_path = os.path.join('site', 'data', season, 'predicted_optimal.json')
+    os.makedirs(os.path.dirname(site_path), exist_ok=True)
+    with open(site_path, 'w', encoding='utf-8') as f:
+        json.dump(all_gameweeks, f, indent=4, ensure_ascii=False)
+
+    print(f"Optimal prediction mirrored to {site_path}")
    
