@@ -694,7 +694,7 @@
 <!-- ══════════════════════════════ HERO ════════════════════════════════════════ -->
 <div class="hero">
   <div class="wrap">
-    <p class="eyebrow" style="margin-bottom: 14px;">Linear Programming · FPL Challenge Mode</p>
+    <p class="eyebrow" style="margin-bottom: 14px;">Machine Learning · Linear Programming · FPL Challenge</p>
     <h1>Finding the optimal lineup<br>for every FPL Challenge.</h1>
     <p>
       A machine learning model generates per-player expected-point forecasts, which a linear
@@ -737,6 +737,8 @@
         <option value="num-desc">Challenge no. ↓</option>
         <option value="overlap-desc">Best match rate</option>
         <option value="pts-desc">Highest actual pts</option>
+        <option value="ratio-desc">Highest prediction ratio</option>
+        <option value="ratio-asc">Lowest prediction ratio</option>
       </select>
     </div>
   </div>
@@ -868,11 +870,26 @@
         <p>
           Player overlap only tells part of the story. Two completely different squads can score nearly
           identical points when the market has priced in the same likely contributors. The more telling
-          measure is how close the predicted lineup's actual score comes to the hindsight maximum.
+          measure is how close the predicted lineup's actual score comes to the hindsight maximum,
+          expressed here as a prediction ratio.
         </p>
         <p>
+          The prediction ratio is the predicted lineup's actual score as a percentage of the
+          hindsight-optimal score. 100% would mean the predicted squad scored exactly as many points
+          as the best possible selection. The number will never reach that in practice and, unlike
+          match rate, there is no comfortable statistical argument for why a lower figure is still
+          impressive. The hindsight optimal is simply the ceiling, and the ratio tells you how close
+          the model got.
+        </p>
+        <div class="about-callout">
+          A prediction ratio in the <strong>high sixties</strong> is a strong result. It means the
+          predicted lineup captured roughly two-thirds of the maximum points available, chosen before
+          a single match was played and with no knowledge of injuries, rotations or who would have
+          an unexpected standout game.
+        </div>
+        <p>
           Open any completed challenge to see the predicted xPts alongside the actual score for each
-          lineup, and the points gap to the hindsight optimal in the comparison panel at the bottom.
+          lineup and the points gap to the hindsight optimal in the comparison panel at the bottom.
         </p>
       </div>
 
@@ -1066,6 +1083,16 @@ function sortedKeys() {
         const pb = actual[kb] ? actual[kb].Total_Points : predicted[kb] ? predicted[kb].Total_Points : 0;
         return pb - pa || a - b;
       }
+      case 'ratio-desc':
+      case 'ratio-asc': {
+        const ra = (actual[ka] && predicted[ka] && actual[ka].Total_Points !== 0) ? predicted[ka].Total_Points / actual[ka].Total_Points : null;
+        const rb = (actual[kb] && predicted[kb] && actual[kb].Total_Points !== 0) ? predicted[kb].Total_Points / actual[kb].Total_Points : null;
+        // Push incomplete challenges to the end
+        if (ra === null && rb === null) return a - b;
+        if (ra === null) return 1;
+        if (rb === null) return -1;
+        return sortKey === 'ratio-desc' ? rb - ra || a - b : ra - rb || a - b;
+      }
       default: // num-asc
         return a - b;
     }
@@ -1100,6 +1127,7 @@ function renderGrid() {
       const colour = overlapColour(ov.pct);
       const fillW  = (ov.pct * 100).toFixed(1);
       const fillCls = ov.pct >= 0.5 ? 'good' : ov.pct >= 0.25 ? 'fair' : 'poor';
+      const ratio  = actual[key].Total_Points > 0 ? Math.round(predicted[key].Total_Points / actual[key].Total_Points * 100) : 0;
       footer = `
         <div class="card-footer">
           <div class="pts-row">
@@ -1108,6 +1136,7 @@ function renderGrid() {
               <span class="pts-arrow">&rarr;</span>
               <span class="pts-actual">${fmt(actual[key].Total_Points)}</span>
               <span style="font-size:11px; color:var(--text-faint); margin-left:3px;">pts</span>
+              <span style="font-size:11px; color:var(--text-faint); margin-left:6px;">&middot; <span class="mono" style="color:var(--text-muted);">${ratio}%</span></span>
             </span>
             <span class="match-pct" style="color:${colour};">${(ov.pct * 100).toFixed(0)}% match</span>
           </div>
