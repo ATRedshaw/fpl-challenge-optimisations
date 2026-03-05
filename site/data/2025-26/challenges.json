@@ -1,0 +1,126 @@
+{
+    "1": {
+        "title": "Instant Impact",
+        "description": "Double Points for New Signings. One Player per Club."
+    },
+    "2": {
+        "title": "The Promoted",
+        "description": "Players from the promoted clubs earn double points. One Player per Club."
+    },
+    "3": {
+        "title": "The Shield",
+        "description": "Defensive Contributions are worth 10 points. One Player per Club."
+    },
+    "4": {
+        "title": "Classic Rivalry",
+        "description": "Double Points awarded for players from Manchester United and Manchester City. Up to 3 players per club. Unlimited Budget."
+    },
+    "5": {
+        "title": "Red vs Blue",
+        "description": "Double Points awarded for players from Liverpool and Everton. Up to 3 players per club. Unlimited Budget. "
+    },
+    "6": {
+        "title": "Young Guns",
+        "description": "Double Points for players aged 23 or under. One player per club. Unlimited Budget."
+    },
+    "7": {
+        "title": "Zero to Hero",
+        "description": "Double points for clean sheets for goalkeepers, defenders and midfielders. One player per club. Unlimited Budget."
+    },
+    "8": {
+        "title": "Ice Cold",
+        "description": "\u201cBig Chances Scored\u201d return 6 additional points. One Player per Club. Unlimited Budget."
+    },
+    "9": {
+        "title": "Iconic",
+        "description": "Players who have been at their club for 5+ seasons earn double points. One Player per Club. Unlimited Budget."
+    },
+    "10": {
+        "title": "Winning Feeling",
+        "description": "Double points for all Winning goals. One Player per Club. Unlimited Budget."
+    },
+    "11": {
+        "title": "Change the Game",
+        "description": "Double Bonus Points. All Bonus Points awarded are Doubled."
+    },
+    "12": {
+        "title": "In Possession",
+        "description": "+6 points for Players who achieve 90 percent pass completion (at least 30 passes attempted)."
+    },
+    "13": {
+        "title": "Out of Possession",
+        "description": "+1pt for every Recovery."
+    },
+    "14": {
+        "title": "Value Creators",
+        "description": "Double Points for Midfielders priced at 7m or under."
+    },
+    "15": {
+        "title": "Big Save",
+        "description": "Double Points for Goalkeepers and Defenders priced at 5m or under."
+    },
+    "16": {
+        "title": "Striker Deal",
+        "description": "Double Points for Forwards priced at 7.5m or under. Players must be priced at 7.5 or under at deadline of Sat 13 Dec 15:00 to qualify for Double Points."
+    },
+    "17": {
+        "title": "Home for the Holidays",
+        "description": "Double Points for players with home fixtures."
+    },
+    "18": {
+        "title": "Gift Wrapped",
+        "description": "+6 points for every Big Chance Created."
+    },
+    "19": {
+        "title": "Double Celebration",
+        "description": "All goals and assists score double points."
+    },
+    "20": {
+        "title": "Clean Start",
+        "description": "Clean Sheets score double points."
+    },
+    "21": {
+        "title": "The Ball-Winner",
+        "description": "+2 Points for every Tackle won."
+    },
+    "22": {
+        "title": "The Playmaker",
+        "description": "+1 Point for every Chance created."
+    },
+    "23": {
+        "title": "The Ball-Carrier",
+        "description": " +2 Points for every Successful dribble past an opponent."
+    },
+    "24": {
+        "title": "The Aerial Threat",
+        "description": "+4 Points for every Headed goal attempt (on and off target)."
+    },
+    "25": {
+        "title": "Bragging Rights",
+        "description": "Double Points for Brighton and Crystal Palace players. Up to 3 players per club. Unlimited Budget."
+    },
+    "26": {
+        "title": "Classic Rivals",
+        "description": "Double Points for Chelsea and Leeds United players. Up to 3 players per club. Unlimited Budget."
+    },
+    "27": {
+        "title": "Old Foes",
+        "description": "Double Points for Nottingham Forest and Liverpool players. Up to 3 players per club. Unlimited Budget."
+    },
+    "28": {
+        "title": "Midlands Clash",
+        "description": "Double Points for Wolves and Aston Villa players. Up to 3 players per club. Unlimited Budget."
+    },
+    "29": {
+        "title": "90 Minutes",
+        "description": "+6 points for players who complete 90 minutes and do not get substituted or receive a red card."
+    },
+    "30": {
+        "title": "Goal Threat",
+        "description": "+6 points awarded for players who have 3 or more goal attempts."
+    },
+    "31": {
+        "title": "Creativity",
+        "description": "+6 points awarded for players who create 3 or more chances (3 or more key passes)."
+    }
+}
