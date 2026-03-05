@@ -30,9 +30,16 @@ def save_optimal_prediction(lineup_prediction, season, gameweek):
     else:
         all_gameweeks = {}
     
-    # Convert np.float64 to float for JSON serialization
-    def convert_player(player):
-        return {k: (float(v) if isinstance(v, np.float64) else v) for k, v in player.items()}
+    def convert_player(player: dict) -> dict:
+        result = {}
+        for k, v in player.items():
+            if isinstance(v, np.integer):
+                result[k] = int(v)
+            elif isinstance(v, np.floating):
+                result[k] = float(v)
+            else:
+                result[k] = v
+        return result
     
     converted_prediction = {pos: [convert_player(p) for p in players] 
                             for pos, players in lineup_prediction.items()}
