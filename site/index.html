@@ -98,6 +98,27 @@
       padding: 2px 8px;
       border-radius: 3px;
     }
+    /* Season select — inherits season-tag aesthetic */
+    #season-select {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      padding-right: 22px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%237d8590'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 7px center;
+      transition: border-color 0.1s ease, color 0.1s ease;
+    }
+    #season-select:hover  { border-color: var(--accent); color: var(--text); }
+    #season-select option { background: var(--surface); color: var(--text); }
     .gh-link {
       display: flex;
       align-items: center;
@@ -219,6 +240,9 @@
     .challenge-card:focus-visible { background: var(--surface-raised); }
     .challenge-card:focus-visible  { box-shadow: inset 0 0 0 2px var(--accent); }
     .challenge-card:hover .card-num { color: var(--text-muted); }
+    .challenge-card[data-status="pending"] { cursor: default; }
+    .challenge-card[data-status="pending"]:hover { background: var(--surface); }
+    .challenge-card[data-status="pending"]:hover .card-num { color: var(--text-faint); }
 
     .card-num {
       font-family: 'JetBrains Mono', monospace;
@@ -475,7 +499,9 @@
     <div class="header-inner">
       <div class="site-title">
         FPL Challenge Optimiser
-        <span class="season-tag">2025–26</span>
+        <select id="season-select" aria-label="Season">
+          <option value="">Loading&hellip;</option>
+        </select>
       </div>
       <a class="gh-link" id="gh-link" href="https://github.com/" target="_blank" rel="noopener noreferrer">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -591,10 +617,13 @@
 'use strict';
 
 /* ── Constants ───────────────────────────────────────────────────────────────── */
-const DATA_BASE   = 'data/2025-26';
-const POS_ORDER   = ['Goalkeeper', 'Defender', 'Midfielder', 'Forward'];
-const POS_SHORT   = { Goalkeeper: 'GK', Defender: 'DEF', Midfielder: 'MID', Forward: 'FWD' };
-const POS_CLASS   = { Goalkeeper: 'pos-gk', Defender: 'pos-def', Midfielder: 'pos-mid', Forward: 'pos-fwd' };
+const POS_ORDER = ['Goalkeeper', 'Defender', 'Midfielder', 'Forward'];
+const POS_SHORT = { Goalkeeper: 'GK', Defender: 'DEF', Midfielder: 'MID', Forward: 'FWD' };
+const POS_CLASS = { Goalkeeper: 'pos-gk', Defender: 'pos-def', Midfielder: 'pos-mid', Forward: 'pos-fwd' };
+
+/* ── Mutable season state ────────────────────────────────────────────────────── */
+let currentSeason = null;
+function dataBase() { return `data/${currentSeason}`; }
 
 /* ── State ────────────────────────────────────────────────────────────────────── */
 let store    = null;   // { challenges, predicted, actual }
@@ -603,10 +632,11 @@ let sortKey  = 'num-asc';
 
 /* ── Data loading ─────────────────────────────────────────────────────────────── */
 async function loadData() {
+  const base = dataBase();
   const [challenges, predicted, actual] = await Promise.all([
-    fetch(`${DATA_BASE}/challenges.json`).then(r => r.json()),
-    fetch(`${DATA_BASE}/predicted_optimal.json`).then(r => r.json()),
-    fetch(`${DATA_BASE}/actual_optimal.json`).then(r => r.json()),
+    fetch(`${base}/challenges.json`).then(r => r.json()),
+    fetch(`${base}/predicted_optimal.json`).then(r => r.json()).catch(() => ({})),
+    fetch(`${base}/actual_optimal.json`).then(r => r.json()).catch(() => ({})),
   ]);
   return { challenges, predicted, actual };
 }
@@ -712,7 +742,8 @@ function findBestChallenge() {
   for (const key of Object.keys(predicted)) {
     if (!(key in actual)) continue;
     const ov = computeOverlap(predicted[key], actual[key]);
-    if (!best || ov.pct > best.pct) best = { key, pct: (ov.pct * 100).toFixed(0) };
+    // Store raw numeric pct for correct > comparison; format only when rendering
+    if (!best || ov.pct > best.rawPct) best = { key, rawPct: ov.pct, pct: (ov.pct * 100).toFixed(0) };
   }
   return best;
 }
@@ -816,9 +847,9 @@ function renderGrid() {
       <article
         class="challenge-card"
         data-id="${n}"
-        role="button"
-        tabindex="0"
-        aria-label="Open challenge ${n}: ${ch.title}"
+        data-status="${status}"
+        ${status !== 'pending' ? 'role="button" tabindex="0"' : 'tabindex="-1"'}
+        aria-label="${status !== 'pending' ? 'Open challenge ' + n + ': ' + ch.title : 'Challenge ' + n + ': ' + ch.title + ' \u2014 pending'}"
       >
         <div class="card-header">
           <span class="card-num">${num}</span>
@@ -832,8 +863,9 @@ function renderGrid() {
       </article>`;
   }).join('');
 
-  // Attach events to newly rendered cards
+  // Attach events — pending cards are not interactive
   grid.querySelectorAll('.challenge-card').forEach(card => {
+    if (card.dataset.status === 'pending') return;
     card.addEventListener('click', () => openModal(Number(card.dataset.id)));
     card.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(Number(card.dataset.id)); }
@@ -1032,19 +1064,45 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
 });
 
-/* ── Bootstrap ────────────────────────────────────────────────────────────────── */
-loadData()
-  .then(data => {
-    store = data;
+/* ── Season switcher ──────────────────────────────────────────────────────────── */
+async function initSeasons() {
+  let seasons;
+  try {
+    seasons = await fetch('data/seasons.json').then(r => r.json());
+  } catch {
+    seasons = ['2025-26'];
+  }
+
+  // Default to the most recent season — last entry when sorted alphabetically
+  currentSeason = [...seasons].sort().at(-1);
+
+  const sel = document.getElementById('season-select');
+  sel.innerHTML = seasons.map(s =>
+    `<option value="${s}"${s === currentSeason ? ' selected' : ''}>${s}</option>`
+  ).join('');
+
+  sel.addEventListener('change', async () => {
+    currentSeason = sel.value;
+    await loadSeason();
+  });
+}
+
+async function loadSeason() {
+  document.getElementById('hero-summary').innerHTML = 'Loading&hellip;';
+  try {
+    store = await loadData();
     renderStats();
     renderGrid();
-  })
-  .catch(err => {
+  } catch (err) {
     console.error('Failed to load data:', err);
     document.getElementById('challenge-grid').innerHTML =
       `<div class="empty-state" style="color:var(--red);">Failed to load challenge data. Check the console for details.</div>`;
     document.getElementById('hero-summary').textContent = 'Data unavailable.';
-  });
+  }
+}
+
+/* ── Bootstrap ────────────────────────────────────────────────────────────────── */
+initSeasons().then(() => loadSeason());
 </script>
 </body>
 </html>
