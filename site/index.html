@@ -149,16 +149,7 @@
       line-height: 1.75;
       max-width: 540px;
     }
-    .hero-summary {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 8px 14px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
+
 
     /* ── Stats strip ──────────────────────────────────────────────────────────── */
     .stats-strip {
@@ -458,6 +449,131 @@
     .comp-sub { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
     .note-text { font-size: 11px; color: var(--text-faint); margin-top: 10px; }
 
+    /* ── Hero row (summary + learn-more) ──────────────────────────────────────── */
+    .hero-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .hero-summary {
+      display: inline-block;
+      padding: 8px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ── Learn-more button ──────────────────────────────────────────────────── */
+    .learn-more-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.12s ease;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--text-faint);
+      flex-shrink: 0;
+    }
+    .learn-more-btn:hover { color: var(--text); text-decoration-color: var(--text-muted); }
+
+    /* ── About modal ─────────────────────────────────────────────────────────── */
+    #about-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 48px 20px;
+      overflow-y: auto;
+    }
+    #about-overlay.open { display: flex; }
+    #about-box {
+      width: 100%;
+      max-width: 680px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      animation: modal-in 0.18s ease;
+    }
+    .about-header {
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .about-body { padding: 24px; }
+    .about-section { margin-bottom: 28px; }
+    .about-section:last-child { margin-bottom: 0; }
+    .about-section h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .about-section p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 8px;
+    }
+    .about-section p:last-child { margin-bottom: 0; }
+    .about-callout {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 3px;
+      padding: 12px 14px;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-top: 10px;
+    }
+    .about-callout strong { color: var(--text); font-weight: 500; }
+    .about-pipeline {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin: 14px 0 0;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .pipeline-step {
+      flex: 1;
+      padding: 12px 14px;
+      background: var(--surface-raised);
+      border-right: 1px solid var(--border);
+      font-size: 12px;
+    }
+    .pipeline-step:last-child { border-right: none; }
+    .pipeline-step-label {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 4px;
+    }
+    .pipeline-step-name { color: var(--text); font-weight: 500; font-size: 12px; }
+    .pipeline-step-desc { color: var(--text-muted); font-size: 11px; margin-top: 3px; line-height: 1.5; }
+
     /* ── Footer ───────────────────────────────────────────────────────────────── */
     #site-footer {
       border-top: 1px solid var(--border);
@@ -567,13 +683,17 @@
     <p class="eyebrow" style="margin-bottom: 14px;">Linear Programming · FPL Challenge Mode</p>
     <h1>Finding the optimal lineup<br>for every FPL Challenge.</h1>
     <p>
-      A Python LP solver that, given per-player expected-point projections, finds the
-      mathematically optimal squad for each FPL Challenge constraint set. The pre-gameweek
-      prediction is compared against the with-hindsight optimal to measure where — and how
-      far — the model diverges from ground truth.
+      A machine learning model generates per-player expected-point forecasts, which a linear
+      programme then uses to find the mathematically optimal squad for each FPL Challenge
+      constraint set. The pre-gameweek selection is compared against the hindsight optimal to
+      measure how well the model performed. Spoiler: it doesn't always cover itself in glory.
     </p>
-    <div class="hero-summary" id="hero-summary" aria-live="polite">
-      Loading data&hellip;
+    <div class="hero-row">
+      <div class="hero-summary" id="hero-summary" aria-live="polite">Loading data&hellip;</div>
+      <button class="learn-more-btn" id="learn-more-btn" aria-haspopup="dialog">
+        How does this work?
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
     </div>
   </div>
 </div>
@@ -642,6 +762,91 @@
     <!-- Comparison footer -->
     <div class="modal-footer" id="modal-footer"></div>
 
+  </div>
+</div>
+
+<!-- ══════════════════════════════ ABOUT MODAL ════════════════════════════════ -->
+<div id="about-overlay" role="dialog" aria-modal="true" aria-labelledby="about-title">
+  <div id="about-box">
+    <div class="about-header">
+      <div>
+        <p class="eyebrow" style="margin-bottom: 8px;">How it works</p>
+        <h2 id="about-title" style="font-size: 18px; font-weight: 600; letter-spacing: -0.02em;">The approach and reading the results</h2>
+      </div>
+      <button class="modal-close" id="about-close" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="about-body">
+
+      <div class="about-section">
+        <h3>The pipeline</h3>
+        <p>Three stages run in sequence to produce a predicted optimal lineup before every challenge.</p>
+        <div class="about-pipeline">
+          <div class="pipeline-step">
+            <div class="pipeline-step-label">Stage 1</div>
+            <div class="pipeline-step-name">ML Forecasting</div>
+            <div class="pipeline-step-desc">A private model produces per-player xPts forecasts from match context and historical performance features.</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-label">Stage 2</div>
+            <div class="pipeline-step-name">Rule Adjustment</div>
+            <div class="pipeline-step-desc">Raw xPts are adjusted for each challenge's scoring rules, from simple multipliers through to Poisson-modelled event probabilities and probabilistic win weights.</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-label">Stage 3</div>
+            <div class="pipeline-step-name">LP Optimisation</div>
+            <div class="pipeline-step-desc">An integer linear programme selects the squad that maximises adjusted xPts within the challenge's constraints: budget, position limits and club caps.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-section">
+        <h3>The hindsight benchmark</h3>
+        <p>
+          Once a gameweek's scores are confirmed, the same LP solver runs again using <em>actual</em>
+          points rather than forecasts. The result is the true with-hindsight optimal: the best possible
+          lineup anyone could have picked with perfect foreknowledge. Which, to be fair, is cheating.
+        </p>
+        <p>
+          It is an unreachable ceiling by design. No pre-gameweek prediction can match it, but it
+          gives an honest upper bound to measure against. Players appearing in both lineups are
+          highlighted in green inside each challenge view.
+        </p>
+      </div>
+
+      <div class="about-section">
+        <h3>Reading the match rate</h3>
+        <p>
+          Match rate is the share of players the predicted lineup has in common with the hindsight-optimal.
+          The number will look low, and that is expected. Each challenge has its own squad format and
+          size, but the eligible player pool is always around 600. The number of valid squad combinations
+          is astronomically large regardless of how many players you are picking. Getting any meaningful
+          fraction of the optimal selection right before a ball has been kicked is a genuinely good result.
+        </p>
+        <div class="about-callout">
+          A <strong>50% match rate</strong> means half the predicted squad matched the best possible
+          selection chosen from roughly 600 players. The probability of landing that by chance is
+          effectively zero. The model is finding real signal.
+        </div>
+      </div>
+
+      <div class="about-section">
+        <h3>The points gap matters more</h3>
+        <p>
+          Player overlap only tells part of the story. Two completely different squads can score nearly
+          identical points when the market has priced in the same likely contributors. The more telling
+          measure is how close the predicted lineup's actual score comes to the hindsight maximum.
+        </p>
+        <p>
+          Open any completed challenge to see the predicted xPts alongside the actual score for each
+          lineup, and the points gap to the hindsight optimal in the comparison panel at the bottom.
+        </p>
+      </div>
+
+    </div>
   </div>
 </div>
 
@@ -1111,10 +1316,6 @@ document.getElementById('modal-overlay').addEventListener('click', e => {
   if (e.target === document.getElementById('modal-overlay')) closeModal();
 });
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModal();
-});
-
 /* ── Season switcher ──────────────────────────────────────────────────────────── */
 async function initSeasons() {
   let seasons;
@@ -1151,6 +1352,29 @@ async function loadSeason() {
     document.getElementById('hero-summary').textContent = 'Data unavailable.';
   }
 }
+
+/* ── About modal ─────────────────────────────────────────────────────────────── */
+function openAbout() {
+  document.getElementById('about-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('about-close').focus();
+}
+
+function closeAbout() {
+  document.getElementById('about-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('learn-more-btn').addEventListener('click', openAbout);
+document.getElementById('about-close').addEventListener('click', closeAbout);
+
+document.getElementById('about-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('about-overlay')) closeAbout();
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeModal(); closeAbout(); }
+});
 
 /* ── Bootstrap ────────────────────────────────────────────────────────────────── */
 initSeasons().then(() => loadSeason());
