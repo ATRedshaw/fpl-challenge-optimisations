@@ -1672,5 +1672,67 @@
         },
         "Total_Cost": 40.2,
         "Total_Points": 75.95
+    },
+    "30": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 5,
+                    "Name": "Gabriel",
+                    "Team": "Arsenal",
+                    "Cost": 7.2,
+                    "Predicted_Points": 6.93,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 136,
+                    "Name": "Thiago",
+                    "Team": "Brentford",
+                    "Cost": 7.2,
+                    "Predicted_Points": 8.98,
+                    "Captain": false
+                },
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.6,
+                    "Predicted_Points": 22.22,
+                    "Captain": true
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 381,
+                    "Name": "M.Salah",
+                    "Team": "Liverpool",
+                    "Cost": 14.0,
+                    "Predicted_Points": 8.62,
+                    "Captain": false
+                },
+                {
+                    "ID": 449,
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 10.0,
+                    "Predicted_Points": 8.61,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 502,
+                    "Name": "Sels",
+                    "Team": "Nott'm Forest",
+                    "Cost": 4.6,
+                    "Predicted_Points": 3.88,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 57.6,
+        "Total_Points": 59.24
     }
 }
