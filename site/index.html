@@ -609,6 +609,58 @@
       font-size: 13px;
     }
 
+    /* ── Season standing bar ─────────────────────────────────────────────────── */
+    .standing-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .standing-rank-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .standing-rank {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 30px;
+      font-weight: 500;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .standing-of {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .standing-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+    .standing-pct-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      padding: 3px 10px;
+      border-radius: 3px;
+    }
+    .standing-gw-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-faint);
+    }
+
     /* ── Responsive ───────────────────────────────────────────────────────────── */
     @media (max-width: 600px) {
       .challenge-grid { grid-template-columns: 1fr; }
@@ -656,6 +708,11 @@
       .modal-footer   { padding: 14px 16px; }
       .comparison-grid { gap: 16px 24px; }
       .comp-val       { font-size: 17px; }
+
+      /* Standing bar */
+      .standing-bar   { padding: 14px 16px; }
+      .standing-rank  { font-size: 24px; }
+      .standing-right { align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 8px; }
     }
   </style>
 </head>
@@ -719,6 +776,20 @@
     <div class="stat-cell"><div class="eyebrow">Completed</div><div class="stat-value" style="color:var(--text-faint);">—</div></div>
     <div class="stat-cell"><div class="eyebrow">In progress</div><div class="stat-value" style="color:var(--text-faint);">—</div></div>
     <div class="stat-cell"><div class="eyebrow">Avg match rate</div><div class="stat-value" style="color:var(--text-faint);">—</div></div>
+  </div>
+  <!-- Season standing — populated by JS when actual_outcome.json is available -->
+  <div class="standing-bar" id="standing-section" style="display:none;">
+    <div>
+      <div class="eyebrow">Season standing</div>
+      <div class="standing-rank-row">
+        <span class="standing-rank" id="standing-rank">—</span>
+        <span class="standing-of" id="standing-of"></span>
+      </div>
+    </div>
+    <div class="standing-right">
+      <span class="standing-pct-badge" id="standing-pct"></span>
+      <span class="standing-gw-label" id="standing-gw"></span>
+    </div>
   </div>
 </div>
 
@@ -938,12 +1009,13 @@ let sortKey  = 'num-asc';
 /* ── Data loading ─────────────────────────────────────────────────────────────── */
 async function loadData() {
   const base = dataBase();
-  const [challenges, predicted, actual] = await Promise.all([
+  const [challenges, predicted, actual, outcome] = await Promise.all([
     fetch(`${base}/challenges.json`).then(r => r.json()),
     fetch(`${base}/predicted_optimal.json`).then(r => r.json()).catch(() => ({})),
     fetch(`${base}/actual_optimal.json`).then(r => r.json()).catch(() => ({})),
+    fetch(`${base}/actual_outcome.json`).then(r => r.json()).catch(() => null),
   ]);
-  return { challenges, predicted, actual };
+  return { challenges, predicted, actual, outcome };
 }
 
 /* ── Utilities ────────────────────────────────────────────────────────────────── */
@@ -1051,6 +1123,44 @@ function findBestChallenge() {
     if (!best || ov.pct > best.rawPct) best = { key, rawPct: ov.pct, pct: (ov.pct * 100).toFixed(0) };
   }
   return best;
+}
+
+/* ── Season standing ─────────────────────────────────────────────────────────── */
+function renderStanding() {
+  const outcome = store.outcome;
+  const section = document.getElementById('standing-section');
+  if (!outcome) { section.style.display = 'none'; return; }
+
+  // Collect only numeric gameweek keys, exclude top-level metadata like total_players
+  const gwKeys = Object.keys(outcome)
+    .filter(k => !isNaN(Number(k)))
+    .map(Number)
+    .sort((a, b) => a - b);
+
+  if (gwKeys.length === 0) { section.style.display = 'none'; return; }
+
+  const lastGw = gwKeys[gwKeys.length - 1];
+  const ranks  = outcome[String(lastGw)]?.Ranks;
+  if (!ranks?.overall_rank) { section.style.display = 'none'; return; }
+
+  const totalPlayers = typeof outcome.total_players === 'number' ? outcome.total_players : null;
+  const fmtNum       = n => n.toLocaleString('en-GB');
+
+  // Percentage position: rank / total * 100, rounded to one decimal place
+  const pctText = (totalPlayers && ranks.overall_rank)
+    ? `top ${(ranks.overall_rank / totalPlayers * 100).toFixed(1)}% of players`
+    : null;
+
+  document.getElementById('standing-rank').textContent =
+    `#${fmtNum(ranks.overall_rank)}`;
+  document.getElementById('standing-of').textContent =
+    totalPlayers ? `/ ${fmtNum(totalPlayers)}` : '';
+  document.getElementById('standing-pct').textContent = pctText ?? '';
+  document.getElementById('standing-pct').style.display = pctText ? '' : 'none';
+  document.getElementById('standing-gw').textContent =
+    `after GW${lastGw}`;
+
+  section.style.display = '';
 }
 
 /* ── Challenge grid ───────────────────────────────────────────────────────────── */
@@ -1400,9 +1510,11 @@ async function initSeasons() {
 
 async function loadSeason() {
   document.getElementById('hero-summary').innerHTML = 'Loading&hellip;';
+  document.getElementById('standing-section').style.display = 'none';
   try {
     store = await loadData();
     renderStats();
+    renderStanding();
     renderGrid();
   } catch (err) {
     console.error('Failed to load data:', err);
