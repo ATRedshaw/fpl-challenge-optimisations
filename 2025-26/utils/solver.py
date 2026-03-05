@@ -76,6 +76,7 @@ class FPLChallengeOptimiser:
             if self.lineup[i].value() == 1:
                 player = self.projections_data.loc[i]
                 self.selected_players[player['Position']].append({
+                    'ID': player['ID'],
                     'Name': player['Name'],
                     'Team': player['Team'],
                     'Cost': player['Cost'],
