@@ -4,6 +4,38 @@ import json
 from collections import defaultdict
 import numpy as np
 
+
+SEASONS_REGISTRY = os.path.join('site', 'data', 'seasons.json')
+
+
+def ensure_season_in_registry(season: str) -> None:
+    """
+    Guarantee that a season is present in site/data/seasons.json.
+
+    Reads the existing registry, appends the season if absent, sorts the list
+    chronologically and writes it back. A missing registry file is created
+    automatically.
+
+    Args:
+        season: Season string in YYYY-YY format (e.g. '2025-26').
+    """
+    os.makedirs(os.path.dirname(SEASONS_REGISTRY), exist_ok=True)
+
+    if os.path.exists(SEASONS_REGISTRY):
+        with open(SEASONS_REGISTRY, 'r', encoding='utf-8') as f:
+            raw = f.read().strip()
+        seasons: list[str] = json.loads(raw) if raw else []
+    else:
+        seasons = []
+
+    if season not in seasons:
+        seasons.append(season)
+        seasons.sort()
+        with open(SEASONS_REGISTRY, 'w', encoding='utf-8') as f:
+            json.dump(seasons, f, indent=4, ensure_ascii=False)
+        print(f"Season {season} added to {SEASONS_REGISTRY}")
+
+
 def save_projections(df, season, gameweek):
     projections_path = os.path.join(season, 'data', 'projections', f'gw{gameweek}.csv')
     if not os.path.exists(os.path.dirname(projections_path)):
@@ -80,4 +112,6 @@ def save_optimal_prediction(lineup_prediction, season, gameweek):
         json.dump(all_gameweeks, f, indent=4, ensure_ascii=False)
 
     print(f"Optimal prediction mirrored to {site_path}")
+
+    ensure_season_in_registry(season)
    

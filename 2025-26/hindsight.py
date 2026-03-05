@@ -6,6 +6,7 @@ import yaml
 import numpy as np
 from collections import defaultdict
 from utils.solver import FPLChallengeOptimiser
+from utils.data import ensure_season_in_registry
 
 BASE_URL = 'https://fplchallenge.premierleague.com/api'
 
@@ -178,6 +179,8 @@ def save_actual_optimal(
         json.dump(all_gameweeks, f, indent=4, ensure_ascii=False)
 
     print(f"Actual optimal for GW{gameweek} mirrored to {site_path}")
+
+    ensure_season_in_registry(season)
 
 
 if __name__ == '__main__':

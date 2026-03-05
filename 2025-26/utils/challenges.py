@@ -6,6 +6,8 @@ from pathlib import Path
 import requests
 import yaml
 
+from utils.data import ensure_season_in_registry
+
 SEASON = "2025-26"
 CONFIG_PATH = Path(SEASON) / "data" / "config.yaml"
 
@@ -96,3 +98,5 @@ def update_challenges() -> None:
 
     write_json(Path(SEASON) / "data" / "descriptions" / "challenges.json", challenges)
     write_json(Path("site") / "data" / SEASON / "challenges.json", challenges)
+
+    ensure_season_in_registry(SEASON)
