@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FPL Challenge Optimiser — 2025/26</title>
+  <title>FPL Challenge Optimiser</title>
   <meta name="description" content="An LP-based optimisation engine for FPL Challenge mode. Explore predicted vs actual optimal selections across every challenge in the 2025/26 season." />
-  <meta property="og:title" content="FPL Challenge Optimiser — 2025/26" />
+  <meta property="og:title" content="FPL Challenge Optimiser" />
   <meta property="og:description" content="LP-based lineup optimisation for every FPL Challenge. Compare predicted selections against the with-hindsight optimal." />
 
   <!-- Emoji favicon -->
@@ -471,33 +471,19 @@
       flex-wrap: wrap;
     }
     .hero-summary {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       padding: 8px 14px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 3px;
       font-size: 12px;
       color: var(--text-muted);
-    }
-
-    /* ── Learn-more button ──────────────────────────────────────────────────── */
-    .learn-more-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      color: var(--text-muted);
-      background: none;
-      border: none;
       cursor: pointer;
-      padding: 0;
-      transition: color 0.12s ease;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-color: var(--text-faint);
-      flex-shrink: 0;
+      transition: border-color 0.12s ease, color 0.12s ease;
     }
-    .learn-more-btn:hover { color: var(--text); text-decoration-color: var(--text-muted); }
+    .hero-summary:hover { border-color: var(--accent-border); color: var(--text); }
 
     /* ── About modal ─────────────────────────────────────────────────────────── */
     #about-overlay {
@@ -859,8 +845,7 @@
       measure how well the model performed. Spoiler: it doesn't always cover itself in glory.
     </p>
     <div class="hero-row">
-      <div class="hero-summary" id="hero-summary" aria-live="polite">Loading data&hellip;</div>
-      <button class="learn-more-btn" id="learn-more-btn" aria-haspopup="dialog">
+      <button class="hero-summary" id="hero-summary" aria-haspopup="dialog">
         How does this work?
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </button>
@@ -990,7 +975,7 @@
           <div class="pipeline-step">
             <div class="pipeline-step-label">Stage 3</div>
             <div class="pipeline-step-name">LP Optimisation</div>
-            <div class="pipeline-step-desc">An integer linear programme selects the squad that maximises adjusted xPts within the challenge's constraints: budget, position limits and club caps.</div>
+            <div class="pipeline-step-desc">An integer linear programme selects the squad that maximises adjusted xPts within the challenge's constraints: e.g. budget, position limits, multipliers and club caps.</div>
           </div>
         </div>
       </div>
@@ -1239,25 +1224,8 @@ function renderStats() {
     }
   });
 
-  // Hero summary
-  const best = findBestChallenge();
-  document.getElementById('hero-summary').innerHTML =
-    `<span class="mono" style="color:var(--text);">${complete}</span> challenges analysed &nbsp;&middot;&nbsp; ` +
-    `avg match rate <span class="mono" style="color:var(--text);">${avgMatch}</span>` +
-    (best ? ` &nbsp;&middot;&nbsp; best: <span style="color:var(--accent);">Ch.${best.key} &mdash; ${best.pct}% match</span>` : '');
 }
 
-function findBestChallenge() {
-  const { predicted, actual } = store;
-  let best = null;
-  for (const key of Object.keys(predicted)) {
-    if (!(key in actual)) continue;
-    const ov = computeOverlap(predicted[key], actual[key]);
-    // Store raw numeric pct for correct > comparison; format only when rendering
-    if (!best || ov.pct > best.rawPct) best = { key, rawPct: ov.pct, pct: (ov.pct * 100).toFixed(0) };
-  }
-  return best;
-}
 
 /* ── Season standing ─────────────────────────────────────────────────────────── */
 function renderStanding() {
@@ -1758,7 +1726,6 @@ async function initSeasons() {
 }
 
 async function loadSeason() {
-  document.getElementById('hero-summary').innerHTML = 'Loading&hellip;';
   document.getElementById('standing-section').style.display = 'none';
   sortKey = 'num-asc';
   document.getElementById('sort-select').value = 'num-asc';
@@ -1771,7 +1738,6 @@ async function loadSeason() {
     console.error('Failed to load data:', err);
     document.getElementById('challenge-grid').innerHTML =
       `<div class="empty-state" style="color:var(--red);">Failed to load challenge data. Check the console for details.</div>`;
-    document.getElementById('hero-summary').textContent = 'Data unavailable.';
   }
 }
 
@@ -1968,7 +1934,7 @@ function closeAbout() {
   document.body.style.overflow = '';
 }
 
-document.getElementById('learn-more-btn').addEventListener('click', openAbout);
+document.getElementById('hero-summary').addEventListener('click', openAbout);
 document.getElementById('about-close').addEventListener('click', closeAbout);
 
 document.getElementById('about-overlay').addEventListener('click', e => {
