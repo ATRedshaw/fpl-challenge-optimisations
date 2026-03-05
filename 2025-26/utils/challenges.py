@@ -7,7 +7,7 @@ import requests
 import yaml
 
 SEASON = "2025-26"
-_CONFIG_PATH = Path(SEASON) / "data" / "config.yaml"
+CONFIG_PATH = Path(SEASON) / "data" / "config.yaml"
 
 # Pattern captures challenge ID, description and title from the minified JS bundle.
 # Expected fragment: <id>:{copy:{description:"...", ..., title:"..."}}
@@ -79,12 +79,12 @@ def update_challenges() -> None:
         JSON files to both the season data directory and the site data
         directory. Suitable for invocation at the start of a gameweek run.
     """
-    with _CONFIG_PATH.open(encoding="utf-8") as f:
+    with CONFIG_PATH.open(encoding="utf-8") as f:
         config = yaml.safe_load(f)
 
     js_bundle_url = config.get("descriptions_link")
     if not js_bundle_url:
-        print(f"No descriptions_link found in {_CONFIG_PATH}.", file=sys.stderr)
+        print(f"No descriptions_link found in {CONFIG_PATH}.", file=sys.stderr)
         sys.exit(1)
 
     print(f"Fetching challenges for {SEASON} ...")
@@ -94,5 +94,5 @@ def update_challenges() -> None:
     if not challenges:
         print(f"Warning: no challenges parsed for {SEASON}.", file=sys.stderr)
 
-    write_json(Path(SEASON) / "data" / "challenges.json", challenges)
+    write_json(Path(SEASON) / "data" / "descriptions" / "challenges.json", challenges)
     write_json(Path("site") / "data" / SEASON / "challenges.json", challenges)
