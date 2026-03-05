@@ -4,9 +4,10 @@ import sys
 from pathlib import Path
 
 import requests
+import yaml
 
 SEASON = "2025-26"
-JS_BUNDLE_URL = "https://fplchallenge.premierleague.com/assets/index-CPa5fWm5.js"
+_CONFIG_PATH = Path(SEASON) / "data" / "config.yaml"
 
 # Pattern captures challenge ID, description and title from the minified JS bundle.
 # Expected fragment: <id>:{copy:{description:"...", ..., title:"..."}}
@@ -78,8 +79,16 @@ def update_challenges() -> None:
         JSON files to both the season data directory and the site data
         directory. Suitable for invocation at the start of a gameweek run.
     """
+    with _CONFIG_PATH.open(encoding="utf-8") as f:
+        config = yaml.safe_load(f)
+
+    js_bundle_url = config.get("descriptions_link")
+    if not js_bundle_url:
+        print(f"No descriptions_link found in {_CONFIG_PATH}.", file=sys.stderr)
+        sys.exit(1)
+
     print(f"Fetching challenges for {SEASON} ...")
-    js_content = fetch_js(JS_BUNDLE_URL)
+    js_content = fetch_js(js_bundle_url)
     challenges = parse_challenges(js_content)
 
     if not challenges:
