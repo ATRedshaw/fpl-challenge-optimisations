@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FPL Challenge Optimiser — 2025/26</title>
+  <meta name="description" content="An LP-based optimisation engine for FPL Challenge mode. Explore predicted vs actual optimal selections across every challenge in the 2025/26 season." />
+  <meta property="og:title" content="FPL Challenge Optimiser — 2025/26" />
+  <meta property="og:description" content="LP-based lineup optimisation for every FPL Challenge. Compare predicted selections against the with-hindsight optimal." />
+
+  <!-- Emoji favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* ── Custom properties ────────────────────────────────────────────────────── */
+    :root {
+      --bg:             #070b0f;
+      --surface:        #0d1117;
+      --surface-raised: #161b22;
+      --border:         #21262d;
+      --border-subtle:  #161b22;
+      --text:           #e6edf3;
+      --text-muted:     #7d8590;
+      --text-faint:     #3d444d;
+      --accent:         #3fb950;
+      --accent-dim:     rgba(63, 185, 80, 0.08);
+      --accent-border:  rgba(63, 185, 80, 0.35);
+      --gold:           #d29922;
+      --gold-dim:       rgba(210, 153, 34, 0.12);
+      --blue:           #58a6ff;
+      --blue-dim:       rgba(88, 166, 255, 0.08);
+      --red:            #f85149;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Scrollbar ────────────────────────────────────────────────────────────── */
+    ::-webkit-scrollbar        { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track  { background: var(--bg); }
+    ::-webkit-scrollbar-thumb  { background: var(--border); border-radius: 3px; }
+
+    /* ── Utilities ────────────────────────────────────────────────────────────── */
+    .mono    { font-family: 'JetBrains Mono', monospace; }
+    .eyebrow {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .wrap    { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Header ───────────────────────────────────────────────────────────────── */
+    #site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid var(--border);
+      background: rgba(7, 11, 15, 0.85);
+      backdrop-filter: blur(14px);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      gap: 16px;
+    }
+    .site-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .season-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+    .gh-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.12s ease;
+    }
+    .gh-link:hover { color: var(--text); }
+
+    /* ── Hero ─────────────────────────────────────────────────────────────────── */
+    .hero {
+      padding: 56px 0 40px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .hero h1 {
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.18;
+      margin-bottom: 16px;
+      max-width: 580px;
+    }
+    .hero p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.75;
+      max-width: 540px;
+    }
+    .hero-summary {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 8px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ── Stats strip ──────────────────────────────────────────────────────────── */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--border);
+      border-left: 1px solid var(--border);
+    }
+    .stat-cell {
+      padding: 22px 24px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 26px;
+      font-weight: 500;
+      line-height: 1;
+      margin-top: 8px;
+    }
+    @media (max-width: 640px) {
+      .stats-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ── Toolbar ──────────────────────────────────────────────────────────────── */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 0;
+      flex-wrap: wrap;
+    }
+    .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+    .chip {
+      padding: 4px 13px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 12px;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-muted);
+      transition: border-color 0.1s ease, color 0.1s ease, background 0.1s ease;
+      user-select: none;
+    }
+    .chip:hover  { border-color: var(--accent); color: var(--text); }
+    .chip.active { background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent); }
+    .sort-select {
+      font-size: 12px;
+      color: var(--text-muted);
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      outline: none;
+    }
+    .sort-select option { background: var(--surface); color: var(--text); }
+
+    /* ── Challenge grid ───────────────────────────────────────────────────────── */
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      border-top: 1px solid var(--border);
+      border-left: 1px solid var(--border);
+    }
+    .challenge-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      background: var(--surface);
+      transition: background 0.12s ease;
+      outline: none;
+    }
+    .challenge-card:hover,
+    .challenge-card:focus-visible { background: var(--surface-raised); }
+    .challenge-card:focus-visible  { box-shadow: inset 0 0 0 2px var(--accent); }
+    .challenge-card:hover .card-num { color: var(--text-muted); }
+
+    .card-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 30px;
+      font-weight: 500;
+      color: var(--text-faint);
+      line-height: 1;
+      transition: color 0.12s ease;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+    .card-body { flex: 1; }
+    .card-title {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    .card-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-footer {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .pts-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+    .pts-pred {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--text-faint);
+    }
+    .pts-arrow { color: var(--text-faint); font-size: 11px; margin: 0 4px; }
+    .pts-actual {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--text);
+    }
+    .match-pct {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+    .acc-track { height: 2px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    .acc-fill  { height: 100%; border-radius: 2px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
+
+    /* Status badges */
+    .badge {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 3px;
+      border: 1px solid;
+      flex-shrink: 0;
+    }
+    .badge-complete  { color: var(--accent); border-color: var(--accent-border); background: var(--accent-dim); }
+    .badge-predicted { color: var(--blue);   border-color: rgba(88,166,255,0.35); background: var(--blue-dim); }
+    .badge-actual    { color: var(--gold);   border-color: rgba(210,153,34,0.35); background: var(--gold-dim); }
+    .badge-pending   { color: var(--text-muted); border-color: var(--border); }
+
+    /* ── Modal overlay ────────────────────────────────────────────────────────── */
+    #modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 48px 20px 48px;
+      overflow-y: auto;
+    }
+    #modal-overlay.open { display: flex; }
+
+    #modal-box {
+      width: 100%;
+      max-width: 820px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      animation: modal-in 0.18s ease;
+    }
+    @keyframes modal-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-header {
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .modal-close {
+      flex-shrink: 0;
+      color: var(--text-muted);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+      transition: color 0.1s ease;
+      line-height: 1;
+    }
+    .modal-close:hover { color: var(--text); }
+
+    /* Modal totals + lineups — two-column grid split by a 1px divider */
+    .modal-split {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+    }
+    .split-divider { background: var(--border); }
+    .split-col { min-width: 0; }
+
+    .total-cell { padding: 18px 24px; }
+    .total-label { margin-bottom: 6px; }
+    .total-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 26px;
+      font-weight: 500;
+      line-height: 1;
+    }
+    .total-sub { font-size: 11px; color: var(--text-faint); margin-top: 4px; }
+
+    .col-header-row {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Player rows */
+    .player-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      transition: background 0.1s ease;
+    }
+    .player-row:last-child    { border-bottom: none; }
+    .player-row:hover         { background: var(--surface-raised); }
+    .player-row.shared        { background: var(--accent-dim); }
+    .player-row.shared:hover  { background: rgba(63,185,80,0.12); }
+    .player-row.is-captain    { background: var(--gold-dim); }
+
+    .pos-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 2px 5px;
+      border-radius: 3px;
+      min-width: 30px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .pos-gk  { background: rgba(251,146,60,0.12);  color: #fb923c; }
+    .pos-def { background: rgba(96,165,250,0.12);   color: #60a5fa; }
+    .pos-mid { background: rgba(74,222,128,0.12);   color: #4ade80; }
+    .pos-fwd { background: rgba(248,113,113,0.12);  color: #f87171; }
+
+    .captain-c {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      background: var(--gold);
+      color: #000;
+      border-radius: 50%;
+      font-size: 9px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .shared-tick { font-size: 11px; color: var(--accent); }
+    .player-name { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .player-meta { font-size: 11px; color: var(--text-muted); }
+    .player-pts-col { text-align: right; flex-shrink: 0; }
+    .player-pts  { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; }
+    .pts-kind    { font-size: 10px; color: var(--text-faint); }
+
+    .modal-footer {
+      padding: 18px 24px;
+      border-top: 1px solid var(--border);
+    }
+    .comparison-grid {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .comp-stat { flex-shrink: 0; }
+    .comp-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px;
+      font-weight: 500;
+    }
+    .comp-sub { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+    .note-text { font-size: 11px; color: var(--text-faint); margin-top: 10px; }
+
+    /* ── Footer ───────────────────────────────────────────────────────────────── */
+    #site-footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* ── Empty state ──────────────────────────────────────────────────────────── */
+    .empty-state {
+      grid-column: 1 / -1;
+      padding: 48px 24px;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    /* ── Responsive ───────────────────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .challenge-grid { grid-template-columns: 1fr; }
+      .modal-split    { grid-template-columns: 1fr; }
+      .split-divider  { display: none; }
+      .hide-sm        { display: none; }
+      .hero           { padding: 36px 0 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ HEADER ══════════════════════════════════════ -->
+<header id="site-header">
+  <div class="wrap">
+    <div class="header-inner">
+      <div class="site-title">
+        FPL Challenge Optimiser
+        <span class="season-tag">2025–26</span>
+      </div>
+      <a class="gh-link" id="gh-link" href="https://github.com/" target="_blank" rel="noopener noreferrer">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════ HERO ════════════════════════════════════════ -->
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow" style="margin-bottom: 14px;">Linear Programming · FPL Challenge Mode</p>
+    <h1>Finding the optimal lineup<br>for every FPL Challenge.</h1>
+    <p>
+      A Python LP solver that, given per-player expected-point projections, finds the
+      mathematically optimal squad for each FPL Challenge constraint set. The pre-gameweek
+      prediction is compared against the with-hindsight optimal to measure where — and how
+      far — the model diverges from ground truth.
+    </p>
+    <div class="hero-summary" id="hero-summary" aria-live="polite">
+      Loading data&hellip;
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ STATS STRIP ═════════════════════════════════ -->
+<div class="wrap">
+  <div class="stats-strip" id="stats-strip" style="border-top: 1px solid var(--border);">
+    <div class="stat-cell"><div class="eyebrow">Total challenges</div><div class="stat-value" style="color:var(--text-faint);">—</div></div>
+    <div class="stat-cell"><div class="eyebrow">Completed</div><div class="stat-value" style="color:var(--text-faint);">—</div></div>
+    <div class="stat-cell"><div class="eyebrow">In progress</div><div class="stat-value" style="color:var(--text-faint);">—</div></div>
+    <div class="stat-cell"><div class="eyebrow">Avg match rate</div><div class="stat-value" style="color:var(--text-faint);">—</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ TOOLBAR ═════════════════════════════════════ -->
+<div class="wrap">
+  <div class="toolbar">
+    <div class="chips" role="group" aria-label="Filter challenges">
+      <button class="chip active" data-filter="all">All</button>
+      <button class="chip" data-filter="complete">Complete</button>
+      <button class="chip" data-filter="predicted">Predicted only</button>
+      <button class="chip" data-filter="actual">Actual only</button>
+    </div>
+    <div class="hide-sm">
+      <select class="sort-select" id="sort-select" aria-label="Sort order">
+        <option value="num-asc">Challenge no. ↑</option>
+        <option value="num-desc">Challenge no. ↓</option>
+        <option value="overlap-desc">Best match rate</option>
+        <option value="pts-desc">Highest actual pts</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ CHALLENGE GRID ══════════════════════════════ -->
+<div class="wrap" style="padding-bottom: 80px;">
+  <div class="challenge-grid" id="challenge-grid">
+    <!-- Populated by JS -->
+  </div>
+</div>
+
+<!-- ══════════════════════════════ MODAL ═══════════════════════════════════════ -->
+<div id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div id="modal-box">
+
+    <!-- Header -->
+    <div class="modal-header">
+      <div>
+        <div class="eyebrow" id="modal-challenge-num" style="margin-bottom: 8px;"></div>
+        <h2 id="modal-title" style="font-size: 18px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 8px;"></h2>
+        <p  id="modal-desc"  style="font-size: 13px; color: var(--text-muted); line-height: 1.6; max-width: 560px;"></p>
+      </div>
+      <button class="modal-close" id="modal-close" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Totals -->
+    <div class="modal-split" id="modal-totals"></div>
+
+    <!-- Lineups -->
+    <div class="modal-split" id="modal-lineups"></div>
+
+    <!-- Comparison footer -->
+    <div class="modal-footer" id="modal-footer"></div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════ FOOTER ══════════════════════════════════════ -->
+<footer id="site-footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <span style="font-size: 12px; color: var(--text-muted);">
+        FPL Challenge Optimiser &middot; Built with Python &amp; PuLP &middot; 2025&ndash;26
+      </span>
+      <a class="gh-link" id="gh-link-footer" href="https://github.com/" target="_blank" rel="noopener noreferrer">
+        View source on GitHub &rarr;
+      </a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ══════════════════════════════ SCRIPT ══════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ── Constants ───────────────────────────────────────────────────────────────── */
+const DATA_BASE   = 'data/2025-26';
+const POS_ORDER   = ['Goalkeeper', 'Defender', 'Midfielder', 'Forward'];
+const POS_SHORT   = { Goalkeeper: 'GK', Defender: 'DEF', Midfielder: 'MID', Forward: 'FWD' };
+const POS_CLASS   = { Goalkeeper: 'pos-gk', Defender: 'pos-def', Midfielder: 'pos-mid', Forward: 'pos-fwd' };
+
+/* ── State ────────────────────────────────────────────────────────────────────── */
+let store    = null;   // { challenges, predicted, actual }
+let filter   = 'all';
+let sortKey  = 'num-asc';
+
+/* ── Data loading ─────────────────────────────────────────────────────────────── */
+async function loadData() {
+  const [challenges, predicted, actual] = await Promise.all([
+    fetch(`${DATA_BASE}/challenges.json`).then(r => r.json()),
+    fetch(`${DATA_BASE}/predicted_optimal.json`).then(r => r.json()),
+    fetch(`${DATA_BASE}/actual_optimal.json`).then(r => r.json()),
+  ]);
+  return { challenges, predicted, actual };
+}
+
+/* ── Utilities ────────────────────────────────────────────────────────────────── */
+function fmt(n, dp = 1) {
+  return typeof n === 'number' ? n.toFixed(dp) : '—';
+}
+
+function playersFlat(lineup) {
+  const out = [];
+  for (const pos of POS_ORDER) {
+    for (const p of (lineup.Players[pos] || [])) {
+      out.push({ ...p, Position: pos });
+    }
+  }
+  return out;
+}
+
+function playerIds(lineup) {
+  return new Set(playersFlat(lineup).map(p => p.ID));
+}
+
+function computeOverlap(pred, actual) {
+  const pIds = playerIds(pred);
+  const aIds = playerIds(actual);
+  let shared = 0;
+  for (const id of pIds) if (aIds.has(id)) shared++;
+  const total = Math.max(pIds.size, aIds.size);
+  return { shared, total, pct: total > 0 ? shared / total : 0 };
+}
+
+function statusOf(key, predicted, actual) {
+  const hasPred = key in predicted;
+  const hasAct  = key in actual;
+  if (hasPred && hasAct) return 'complete';
+  if (hasPred) return 'predicted';
+  if (hasAct)  return 'actual';
+  return 'pending';
+}
+
+function overlapColour(pct) {
+  if (pct >= 0.5)  return 'var(--accent)';
+  if (pct >= 0.25) return 'var(--gold)';
+  return 'var(--red)';
+}
+
+function badgeHTML(status) {
+  const map = {
+    complete:  ['Complete',       'badge-complete'],
+    predicted: ['Projected',      'badge-predicted'],
+    actual:    ['Result only',    'badge-actual'],
+    pending:   ['Pending',        'badge-pending'],
+  };
+  const [label, cls] = map[status] || map.pending;
+  return `<span class="badge ${cls}">${label}</span>`;
+}
+
+/* ── Stats strip ──────────────────────────────────────────────────────────────── */
+function renderStats() {
+  const { challenges, predicted, actual } = store;
+  const keys = Object.keys(challenges);
+
+  let complete = 0, inProgress = 0, totalOverlapPct = 0, overlapCount = 0;
+  for (const key of keys) {
+    const s = statusOf(key, predicted, actual);
+    if (s === 'complete') {
+      complete++;
+      const ov = computeOverlap(predicted[key], actual[key]);
+      totalOverlapPct += ov.pct;
+      overlapCount++;
+    } else if (s === 'predicted') {
+      inProgress++;
+    }
+  }
+
+  const avgMatch = overlapCount > 0 ? `${(totalOverlapPct / overlapCount * 100).toFixed(0)}%` : '—';
+
+  const strip = document.getElementById('stats-strip');
+  const cells = strip.querySelectorAll('.stat-cell');
+  const values = [keys.length, complete, inProgress, avgMatch];
+  const colours = ['var(--text)', 'var(--accent)', 'var(--blue)', 'var(--text)'];
+
+  cells.forEach((cell, i) => {
+    const val = cell.querySelector('.stat-value');
+    if (val) {
+      val.textContent = values[i];
+      val.style.color = colours[i];
+    }
+  });
+
+  // Hero summary
+  const best = findBestChallenge();
+  document.getElementById('hero-summary').innerHTML =
+    `<span class="mono" style="color:var(--text);">${complete}</span> challenges analysed &nbsp;&middot;&nbsp; ` +
+    `avg match rate <span class="mono" style="color:var(--text);">${avgMatch}</span>` +
+    (best ? ` &nbsp;&middot;&nbsp; best: <span style="color:var(--accent);">Ch.${best.key} &mdash; ${best.pct}% match</span>` : '');
+}
+
+function findBestChallenge() {
+  const { predicted, actual } = store;
+  let best = null;
+  for (const key of Object.keys(predicted)) {
+    if (!(key in actual)) continue;
+    const ov = computeOverlap(predicted[key], actual[key]);
+    if (!best || ov.pct > best.pct) best = { key, pct: (ov.pct * 100).toFixed(0) };
+  }
+  return best;
+}
+
+/* ── Challenge grid ───────────────────────────────────────────────────────────── */
+function sortedKeys() {
+  const { challenges, predicted, actual } = store;
+  let keys = Object.keys(challenges).map(Number);
+
+  // Apply filter
+  keys = keys.filter(n => {
+    const s = statusOf(String(n), predicted, actual);
+    if (filter === 'all') return true;
+    return s === filter;
+  });
+
+  // Apply sort
+  keys.sort((a, b) => {
+    const ka = String(a), kb = String(b);
+    switch (sortKey) {
+      case 'num-desc':
+        return b - a;
+      case 'overlap-desc': {
+        const sa = statusOf(ka, predicted, actual);
+        const sb = statusOf(kb, predicted, actual);
+        const pa = sa === 'complete' ? computeOverlap(predicted[ka], actual[ka]).pct : -1;
+        const pb = sb === 'complete' ? computeOverlap(predicted[kb], actual[kb]).pct : -1;
+        return pb - pa || a - b;
+      }
+      case 'pts-desc': {
+        const pa = actual[ka] ? actual[ka].Total_Points : predicted[ka] ? predicted[ka].Total_Points : 0;
+        const pb = actual[kb] ? actual[kb].Total_Points : predicted[kb] ? predicted[kb].Total_Points : 0;
+        return pb - pa || a - b;
+      }
+      default: // num-asc
+        return a - b;
+    }
+  });
+
+  return keys;
+}
+
+function renderGrid() {
+  const { challenges, predicted, actual } = store;
+  const grid = document.getElementById('challenge-grid');
+  const keys = sortedKeys();
+
+  if (keys.length === 0) {
+    grid.innerHTML = `<div class="empty-state">No challenges match this filter.</div>`;
+    return;
+  }
+
+  grid.innerHTML = keys.map(n => {
+    const key    = String(n);
+    const ch     = challenges[key];
+    const status = statusOf(key, predicted, actual);
+    const hasBoth = status === 'complete';
+    const hasPred = status === 'complete' || status === 'predicted';
+    const hasAct  = status === 'complete' || status === 'actual';
+    const num     = String(n).padStart(2, '0');
+
+    let footer = '';
+
+    if (hasBoth) {
+      const ov     = computeOverlap(predicted[key], actual[key]);
+      const colour = overlapColour(ov.pct);
+      const fillW  = (ov.pct * 100).toFixed(1);
+      const fillCls = ov.pct >= 0.5 ? 'good' : ov.pct >= 0.25 ? 'fair' : 'poor';
+      footer = `
+        <div class="card-footer">
+          <div class="pts-row">
+            <span>
+              <span class="pts-pred">${fmt(predicted[key].Total_Points)}</span>
+              <span class="pts-arrow">&rarr;</span>
+              <span class="pts-actual">${fmt(actual[key].Total_Points)}</span>
+              <span style="font-size:11px; color:var(--text-faint); margin-left:3px;">pts</span>
+            </span>
+            <span class="match-pct" style="color:${colour};">${(ov.pct * 100).toFixed(0)}% match</span>
+          </div>
+          <div class="acc-track">
+            <div class="acc-fill ${fillCls}" style="width:${fillW}%; background:${colour};"></div>
+          </div>
+        </div>`;
+    } else if (hasPred) {
+      footer = `
+        <div class="card-footer">
+          <span style="font-size:12px; color:var(--text-muted);">
+            Projected <span class="mono" style="color:var(--blue);">${fmt(predicted[key].Total_Points)} pts</span>
+          </span>
+        </div>`;
+    } else if (hasAct) {
+      footer = `
+        <div class="card-footer">
+          <span style="font-size:12px; color:var(--text-muted);">
+            Actual optimal <span class="mono" style="color:var(--text);">${fmt(actual[key].Total_Points)} pts</span>
+          </span>
+        </div>`;
+    }
+
+    return `
+      <article
+        class="challenge-card"
+        data-id="${n}"
+        role="button"
+        tabindex="0"
+        aria-label="Open challenge ${n}: ${ch.title}"
+      >
+        <div class="card-header">
+          <span class="card-num">${num}</span>
+          ${badgeHTML(status)}
+        </div>
+        <div class="card-body">
+          <div class="card-title">${ch.title}</div>
+          <div class="card-desc">${ch.description.trim()}</div>
+        </div>
+        ${footer}
+      </article>`;
+  }).join('');
+
+  // Attach events to newly rendered cards
+  grid.querySelectorAll('.challenge-card').forEach(card => {
+    card.addEventListener('click', () => openModal(Number(card.dataset.id)));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(Number(card.dataset.id)); }
+    });
+  });
+}
+
+/* ── Filter / sort controls ───────────────────────────────────────────────────── */
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    filter = chip.dataset.filter;
+    if (store) renderGrid();
+  });
+});
+
+document.getElementById('sort-select').addEventListener('change', e => {
+  sortKey = e.target.value;
+  if (store) renderGrid();
+});
+
+/* ── Modal ────────────────────────────────────────────────────────────────────── */
+function positionSection(players, isActual, sharedIds) {
+  return players.map(p => {
+    const isShared  = sharedIds.has(p.ID);
+    const isCaptain = p.Captain;
+    const rowCls    = isShared ? 'shared' : isCaptain ? 'is-captain' : '';
+    const ptsValue  = isActual ? p.Points : p.Predicted_Points;
+    const ptsLabel  = isActual ? 'pts' : 'xPts';
+    const ptsColour = isActual ? 'color:var(--text);' : 'color:var(--text-muted);';
+
+    return `
+      <div class="player-row ${rowCls}">
+        <span class="pos-badge ${POS_CLASS[p.Position]}">${POS_SHORT[p.Position]}</span>
+        <div style="flex:1; min-width:0;">
+          <div style="display:flex; align-items:center; gap:5px;">
+            <span class="player-name" style="font-weight:${isCaptain ? 600 : 400};">${p.Name}</span>
+            ${isCaptain ? '<span class="captain-c">C</span>' : ''}
+            ${isShared  ? '<span class="shared-tick">&#10003;</span>' : ''}
+          </div>
+          <div class="player-meta">${p.Team} &middot; &pound;${p.Cost.toFixed(1)}m</div>
+        </div>
+        <div class="player-pts-col">
+          <div class="player-pts" style="${ptsColour}">${fmt(ptsValue)}</div>
+          <div class="pts-kind">${ptsLabel}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function openModal(id) {
+  const { challenges, predicted, actual } = store;
+  const key  = String(id);
+  const ch   = challenges[key];
+  const pred = predicted[key];
+  const act  = actual[key];
+
+  // Header
+  document.getElementById('modal-challenge-num').textContent = `Challenge ${String(id).padStart(2, '0')}`;
+  document.getElementById('modal-title').textContent = ch.title;
+  document.getElementById('modal-desc').textContent  = ch.description.trim();
+
+  // Compute shared IDs for row highlighting
+  const sharedIds = new Set();
+  if (pred && act) {
+    const pIds = playerIds(pred);
+    const aIds = playerIds(act);
+    for (const id of pIds) if (aIds.has(id)) sharedIds.add(id);
+  }
+
+  // Totals row
+  const totals = document.getElementById('modal-totals');
+  if (pred && act) {
+    totals.style.gridTemplateColumns = '1fr 1px 1fr';
+    totals.innerHTML = `
+      <div class="split-col">
+        <div class="total-cell">
+          <div class="eyebrow total-label">Predicted</div>
+          <div class="total-val" style="color:var(--text-muted);">${fmt(pred.Total_Points)}</div>
+          <div class="total-sub">projected pts &middot; &pound;${fmt(pred.Total_Cost)}m budget used</div>
+        </div>
+      </div>
+      <div class="split-divider"></div>
+      <div class="split-col">
+        <div class="total-cell">
+          <div class="eyebrow total-label">Actual Optimal</div>
+          <div class="total-val" style="color:var(--text);">${fmt(act.Total_Points)}</div>
+          <div class="total-sub">points scored &middot; &pound;${fmt(act.Total_Cost)}m budget used</div>
+        </div>
+      </div>`;
+  } else if (pred) {
+    totals.style.gridTemplateColumns = '1fr';
+    totals.innerHTML = `
+      <div class="total-cell">
+        <div class="eyebrow total-label">Predicted Optimal</div>
+        <div class="total-val" style="color:var(--blue);">${fmt(pred.Total_Points)}</div>
+        <div class="total-sub">projected pts &middot; awaiting result</div>
+      </div>`;
+  } else if (act) {
+    totals.style.gridTemplateColumns = '1fr';
+    totals.innerHTML = `
+      <div class="total-cell">
+        <div class="eyebrow total-label">Actual Optimal</div>
+        <div class="total-val" style="color:var(--text);">${fmt(act.Total_Points)}</div>
+        <div class="total-sub">points scored &middot; no pre-gameweek prediction recorded</div>
+      </div>`;
+  }
+
+  // Lineups
+  const lineups = document.getElementById('modal-lineups');
+  if (pred && act) {
+    lineups.style.gridTemplateColumns = '1fr 1px 1fr';
+    lineups.innerHTML = `
+      <div class="split-col">
+        <div class="col-header-row"><span class="eyebrow">Predicted selection</span></div>
+        ${positionSection(playersFlat(pred), false, sharedIds)}
+      </div>
+      <div class="split-divider"></div>
+      <div class="split-col">
+        <div class="col-header-row"><span class="eyebrow">Actual optimal</span></div>
+        ${positionSection(playersFlat(act), true, sharedIds)}
+      </div>`;
+  } else if (pred) {
+    lineups.style.gridTemplateColumns = '1fr';
+    lineups.innerHTML = `
+      <div class="split-col">
+        <div class="col-header-row"><span class="eyebrow">Predicted selection</span></div>
+        ${positionSection(playersFlat(pred), false, sharedIds)}
+      </div>`;
+  } else if (act) {
+    lineups.style.gridTemplateColumns = '1fr';
+    lineups.innerHTML = `
+      <div class="split-col">
+        <div class="col-header-row"><span class="eyebrow">Actual optimal</span></div>
+        ${positionSection(playersFlat(act), true, sharedIds)}
+      </div>`;
+  }
+
+  // Footer — comparison stats
+  const footer = document.getElementById('modal-footer');
+  if (pred && act) {
+    const ov       = computeOverlap(pred, act);
+    const colour   = overlapColour(ov.pct);
+    const fillCls  = ov.pct >= 0.5 ? 'good' : ov.pct >= 0.25 ? 'fair' : 'poor';
+    const ptsDiff  = act.Total_Points - pred.Total_Points;
+
+    footer.innerHTML = `
+      <div class="comparison-grid">
+        <div class="comp-stat">
+          <div class="eyebrow" style="margin-bottom:6px;">Player match rate</div>
+          <div class="comp-val" style="color:${colour};">${(ov.pct * 100).toFixed(0)}%</div>
+          <div class="comp-sub">${ov.shared} of ${ov.total} players in common</div>
+        </div>
+        <div class="comp-stat">
+          <div class="eyebrow" style="margin-bottom:6px;">Points gap</div>
+          <div class="comp-val">+${fmt(ptsDiff)}</div>
+          <div class="comp-sub">actual exceeded projection</div>
+        </div>
+        <div class="comp-stat">
+          <div class="eyebrow" style="margin-bottom:6px;">Prediction ratio</div>
+          <div class="comp-val" style="color:var(--text-muted);">${fmt(pred.Total_Points / act.Total_Points * 100, 0)}%</div>
+          <div class="comp-sub">projected vs actual optimal</div>
+        </div>
+      </div>
+      <div class="acc-track" style="height:3px; margin-bottom:0;">
+        <div class="acc-fill ${fillCls}" style="width:${(ov.pct*100).toFixed(1)}%; background:${colour};"></div>
+      </div>
+      <p class="note-text">
+        Highlighted rows &mdash; green tick &mdash; indicate players selected in both the predicted and actual optimal lineups.
+        The captain (C) is the model&rsquo;s highest-projected or highest-scoring player.
+      </p>`;
+  } else {
+    footer.innerHTML = '';
+  }
+
+  // Open overlay
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('modal-close').focus();
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+
+document.getElementById('modal-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+/* ── Bootstrap ────────────────────────────────────────────────────────────────── */
+loadData()
+  .then(data => {
+    store = data;
+    renderStats();
+    renderGrid();
+  })
+  .catch(err => {
+    console.error('Failed to load data:', err);
+    document.getElementById('challenge-grid').innerHTML =
+      `<div class="empty-state" style="color:var(--red);">Failed to load challenge data. Check the console for details.</div>`;
+    document.getElementById('hero-summary').textContent = 'Data unavailable.';
+  });
+</script>
+</body>
+</html>
