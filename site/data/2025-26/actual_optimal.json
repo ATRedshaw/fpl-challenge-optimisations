@@ -1734,5 +1734,67 @@
         },
         "Total_Cost": 38.5,
         "Total_Points": 136
+    },
+    "29": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 8,
+                    "Name": "J.Timber",
+                    "Team": "Arsenal",
+                    "Cost": 6.3,
+                    "Points": 19,
+                    "Captain": false
+                },
+                {
+                    "ID": 291,
+                    "Name": "Tarkowski",
+                    "Team": "Everton",
+                    "Cost": 5.7,
+                    "Points": 21,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 249,
+                    "Name": "João Pedro",
+                    "Team": "Chelsea",
+                    "Cost": 7.7,
+                    "Points": 19,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 267,
+                    "Name": "Sarr",
+                    "Team": "Crystal Palace",
+                    "Cost": 6.3,
+                    "Points": 42,
+                    "Captain": true
+                },
+                {
+                    "ID": 643,
+                    "Name": "André",
+                    "Team": "Wolves",
+                    "Cost": 5.2,
+                    "Points": 18,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 813,
+                    "Name": "Ellborg",
+                    "Team": "Sunderland",
+                    "Cost": 4.0,
+                    "Points": 16,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 35.2,
+        "Total_Points": 135
     }
 }
