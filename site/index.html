@@ -8,6 +8,10 @@
   <meta property="og:title" content="FPL Challenge Optimiser" />
   <meta property="og:description" content="LP-based lineup optimisation for every FPL Challenge. Compare predicted selections against the with-hindsight optimal." />
 
+  <!-- Cache control: always revalidate with the server -->
+  <meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+
   <!-- Emoji favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>" />
 
@@ -1249,11 +1253,12 @@ let sortKey  = 'num-asc';
 /* ── Data loading ─────────────────────────────────────────────────────────────── */
 async function loadData() {
   const base = dataBase();
+  const opts = { cache: 'no-cache' };
   const [challenges, predicted, actual, outcome] = await Promise.all([
-    fetch(`${base}/challenges.json`).then(r => r.json()),
-    fetch(`${base}/predicted_optimal.json`).then(r => r.json()).catch(() => ({})),
-    fetch(`${base}/actual_optimal.json`).then(r => r.json()).catch(() => ({})),
-    fetch(`${base}/actual_outcome.json`).then(r => r.json()).catch(() => null),
+    fetch(`${base}/challenges.json`, opts).then(r => r.json()),
+    fetch(`${base}/predicted_optimal.json`, opts).then(r => r.json()).catch(() => ({})),
+    fetch(`${base}/actual_optimal.json`, opts).then(r => r.json()).catch(() => ({})),
+    fetch(`${base}/actual_outcome.json`, opts).then(r => r.json()).catch(() => null),
   ]);
   return { challenges, predicted, actual, outcome };
 }
@@ -1834,7 +1839,7 @@ document.getElementById('modal-overlay').addEventListener('click', e => {
 async function initSeasons() {
   let seasons;
   try {
-    seasons = await fetch('data/seasons.json').then(r => r.json());
+    seasons = await fetch('data/seasons.json', { cache: 'no-cache' }).then(r => r.json());
   } catch {
     seasons = ['2025-26'];
   }
