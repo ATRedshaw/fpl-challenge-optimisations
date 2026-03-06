@@ -765,9 +765,11 @@
         to   { transform: translateY(0); }
       }
       #modal-box {
-        max-height: 92dvh;
+        max-height: 92svh;
         overflow-y: auto;
+        overscroll-behavior: contain;
         border-radius: 12px 12px 0 0;
+        will-change: transform;
         animation: modal-in-mobile 0.24s cubic-bezier(0.32, 0.72, 0, 1);
       }
       /* Drag handle hint */
@@ -808,9 +810,11 @@
         overflow-y: hidden;
       }
       #standing-chart-box {
-        max-height: 92dvh;
+        max-height: 92svh;
         overflow-y: auto;
+        overscroll-behavior: contain;
         border-radius: 12px 12px 0 0;
+        will-change: transform;
         animation: modal-in-mobile 0.24s cubic-bezier(0.32, 0.72, 0, 1);
       }
       #standing-chart-box::before {
@@ -1817,9 +1821,9 @@ function openModal(id) {
 
   // Open overlay
   const overlay = document.getElementById('modal-overlay');
-  overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
-  document.getElementById('modal-close').focus();
+  overlay.classList.add('open');
+  document.getElementById('modal-close').focus({ preventScroll: true });
 }
 
 function closeModal() {
@@ -1936,9 +1940,9 @@ function openStandingChart() {
 
   // Open overlay before rendering so the canvas has dimensions
   const overlay = document.getElementById('standing-chart-overlay');
-  overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
-  document.getElementById('standing-chart-close').focus();
+  overlay.classList.add('open');
+  document.getElementById('standing-chart-close').focus({ preventScroll: true });
 
   // Destroy stale instance before re-creating
   if (standingChartInstance) {
