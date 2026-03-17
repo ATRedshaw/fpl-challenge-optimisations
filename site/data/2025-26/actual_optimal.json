@@ -1796,5 +1796,67 @@
         },
         "Total_Cost": 35.2,
         "Total_Points": 135
+    },
+    "30": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 257,
+                    "Name": "Lacroix",
+                    "Team": "Crystal Palace",
+                    "Cost": 5.1,
+                    "Points": 15,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 314,
+                    "Name": "Leno",
+                    "Team": "Fulham",
+                    "Cost": 4.9,
+                    "Points": 7,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 387,
+                    "Name": "Szoboszlai",
+                    "Team": "Liverpool",
+                    "Cost": 7.0,
+                    "Points": 17,
+                    "Captain": false
+                },
+                {
+                    "ID": 449,
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 10.1,
+                    "Points": 16,
+                    "Captain": false
+                },
+                {
+                    "ID": 485,
+                    "Name": "Gordon",
+                    "Team": "Newcastle",
+                    "Cost": 7.3,
+                    "Points": 34,
+                    "Captain": true
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 597,
+                    "Name": "Richarlison",
+                    "Team": "Spurs",
+                    "Cost": 6.3,
+                    "Points": 15,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 40.7,
+        "Total_Points": 104
     }
 }
