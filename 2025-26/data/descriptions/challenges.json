@@ -122,5 +122,33 @@
     "31": {
         "title": "Creativity",
         "description": "+6 points awarded for players who create 3 or more chances (3 or more key passes)."
+    },
+    "32": {
+        "title": "From Distance",
+        "description": "+4 Points for each goal attempt made from outside the penalty area (on and off target)."
+    },
+    "33": {
+        "title": "Unstoppable",
+        "description": "+4 points for each foul drawn and +10 if fouled for a penalty."
+    },
+    "34": {
+        "title": "MVP",
+        "description": "Players who collect the maximum bonus points earn 10 points rather than 3."
+    },
+    "35": {
+        "title": "The Golden Boot",
+        "description": "All goals are worth 10 points."
+    },
+    "36": {
+        "title": "The Golden Playmaker",
+        "description": "All assists are worth 10 points."
+    },
+    "37": {
+        "title": "The Golden Glove",
+        "description": "4 points for every 3 saves rather than 1. Goalkeeper clean sheets are worth 10 points."
+    },
+    "38": {
+        "title": "Final Victory",
+        "description": "+8 points for any player on a winning team."
     }
 }
