@@ -1858,5 +1858,67 @@
         },
         "Total_Cost": 40.7,
         "Total_Points": 104
+    },
+    "31": {
+        "Players": {
+            "Goalkeeper": [
+                {
+                    "ID": 101,
+                    "Name": "Kelleher",
+                    "Team": "Brentford",
+                    "Cost": 4.8,
+                    "Points": 9,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 311,
+                    "Name": "Beto",
+                    "Team": "Everton",
+                    "Cost": 5.0,
+                    "Points": 16,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 335,
+                    "Name": "King",
+                    "Team": "Fulham",
+                    "Cost": 4.4,
+                    "Points": 19,
+                    "Captain": false
+                },
+                {
+                    "ID": 449,
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 10.3,
+                    "Points": 38,
+                    "Captain": true
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 508,
+                    "Name": "N.Williams",
+                    "Team": "Nott'm Forest",
+                    "Cost": 4.7,
+                    "Points": 15,
+                    "Captain": false
+                },
+                {
+                    "ID": 707,
+                    "Name": "Justin",
+                    "Team": "Leeds",
+                    "Cost": 3.9,
+                    "Points": 12,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 33.1,
+        "Total_Points": 109
     }
 }
