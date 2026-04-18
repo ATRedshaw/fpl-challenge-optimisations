@@ -291,12 +291,18 @@
       font-size: 13px;
       color: var(--text);
     }
-    .match-pct {
+    .player-match {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .opt-gap {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--gold);
     }
     .acc-track { height: 2px; background: var(--border); border-radius: 2px; overflow: hidden; }
-    .acc-fill  { height: 100%; border-radius: 2px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
+    .acc-fill  { height: 100%; border-radius: 2px; background: var(--blue); transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
     .outcome-row {
       display: flex;
       align-items: center;
@@ -892,7 +898,7 @@
     <div class="stat-cell"><div class="eyebrow">Total challenges</div><div class="stat-value" style="color:var(--text-faint);">—</div></div>
     <div class="stat-cell"><div class="eyebrow">Completed</div><div class="stat-value" style="color:var(--text-faint);">—</div></div>
     <div class="stat-cell"><div class="eyebrow">In progress</div><div class="stat-value" style="color:var(--text-faint);">—</div></div>
-    <div class="stat-cell"><div class="eyebrow">Avg match rate</div><div class="stat-value" style="color:var(--text-faint);">—</div></div>
+    <div class="stat-cell"><div class="eyebrow">Avg optimal realised</div><div class="stat-value" style="color:var(--text-faint);">—</div></div>
   </div>
   <!-- Season standing — populated by JS when actual_outcome.json is available -->
   <div class="standing-bar" id="standing-section" role="button" tabindex="0" style="display:none;" aria-label="View season standing progression">
@@ -930,8 +936,8 @@
       <option value="gw-rank-asc">Best GW rank</option>
       <option value="overlap-desc">Best match rate</option>
       <option value="pts-desc">Highest optimal pts</option>
-      <option value="ratio-desc">Highest prediction ratio</option>
-      <option value="ratio-asc">Lowest prediction ratio</option>
+      <option value="ratio-desc">Highest % optimal realised</option>
+      <option value="ratio-asc">Lowest % optimal realised</option>
     </select>
   </div>
 </div>
@@ -1035,23 +1041,22 @@
           <li>
             <strong>xPts &rarr; Optimal pts.</strong> The two numbers separated by an arrow are the
             model's forecast point total for the predicted lineup (xPts) and the actual points that
-            the hindsight-optimal lineup scored. The arrow is not a judgement. It is just an arrow.
+            the hindsight-optimal lineup scored.
           </li>
           <li>
-            <strong>Prediction ratio.</strong> The percentage shown alongside those two figures is
-            the prediction ratio: the model's xPts forecast expressed as a share of the hindsight
-            ceiling. A higher figure means the model's forecast was closer to the best achievable
-            result.
+            <strong>X/Y players.</strong> How many players in the predicted lineup also appear in
+            the hindsight-optimal squad, out of the total squad size. The blue bar below is a visual
+            representation of the same ratio.
           </li>
           <li>
-            <strong>Match rate.</strong> The colour-coded percentage and progress bar below show how
-            many players in the predicted lineup also appeared in the hindsight-optimal squad. This
-            is discussed in more detail further down.
+            <strong>Scored pts &middot; % of optimal.</strong> When a personal result has been
+            recorded, the card shows the actual points scored and what percentage of the
+            hindsight-optimal ceiling that represents, i.e the optimal capture rate.
           </li>
           <li>
-            <strong>Scored pts and GW rank.</strong> When a personal result has been recorded for
-            a challenge, the card also shows the actual points scored and the gameweek rank achieved
-            with that submission.
+            <strong>&plusmn; vs pred &middot; GW rank.</strong> The delta between the actual score
+            and the model's xPts forecast, i.e. green if the submission beat the projection, red if it
+            fell short, alongside the gameweek rank for that submission.
           </li>
         </ul>
       </div>
@@ -1070,18 +1075,16 @@
         </p>
         <ul class="about-list">
           <li>
-            <strong>Match rate.</strong> The number of players the predicted lineup shares with the
-            hindsight optimal, expressed as a percentage of the total squad size.
+            <strong>Players matched.</strong> The number of players the predicted lineup shares with
+            the hindsight optimal, out of the total squad size, shown with a blue progress bar.
           </li>
           <li>
-            <strong>Hindsight gap.</strong> The raw points difference between the hindsight-optimal
-            score and the model's xPts forecast. This tells you how far the ceiling was above what
-            the model expected to achieve.
+            <strong>Projected pts.</strong> The model's raw xPts forecast for the predicted lineup,
+            before any results were known.
           </li>
           <li>
-            <strong>Prediction ratio.</strong> The model's xPts forecast as a percentage of the
-            hindsight-optimal score. The closer to 100%, the better the model judged the points
-            available in that particular challenge.
+            <strong>Optimal ceiling.</strong> How many more points the hindsight-optimal lineup
+            scored above the model's projection, i.e. the gap between forecast and perfect foreknowledge.
           </li>
         </ul>
         <p>
@@ -1095,35 +1098,32 @@
           </li>
           <li>
             <strong>Overall rank.</strong> The season-long cumulative rank at the time of that
-            gameweek, shown alongside a percentile for context. Raw rank numbers are easier to
-            interpret when you know what fraction of the field they represent.
+            gameweek, shown alongside a percentile for context.
           </li>
           <li>
             <strong>Pts vs optimal.</strong> The submission's actual score minus the hindsight
-            ceiling. This will almost always be negative. A positive figure would mean the submission
-            outscored the theoretically perfect lineup, which would be quite the achievement.
+            ceiling. Always negative, a positive would mean outscoring the theoretically
+            perfect lineup, which would be quite the achievement.
           </li>
           <li>
             <strong>Pts vs predicted.</strong> The submission's actual score minus the model's xPts
-            forecast. Positive means the lineup outperformed what the model expected. The model
-            quietly keeps track.
+            forecast. Positive means the lineup outperformed what the model expected.
           </li>
         </ul>
       </div>
 
       <div class="about-section">
-        <h3>Reading the match rate</h3>
+        <h3>Reading the player match count</h3>
         <p>
-          Match rate is the share of players the predicted lineup has in common with the hindsight-optimal.
-          The number will look low, and that is expected. Each challenge has its own squad format and
-          size, but the eligible player pool is always around 600. The number of valid squad combinations
-          is astronomically large regardless of how many players you are picking. Getting any meaningful
-          fraction of the optimal selection right before a ball has been kicked is a genuinely good result.
+          The X/Y players figure shows how many of the predicted lineup's players also appear in the
+          hindsight-optimal squad. The number will look small, and that is expected. The eligible
+          player pool is around 600. Getting any meaningful fraction of the optimal selection right
+          before a ball has been kicked is a genuinely good result.
         </p>
         <div class="about-callout">
-          A <strong>50% match rate</strong> means half the predicted squad matched the best possible
-          selection chosen from roughly 600 players. The probability of landing that by chance is
-          effectively zero. The model is finding real signal.
+          Matching <strong>5 of 11 players</strong> means the model identified nearly half the best
+          possible selection from roughly 600 eligible players. The probability of landing that by
+          chance is effectively zero. The model is finding real signal.
         </div>
         <div class="about-example">
           <p>
@@ -1144,25 +1144,24 @@
       </div>
 
       <div class="about-section">
-        <h3>The prediction ratio matters more</h3>
+        <h3>Optimal capture rate</h3>
         <p>
           Player overlap only tells part of the story. Two completely different squads can score nearly
           identical points when the market has priced in the same likely contributors. The more telling
-          measure is how close the model's xPts forecast comes to the hindsight ceiling, expressed
-          here as the prediction ratio.
+          measure is how much of the hindsight ceiling the actual submission captured (the optimal
+          capture rate), shown on each card as <em>% of optimal</em>.
         </p>
         <p>
-          The prediction ratio is the model's xPts forecast as a percentage of the hindsight-optimal
-          score. A figure of 100% would mean the model forecast exactly as many points as the best
-          possible lineup actually scored. That will never happen in practice, and unlike match rate,
-          there is no comfortable statistical argument for why a lower figure is still impressive.
-          The hindsight optimal is the ceiling, and the ratio tells you how close the model got.
+          It is calculated as the submission's actual score divided by the hindsight-optimal score,
+          expressed as a percentage. A figure of 100% would mean the submission matched the best
+          possible lineup's score exactly, unlikely in practice, but a useful anchor. The higher
+          the figure, the closer the real-world result came to the theoretical ceiling the model
+          identified.
         </p>
         <div class="about-callout">
-          A prediction ratio in the <strong>high sixties</strong> is a strong result. It means the
-          model forecast roughly two-thirds of the maximum points available, chosen before a single
-          match was played and with no knowledge of injuries, rotations or who would have an
-          unexpectedly brilliant afternoon.
+          An optimal capture rate in the <strong>high sixties or above</strong> is a strong result.
+          It means the submission scored roughly two-thirds or more of the maximum points available,
+          chosen before a single match was played.
         </div>
       </div>
 
@@ -1328,25 +1327,28 @@ function renderStats() {
   const { challenges, predicted, actual } = store;
   const keys = Object.keys(challenges);
 
-  let complete = 0, inProgress = 0, totalOverlapPct = 0, overlapCount = 0;
+  let complete = 0, inProgress = 0, totalPtsCaptured = 0, ptsCapturedCount = 0;
   for (const key of keys) {
     const s = statusOf(key, predicted, actual);
     if (s === 'complete') {
       complete++;
-      const ov = computeOverlap(predicted[key], actual[key]);
-      totalOverlapPct += ov.pct;
-      overlapCount++;
+      const oe  = store.outcome?.[key];
+      const opt = actual[key]?.Total_Points;
+      if (oe?.Total_Points != null && opt > 0) {
+        totalPtsCaptured += oe.Total_Points / opt;
+        ptsCapturedCount++;
+      }
     } else if (s === 'predicted') {
       inProgress++;
     }
   }
 
-  const avgMatch = overlapCount > 0 ? `${(totalOverlapPct / overlapCount * 100).toFixed(0)}%` : '—';
+  const avgCaptured = ptsCapturedCount > 0 ? `${(totalPtsCaptured / ptsCapturedCount * 100).toFixed(0)}%` : '—';
 
   const strip = document.getElementById('stats-strip');
   const cells = strip.querySelectorAll('.stat-cell');
-  const values = [keys.length, complete, inProgress, avgMatch];
-  const colours = ['var(--text)', 'var(--accent)', 'var(--blue)', 'var(--text)'];
+  const values  = [keys.length, complete, inProgress, avgCaptured];
+  const colours  = ['var(--text)', 'var(--accent)', 'var(--blue)', 'var(--text)'];
 
   cells.forEach((cell, i) => {
     const val = cell.querySelector('.stat-value');
@@ -1428,9 +1430,11 @@ function sortedKeys() {
       }
       case 'ratio-desc':
       case 'ratio-asc': {
-        const ra = (actual[ka] && predicted[ka] && actual[ka].Total_Points !== 0) ? predicted[ka].Total_Points / actual[ka].Total_Points : null;
-        const rb = (actual[kb] && predicted[kb] && actual[kb].Total_Points !== 0) ? predicted[kb].Total_Points / actual[kb].Total_Points : null;
-        // Push incomplete challenges to the end
+        const oe_a = store.outcome?.[ka];
+        const oe_b = store.outcome?.[kb];
+        const ra = (oe_a?.Total_Points != null && actual[ka]?.Total_Points > 0) ? oe_a.Total_Points / actual[ka].Total_Points : null;
+        const rb = (oe_b?.Total_Points != null && actual[kb]?.Total_Points > 0) ? oe_b.Total_Points / actual[kb].Total_Points : null;
+        // Push challenges without outcome data to the end
         if (ra === null && rb === null) return a - b;
         if (ra === null) return 1;
         if (rb === null) return -1;
@@ -1476,15 +1480,32 @@ function renderGrid() {
     let footer = '';
 
     if (hasBoth) {
-      const ov     = computeOverlap(predicted[key], actual[key]);
-      const colour = overlapColour(ov.pct);
-      const fillW  = (ov.pct * 100).toFixed(1);
-      const fillCls = ov.pct >= 0.5 ? 'good' : ov.pct >= 0.25 ? 'fair' : 'poor';
-      const ratio  = actual[key].Total_Points > 0 ? Math.round(predicted[key].Total_Points / actual[key].Total_Points * 100) : 0;
-      const oe      = outcome?.[key];
-      const outcomeRow = oe?.Ranks?.rank != null
-        ? `<div class="outcome-row"><span>Scored <span class="mono" style="color:var(--text-muted);">${oe.Total_Points} pts</span></span><span>GW #${fmtNum(oe.Ranks.rank)}</span></div>`
-        : '';
+      const ov    = computeOverlap(predicted[key], actual[key]);
+      const fillW = (ov.pct * 100).toFixed(1);
+      const oe    = outcome?.[key];
+      const opt   = actual[key].Total_Points;
+
+      // ±delta: my score vs model's prediction
+      const gap = (oe?.Total_Points != null)
+        ? Math.round(oe.Total_Points - predicted[key].Total_Points)
+        : null;
+      const gapColour = gap !== null ? (gap >= 0 ? 'var(--accent)' : 'var(--red)') : null;
+
+      // % of optimal ceiling captured
+      const pctOpt = (oe?.Total_Points != null && opt > 0)
+        ? Math.round(oe.Total_Points / opt * 100)
+        : null;
+
+      let outcomeRow = '';
+      if (oe?.Total_Points != null) {
+        const leftParts = [`Scored <span class="mono" style="color:var(--text-muted);">${oe.Total_Points} pts</span>`];
+        if (pctOpt !== null) leftParts.push(`<span class="mono" style="color:var(--text-faint);">${pctOpt}% of optimal</span>`);
+        const rightParts = [];
+        if (gap !== null) rightParts.push(`<span class="mono" style="color:${gapColour};">${gap >= 0 ? '+' : ''}${gap} vs pred</span>`);
+        if (oe.Ranks?.rank != null) rightParts.push(`GW #${fmtNum(oe.Ranks.rank)}`);
+        outcomeRow = `<div class="outcome-row"><span>${leftParts.join(' · ')}</span><span style="color:var(--text-faint);">${rightParts.join(' · ')}</span></div>`;
+      }
+
       footer = `
         <div class="card-footer">
           <div class="pts-row">
@@ -1493,12 +1514,11 @@ function renderGrid() {
               <span class="pts-arrow">&rarr;</span>
               <span class="pts-actual">${fmt(actual[key].Total_Points)}</span>
               <span style="font-size:11px; color:var(--text-faint); margin-left:3px;">pts</span>
-              <span style="font-size:11px; color:var(--text-faint); margin-left:6px;">&middot; <span class="mono" style="color:var(--text-muted);">${ratio}%</span></span>
             </span>
-            <span class="match-pct" style="color:${colour};">${(ov.pct * 100).toFixed(0)}% match</span>
+            <span class="player-match">${ov.shared}/${ov.total} players</span>
           </div>
           <div class="acc-track">
-            <div class="acc-fill ${fillCls}" style="width:${fillW}%; background:${colour};"></div>
+            <div class="acc-fill" style="width:${fillW}%;"></div>
           </div>
           ${outcomeRow}
         </div>`;
@@ -1748,8 +1768,6 @@ function openModal(id) {
   const footer = document.getElementById('modal-footer');
   if (pred && act) {
     const ov       = computeOverlap(pred, act);
-    const colour   = overlapColour(ov.pct);
-    const fillCls  = ov.pct >= 0.5 ? 'good' : ov.pct >= 0.25 ? 'fair' : 'poor';
     const ptsDiff  = act.Total_Points - pred.Total_Points;
 
     let rankStats = '';
@@ -1789,22 +1807,22 @@ function openModal(id) {
       <div class="eyebrow" style="margin-bottom:12px;">Prediction analysis</div>
       <div class="comparison-grid">
         <div class="comp-stat">
-          <div class="eyebrow" style="margin-bottom:6px;">Match rate</div>
-          <div class="comp-val" style="color:${colour};">${(ov.pct * 100).toFixed(0)}%</div>
-          <div class="comp-sub">${ov.shared} of ${ov.total} players predicted correctly</div>
+          <div class="eyebrow" style="margin-bottom:6px;">Players matched</div>
+          <div class="comp-val" style="color:var(--blue);">${ov.shared}/${ov.total}</div>
+          <div class="comp-sub">${ov.shared} of ${ov.total} optimal players identified</div>
           <div class="acc-track" style="margin-top:8px; width:80px;">
-            <div class="acc-fill ${fillCls}" style="width:${(ov.pct*100).toFixed(1)}%; background:${colour};"></div>
+            <div class="acc-fill" style="width:${(ov.pct*100).toFixed(1)}%;"></div>
           </div>
         </div>
         <div class="comp-stat">
-          <div class="eyebrow" style="margin-bottom:6px;">Hindsight gap</div>
-          <div class="comp-val">+${fmt(ptsDiff)}</div>
-          <div class="comp-sub">hindsight optimal over model prediction</div>
+          <div class="eyebrow" style="margin-bottom:6px;">Projected pts</div>
+          <div class="comp-val" style="color:var(--blue);">${fmt(pred.Total_Points)}</div>
+          <div class="comp-sub">model’s pre-gameweek projection</div>
         </div>
         <div class="comp-stat">
-          <div class="eyebrow" style="margin-bottom:6px;">Prediction ratio</div>
-          <div class="comp-val" style="color:var(--text-muted);">${fmt(pred.Total_Points / act.Total_Points * 100, 0)}%</div>
-          <div class="comp-sub">model prediction vs hindsight optimal</div>
+          <div class="eyebrow" style="margin-bottom:6px;">Optimal ceiling</div>
+          <div class="comp-val" style="color:var(--gold);">+${fmt(ptsDiff)}</div>
+          <div class="comp-sub">hindsight optimal above projection</div>
         </div>
       </div>
       ${rankStats ? `
