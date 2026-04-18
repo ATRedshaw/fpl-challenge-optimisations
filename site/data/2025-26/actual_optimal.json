@@ -1920,5 +1920,67 @@
         },
         "Total_Cost": 33.1,
         "Total_Points": 109
+    },
+    "32": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 21,
+                    "Name": "Rice",
+                    "Team": "Arsenal",
+                    "Cost": 7.2,
+                    "Points": 20,
+                    "Captain": false
+                },
+                {
+                    "ID": 173,
+                    "Name": "Wieffer",
+                    "Team": "Brighton",
+                    "Cost": 4.9,
+                    "Points": 22,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 367,
+                    "Name": "Mamardashvili",
+                    "Team": "Liverpool",
+                    "Cost": 4.1,
+                    "Points": 9,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 508,
+                    "Name": "N.Williams",
+                    "Team": "Nott'm Forest",
+                    "Cost": 4.8,
+                    "Points": 46,
+                    "Captain": true
+                },
+                {
+                    "ID": 694,
+                    "Name": "Mukiele",
+                    "Team": "Sunderland",
+                    "Cost": 4.5,
+                    "Points": 22,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 792,
+                    "Name": "Taty",
+                    "Team": "West Ham",
+                    "Cost": 5.5,
+                    "Points": 15,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 31.0,
+        "Total_Points": 134
     }
 }
