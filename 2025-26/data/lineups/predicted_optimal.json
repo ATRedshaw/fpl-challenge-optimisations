@@ -1982,5 +1982,67 @@
         },
         "Total_Cost": 57.4,
         "Total_Points": 42.1
+    },
+    "33": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 90,
+                    "Name": "Scott",
+                    "Team": "Bournemouth",
+                    "Cost": 5.0,
+                    "Predicted_Points": 21.68,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 151,
+                    "Name": "Van Hecke",
+                    "Team": "Brighton",
+                    "Cost": 4.6,
+                    "Predicted_Points": 17.45,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 249,
+                    "Name": "João Pedro",
+                    "Team": "Chelsea",
+                    "Cost": 7.7,
+                    "Predicted_Points": 44.0,
+                    "Captain": true
+                },
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.5,
+                    "Predicted_Points": 21.5,
+                    "Captain": false
+                },
+                {
+                    "ID": 691,
+                    "Name": "Calvert-Lewin",
+                    "Team": "Leeds",
+                    "Cost": 5.6,
+                    "Predicted_Points": 19.39,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 470,
+                    "Name": "Dúbravka",
+                    "Team": "Burnley",
+                    "Cost": 4.0,
+                    "Predicted_Points": 8.22,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 41.4,
+        "Total_Points": 132.24
     }
 }
