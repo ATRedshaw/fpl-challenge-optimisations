@@ -7,8 +7,8 @@ import requests
 logger = logging.getLogger(__name__)
 
 ELEMENT_SUMMARY_URL = "https://fplchallenge.premierleague.com/api/element-summary/{id}/"
-MAX_BONUS_POINTS = 3
-CHALLENGE_BONUS_VALUE = 10
+MAX_BONUS = 3
+MAX_BONUS_EXTRA_POINTS = 7  # 10 awarded instead of 3, so uplift is +7
 REQUEST_DELAY_SECONDS = 1.0
 
 
@@ -32,21 +32,18 @@ def fetch_player_history(player_id: int) -> list[dict]:
         return []
 
 
-def calculate_max_bonus_probability(history: list[dict]) -> float:
+def calculate_max_bonus_rate(history: list[dict]) -> float:
     """
-    Estimate the probability that a player earns maximum bonus points (3) in a
-    given appearance, based on their season-to-date match history.
+    Calculate the proportion of appearances in which a player earned maximum bonus points.
 
     Only considers finished matches (team_h_score is not None) where the player
-    featured (minutes > 0). The probability is the fraction of those appearances
-    in which the player received 3 bonus points.
+    featured (minutes > 0).
 
     Args:
         history (list[dict]): Historical match records from the element summary API.
 
     Returns:
-        float: Estimated P(bonus == 3) per qualifying appearance; 0.0 if no
-            qualifying appearances exist.
+        float: Proportion of qualifying appearances with bonus == 3; 0.0 if none exist.
     """
     appearances = [
         g for g in history
@@ -55,7 +52,7 @@ def calculate_max_bonus_probability(history: list[dict]) -> float:
     if not appearances:
         return 0.0
 
-    max_bonus_count = sum(1 for g in appearances if g.get("bonus", 0) == MAX_BONUS_POINTS)
+    max_bonus_count = sum(1 for g in appearances if g.get("bonus", 0) == MAX_BONUS)
     return max_bonus_count / len(appearances)
 
 
@@ -64,26 +61,19 @@ def gw34_rules(projections: pd.DataFrame) -> pd.DataFrame:
     Apply Gameweek 34 'MVP' challenge rules to player projections.
 
     Challenge rules:
-        Players who collect the maximum bonus points (3) earn 10 points rather
-        than the standard 3.
+        Players who collect the maximum bonus points (3) earn 10 points rather than 3.
+        That's an uplift of +7 points on top of the standard allocation.
 
     Implementation:
         For each player, the season-to-date match history is retrieved from the
-        FPL Challenge element summary API. P(bonus == 3) is estimated as the
-        fraction of finished appearances (minutes > 0) in which the player
-        received 3 bonus points.
+        FPL Challenge element summary API. The proportion of appearances where the
+        player earned max bonus (bonus == 3) is computed across all finished matches
+        where they featured (minutes > 0).
 
-        The projections already include expected bonus points under standard
-        scoring (max 3). Under this challenge, a player earning max bonus is
-        worth 10 rather than 3, so the effective uplift per appearance is::
+        Expected uplift is scaled by projected minutes::
 
-            adjustment = P(bonus == 3) * (10 - 3)
-                       = P(bonus == 3) * 7
-
-        This is scaled by projected minutes to account for the likelihood the
-        player features at all::
-
-            expected_adjustment = P(bonus == 3) * 7 * (xMins / 90)
+            max_bonus_rate = count(bonus == 3) / count(appearances)
+            expected_extra = max_bonus_rate * (xMins / 90) * 7
 
         This value is added directly to Predicted_Points.
 
@@ -108,18 +98,16 @@ def gw34_rules(projections: pd.DataFrame) -> pd.DataFrame:
         if i < total:
             time.sleep(REQUEST_DELAY_SECONDS)
 
-    bonus_uplift = CHALLENGE_BONUS_VALUE - MAX_BONUS_POINTS  # 7
-
-    def expected_adjustment(row: pd.Series) -> float:
+    def expected_extra(row: pd.Series) -> float:
         history = history_map.get(int(row["ID"]), [])
-        p_max_bonus = calculate_max_bonus_probability(history)
+        max_bonus_rate = calculate_max_bonus_rate(history)
         x_mins = float(row.get("xMins", 90))
         scale = x_mins / 90.0
-        return p_max_bonus * bonus_uplift * scale
+        return max_bonus_rate * scale * MAX_BONUS_EXTRA_POINTS
 
     projections = projections.copy()
     projections["Predicted_Points"] = (
-        projections["Predicted_Points"] + projections.apply(expected_adjustment, axis=1)
+        projections["Predicted_Points"] + projections.apply(expected_extra, axis=1)
     ).round(2)
 
     return projections
