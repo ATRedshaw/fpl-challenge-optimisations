@@ -1982,5 +1982,67 @@
         },
         "Total_Cost": 31.0,
         "Total_Points": 134
+    },
+    "33": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 74,
+                    "Name": "Truffert",
+                    "Team": "Bournemouth",
+                    "Cost": 4.7,
+                    "Points": 33,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 215,
+                    "Name": "Flemming",
+                    "Team": "Burnley",
+                    "Cost": 5.3,
+                    "Points": 33,
+                    "Captain": false
+                },
+                {
+                    "ID": 691,
+                    "Name": "Calvert-Lewin",
+                    "Team": "Leeds",
+                    "Cost": 5.7,
+                    "Points": 34,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 418,
+                    "Name": "Doku",
+                    "Team": "Man City",
+                    "Cost": 6.4,
+                    "Points": 80,
+                    "Captain": true
+                },
+                {
+                    "ID": 718,
+                    "Name": "Xavi",
+                    "Team": "Spurs",
+                    "Cost": 6.5,
+                    "Points": 27,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 729,
+                    "Name": "Lammens",
+                    "Team": "Man Utd",
+                    "Cost": 5.1,
+                    "Points": 10,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 33.7,
+        "Total_Points": 217
     }
 }
