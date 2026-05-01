@@ -2044,5 +2044,67 @@
         },
         "Total_Cost": 33.7,
         "Total_Points": 217
+    },
+    "34": {
+        "Players": {
+            "Goalkeeper": [
+                {
+                    "ID": 1,
+                    "Name": "Raya",
+                    "Team": "Arsenal",
+                    "Cost": 6.0,
+                    "Points": 17,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 317,
+                    "Name": "Andersen",
+                    "Team": "Fulham",
+                    "Cost": 4.5,
+                    "Points": 18,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 386,
+                    "Name": "Mac Allister",
+                    "Team": "Liverpool",
+                    "Cost": 6.2,
+                    "Points": 20,
+                    "Captain": false
+                },
+                {
+                    "ID": 457,
+                    "Name": "Casemiro",
+                    "Team": "Man Utd",
+                    "Cost": 5.8,
+                    "Points": 19,
+                    "Captain": false
+                },
+                {
+                    "ID": 613,
+                    "Name": "Souček",
+                    "Team": "West Ham",
+                    "Cost": 5.7,
+                    "Points": 17,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 526,
+                    "Name": "Igor Jesus",
+                    "Team": "Nott'm Forest",
+                    "Cost": 5.9,
+                    "Points": 42,
+                    "Captain": true
+                }
+            ]
+        },
+        "Total_Cost": 34.1,
+        "Total_Points": 133
     }
 }
