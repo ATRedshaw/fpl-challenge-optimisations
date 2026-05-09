@@ -2106,5 +2106,67 @@
         },
         "Total_Cost": 34.1,
         "Total_Points": 133
+    },
+    "35": {
+        "Players": {
+            "Goalkeeper": [
+                {
+                    "ID": 101,
+                    "Name": "Kelleher",
+                    "Team": "Brentford",
+                    "Cost": 4.8,
+                    "Points": 8,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 310,
+                    "Name": "Barry",
+                    "Team": "Everton",
+                    "Cost": 5.7,
+                    "Points": 23,
+                    "Captain": false
+                },
+                {
+                    "ID": 527,
+                    "Name": "Awoniyi",
+                    "Team": "Nott'm Forest",
+                    "Cost": 5.2,
+                    "Points": 28,
+                    "Captain": false
+                },
+                {
+                    "ID": 660,
+                    "Name": "Gyökeres",
+                    "Team": "Arsenal",
+                    "Cost": 8.9,
+                    "Points": 56,
+                    "Captain": true
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 418,
+                    "Name": "Doku",
+                    "Team": "Man City",
+                    "Cost": 6.5,
+                    "Points": 25,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 694,
+                    "Name": "Mukiele",
+                    "Team": "Sunderland",
+                    "Cost": 4.6,
+                    "Points": 15,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 35.7,
+        "Total_Points": 155
     }
 }
