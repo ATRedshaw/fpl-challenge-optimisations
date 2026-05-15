@@ -2168,5 +2168,67 @@
         },
         "Total_Cost": 35.7,
         "Total_Points": 155
+    },
+    "36": {
+        "Players": {
+            "Goalkeeper": [
+                {
+                    "ID": 32,
+                    "Name": "Martinez",
+                    "Team": "Aston Villa",
+                    "Cost": 5.1,
+                    "Points": 13,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 73,
+                    "Name": "Smith",
+                    "Team": "Bournemouth",
+                    "Cost": 4.4,
+                    "Points": 18,
+                    "Captain": false
+                },
+                {
+                    "ID": 145,
+                    "Name": "De Cuyper",
+                    "Team": "Brighton",
+                    "Cost": 4.3,
+                    "Points": 58,
+                    "Captain": true
+                },
+                {
+                    "ID": 291,
+                    "Name": "Tarkowski",
+                    "Team": "Everton",
+                    "Cost": 5.7,
+                    "Points": 22,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 354,
+                    "Name": "Ampadu",
+                    "Team": "Leeds",
+                    "Cost": 4.9,
+                    "Points": 17,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.7,
+                    "Points": 18,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 39.1,
+        "Total_Points": 146
     }
 }

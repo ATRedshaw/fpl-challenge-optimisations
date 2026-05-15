@@ -2230,5 +2230,67 @@
         },
         "Total_Cost": 45.4,
         "Total_Points": 78.39
+    },
+    "37": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 5,
+                    "Name": "Gabriel",
+                    "Team": "Arsenal",
+                    "Cost": 7.3,
+                    "Predicted_Points": 7.47,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 136,
+                    "Name": "Thiago",
+                    "Team": "Brentford",
+                    "Cost": 7.3,
+                    "Predicted_Points": 5.61,
+                    "Captain": false
+                },
+                {
+                    "ID": 249,
+                    "Name": "João Pedro",
+                    "Team": "Chelsea",
+                    "Cost": 7.5,
+                    "Predicted_Points": 5.61,
+                    "Captain": false
+                },
+                {
+                    "ID": 430,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 14.7,
+                    "Predicted_Points": 7.71,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 449,
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 10.4,
+                    "Predicted_Points": 5.93,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 469,
+                    "Name": "Pope",
+                    "Team": "Newcastle",
+                    "Cost": 5.0,
+                    "Predicted_Points": 16.58,
+                    "Captain": true
+                }
+            ]
+        },
+        "Total_Cost": 52.2,
+        "Total_Points": 48.91
     }
 }
