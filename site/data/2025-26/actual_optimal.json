@@ -2230,5 +2230,67 @@
         },
         "Total_Cost": 39.1,
         "Total_Points": 146
+    },
+    "37": {
+        "Players": {
+            "Forward": [
+                {
+                    "ID": 64,
+                    "Name": "Watkins",
+                    "Team": "Aston Villa",
+                    "Cost": 8.7,
+                    "Points": 15,
+                    "Captain": false
+                },
+                {
+                    "ID": 500,
+                    "Name": "Osula",
+                    "Team": "Newcastle",
+                    "Cost": 5.5,
+                    "Points": 13,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 83,
+                    "Name": "O.Dango",
+                    "Team": "Brentford",
+                    "Cost": 5.6,
+                    "Points": 15,
+                    "Captain": false
+                },
+                {
+                    "ID": 547,
+                    "Name": "E.Le Fée",
+                    "Team": "Sunderland",
+                    "Cost": 4.8,
+                    "Points": 13,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 341,
+                    "Name": "Darlow",
+                    "Team": "Leeds",
+                    "Cost": 4.0,
+                    "Points": 46,
+                    "Captain": true
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 373,
+                    "Name": "Virgil",
+                    "Team": "Liverpool",
+                    "Cost": 6.1,
+                    "Points": 14,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 34.7,
+        "Total_Points": 116
     }
 }
