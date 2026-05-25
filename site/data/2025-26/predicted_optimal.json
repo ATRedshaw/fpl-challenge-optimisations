@@ -2292,5 +2292,67 @@
         },
         "Total_Cost": 52.2,
         "Total_Points": 48.91
+    },
+    "38": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 5,
+                    "Name": "Gabriel",
+                    "Team": "Arsenal",
+                    "Cost": 7.3,
+                    "Predicted_Points": 21.5,
+                    "Captain": true
+                },
+                {
+                    "ID": 260,
+                    "Name": "Guéhi",
+                    "Team": "Man City",
+                    "Cost": 5.1,
+                    "Predicted_Points": 9.14,
+                    "Captain": false
+                },
+                {
+                    "ID": 373,
+                    "Name": "Virgil",
+                    "Team": "Liverpool",
+                    "Cost": 6.1,
+                    "Predicted_Points": 9.6,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 215,
+                    "Name": "Flemming",
+                    "Team": "Burnley",
+                    "Cost": 5.3,
+                    "Predicted_Points": 8.29,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 220,
+                    "Name": "Sánchez",
+                    "Team": "Chelsea",
+                    "Cost": 4.8,
+                    "Predicted_Points": 7.39,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 515,
+                    "Name": "Gibbs-White",
+                    "Team": "Nott'm Forest",
+                    "Cost": 7.6,
+                    "Predicted_Points": 8.29,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 36.2,
+        "Total_Points": 64.21
     }
 }
