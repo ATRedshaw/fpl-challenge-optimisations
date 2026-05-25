@@ -2292,5 +2292,67 @@
         },
         "Total_Cost": 34.7,
         "Total_Points": 116
+    },
+    "38": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 18,
+                    "Name": "Madueke",
+                    "Team": "Arsenal",
+                    "Cost": 6.8,
+                    "Points": 19,
+                    "Captain": false
+                },
+                {
+                    "ID": 674,
+                    "Name": "J.Palhinha",
+                    "Team": "Spurs",
+                    "Cost": 5.5,
+                    "Points": 20,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 64,
+                    "Name": "Watkins",
+                    "Team": "Aston Villa",
+                    "Cost": 8.7,
+                    "Points": 21,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 320,
+                    "Name": "Diop",
+                    "Team": "Fulham",
+                    "Cost": 4.3,
+                    "Points": 23,
+                    "Captain": false
+                },
+                {
+                    "ID": 441,
+                    "Name": "Dorgu",
+                    "Team": "Man Utd",
+                    "Cost": 4.1,
+                    "Points": 52,
+                    "Captain": true
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 681,
+                    "Name": "Hermansen",
+                    "Team": "West Ham",
+                    "Cost": 4.2,
+                    "Points": 15,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 33.6,
+        "Total_Points": 150
     }
 }
