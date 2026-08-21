@@ -4,7 +4,7 @@ An end-to-end optimisation engine for [FPL Challenge](https://fplchallenge.premi
 
 Each gameweek presents a different challenge (e.g. doubled points for players under 23, bonus points for goal threats, or clean sheet multipliers) and the job of this project is to find the mathematically optimal squad selection pre-gameweek, then retrospectively verify how close that prediction came to the true hindsight-optimal.
 
-The current season structure (`2025-26/`) represents a full rewrite and consolidation of earlier exploratory work done in Jupyter notebooks during the 2023-24 and 2024-25 seasons. It is the canonical structure going forward and is designed to be replicated for each new season with minimal friction.
+The current season structure (`2026-27/`) follows the consolidated Python layout introduced in 2025-26. Each season is self-contained, including its projection adapter and solver utilities, while generated JSON is mirrored into the shared static frontend.
 
 ---
 
@@ -22,6 +22,7 @@ Each projection record carries:
 - `xMins` — expected minutes, used as a scaling factor in downstream calculations
 - `Cost` — player price in millions
 - `Position` and `Team` metadata
+- Component projections including `Projected_Goals`, `Projected_Assists`, `Clean_Sheet`, `Defcon`, `Saves`, `Bonus`, `Appearance` and `Base_Mins`
 
 ### 2. Challenge Rule Adjustments
 
@@ -92,20 +93,20 @@ The hindsight run pulls live point data from the FPL Challenge API, skips any ga
 
 A static HTML frontend at `site/index.html` renders the predicted and actual optimal lineups side-by-side for every completed gameweek. It reads from JSON files mirrored into `site/data/` on each solver run and is designed to work without a build step.
 
-Challenge metadata (titles and descriptions) is scraped from the minified FPL Challenge JS bundle using a targeted regular expression, parsed and written to `site/data/{season}/challenges.json` for the frontend to consume.
+Challenge metadata (titles and descriptions) is scraped from the minified FPL Challenge JS bundle using a targeted regular expression, parsed and written to `site/data/{season}/challenges.json` for the frontend to consume. The hashed `/assets/index-*.js` URL is discovered automatically from the live FPL Challenge homepage on every gameweek run, so `config.yaml` no longer needs a weekly bundle hash update.
 
 ---
 
 ## Project Structure
 
-The structure below was established for the 2025-26 season and is the template for all future seasons. Each new season gets its own top-level directory mirroring this layout. The `utils/` package is shared and season-agnostic; only the per-gameweek runner scripts and rule modules change between seasons.
+The structure below was established for the 2025-26 season and is the template for all future seasons. Each new season gets its own top-level directory mirroring this layout. Common utilities are copied into that season so historical seasons remain reproducible; only the per-gameweek runner scripts and rule modules need to be added as new challenges are released.
 
 ```
-{season}/                       # e.g. 2025-26/
+{season}/                       # e.g. 2026-27/
 ├── gw{n}.py                    # Per-gameweek runner scripts
 ├── hindsight.py                # Hindsight optimisation across all completed GWs
 ├── data/
-│   ├── config.yaml             # Season config (team ID, JS bundle URL)
+│   ├── config.yaml             # Season config (team ID, descriptions homepage)
 │   ├── constraints.yaml        # Per-GW solver constraints
 │   ├── projections/            # Saved xPts CSVs per GW
 │   ├── lineups/
@@ -115,7 +116,7 @@ The structure below was established for the 2025-26 season and is the template f
 │       └── challenges.json
 └── utils/
     ├── solver.py               # FPLChallengeOptimiser (ILP via PuLP)
-    ├── projections.py          # xPts API fetch and DataFrame construction
+    ├── projections.py          # Projections generation
     ├── data.py                 # JSON persistence and site mirroring
     ├── decisions.py            # Interactive ban/force with fuzzy matching
     ├── challenges.py           # Challenge metadata scraping

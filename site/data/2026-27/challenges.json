@@ -1,0 +1,22 @@
+{
+    "1": {
+        "title": "Instant Impact",
+        "description": "Double Points for summer signings. One player per club."
+    },
+    "2": {
+        "title": "Welcome Back",
+        "description": "Double Points for players from the promoted clubs. Up to three players per club."
+    },
+    "3": {
+        "title": "All Out Attack",
+        "description": "Goals and assists are worth double points. One player per club."
+    },
+    "4": {
+        "title": "Derby Day",
+        "description": "Double Points for Manchester United and Manchester City players. Up to three players per club."
+    },
+    "5": {
+        "title": "The Shield",
+        "description": "Defensive Contributions score 10 points. One player per club."
+    }
+}

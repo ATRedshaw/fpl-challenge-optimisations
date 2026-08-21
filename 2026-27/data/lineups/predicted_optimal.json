@@ -1,0 +1,64 @@
+{
+    "1": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 362,
+                    "Name": "Jacquet",
+                    "Team": "Liverpool",
+                    "Cost": 5.0,
+                    "Predicted_Points": 7.86,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 481,
+                    "Name": "Anderson",
+                    "Team": "Man City",
+                    "Cost": 6.5,
+                    "Predicted_Points": 17.36,
+                    "Captain": true
+                },
+                {
+                    "ID": 525,
+                    "Name": "Fernandes",
+                    "Team": "Spurs",
+                    "Cost": 6.0,
+                    "Predicted_Points": 7.6,
+                    "Captain": false
+                },
+                {
+                    "ID": 565,
+                    "Name": "Van Oevelen",
+                    "Team": "Ipswich Town",
+                    "Cost": 5.5,
+                    "Predicted_Points": 7.76,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 564,
+                    "Name": "Morita",
+                    "Team": "Hull City",
+                    "Cost": 4.5,
+                    "Predicted_Points": 6.66,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 569,
+                    "Name": "Horníček",
+                    "Team": "Newcastle",
+                    "Cost": 6.0,
+                    "Predicted_Points": 7.16,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 33.5,
+        "Total_Points": 54.4
+    }
+}

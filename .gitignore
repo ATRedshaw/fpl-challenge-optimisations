@@ -1,4 +1,4 @@
-projections.py
+**/projections.py
 venv/
 __pycache__/
 **/gameweek_projections.csv
