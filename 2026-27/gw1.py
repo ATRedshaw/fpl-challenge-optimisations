@@ -1,11 +1,11 @@
 """Run the 2026-27 Gameweek 1 FPL Challenge optimisation."""
 
-from pathlib import Path
 import sys
+from pathlib import Path
 
 import pandas as pd
 import yaml
-
+from hindsight import run_hindsight
 from utils.challenges import update_challenges
 from utils.constraints import update_constraints
 from utils.data import save_optimal_prediction, save_projections
@@ -13,7 +13,6 @@ from utils.decisions import run_ban_force
 from utils.projections import generate_projections
 from utils.rules.gw1 import gw1_rules
 from utils.solver import FPLChallengeOptimiser
-
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -79,4 +78,18 @@ if __name__ == "__main__":
     # Save projections
     # ==================================================================
     save_projections(projections, season, gameweek)
-    save_optimal_prediction(solver.selected_players, season, gameweek)
+    prediction_saved = save_optimal_prediction(
+        solver.selected_players, season, gameweek
+    )
+
+    # Run hindsight for completed gameweeks
+    # ==================================================================
+    if prediction_saved:
+        print("\nChecking for completed gameweeks to process...")
+        try:
+            run_hindsight(season_root)
+        except Exception as error:
+            print(
+                "Prediction saved, but automatic hindsight processing failed: "
+                f"{error}"
+            )

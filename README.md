@@ -85,7 +85,7 @@ The solver also supports interactive player banning and forcing at runtime, usin
 
 Once a gameweek is confirmed and data-checked by the Premier League, `hindsight.py` re-runs the full optimisation using **actual points** rather than projected ones. This produces the true hindsight-optimal lineup — the theoretically best possible selection with perfect information.
 
-The hindsight run pulls live point data from the FPL Challenge API, skips any gameweek already processed, and writes results alongside the predicted optima so the two can be compared directly.
+The hindsight run pulls live point data from the FPL Challenge API, uses the saved pre-deadline projection CSV for historical player costs, skips any gameweek already processed, and writes results alongside the predicted optima so the two can be compared directly. It runs automatically after a new gameweek prediction is saved, processing any earlier gameweeks that have since been marked finished and data-checked. The standalone command remains available for manual retries.
 
 ---
 

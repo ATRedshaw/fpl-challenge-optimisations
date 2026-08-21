@@ -2,32 +2,25 @@
 
 from __future__ import annotations
 
-from collections import defaultdict
 import json
-from pathlib import Path
 import sys
+from collections import defaultdict
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
 import requests
 import yaml
-
 from utils.actual import process_actual_outcome
 from utils.data import PROJECT_ROOT, ensure_season_in_registry
 from utils.solver import FPLChallengeOptimiser
-
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
 
 BASE_URL = "https://fplchallenge.premierleague.com/api"
-ELEMENT_TYPE_MAP = {
-    1: "Goalkeeper",
-    2: "Defender",
-    3: "Midfielder",
-    4: "Forward",
-}
+HINDSIGHT_PROJECTION_COLUMNS = ["ID", "Name", "Team", "Position", "Cost"]
 
 
 def fetch_bootstrap() -> dict:
@@ -50,26 +43,60 @@ def get_completed_gameweeks(events: list) -> list[int]:
     )
 
 
-def build_player_dataframe(bootstrap: dict, live_data: dict) -> pd.DataFrame:
-    team_name_by_id = {
-        int(team["id"]): team["name"] for team in bootstrap["teams"]
-    }
+def build_player_dataframe(
+    projections_path: Path, live_data: dict
+) -> pd.DataFrame:
+    """Combine the saved pre-deadline player snapshot with actual GW points."""
+    if not projections_path.exists():
+        raise FileNotFoundError(
+            f"Saved projections not found: {projections_path}"
+        )
+
+    saved_projections = pd.read_csv(projections_path)
+    missing_columns = [
+        column
+        for column in HINDSIGHT_PROJECTION_COLUMNS
+        if column not in saved_projections.columns
+    ]
+    if missing_columns:
+        raise ValueError(
+            f"{projections_path} is missing required columns: "
+            + ", ".join(missing_columns)
+        )
+
+    players = saved_projections[HINDSIGHT_PROJECTION_COLUMNS].copy()
+    if players.empty:
+        raise ValueError(f"No saved projections found in {projections_path}")
+
+    players["ID"] = pd.to_numeric(players["ID"], errors="coerce")
+    players["Cost"] = pd.to_numeric(players["Cost"], errors="coerce")
+    missing_values = [
+        column
+        for column in HINDSIGHT_PROJECTION_COLUMNS
+        if players[column].isna().any()
+    ]
+    if missing_values:
+        raise ValueError(
+            f"{projections_path} contains missing or invalid values in: "
+            + ", ".join(missing_values)
+        )
+
+    players["ID"] = players["ID"].astype(int)
+    duplicated_ids = players.loc[players["ID"].duplicated(), "ID"].tolist()
+    if duplicated_ids:
+        raise ValueError(
+            f"{projections_path} contains duplicate player IDs: "
+            + ", ".join(map(str, duplicated_ids))
+        )
+
     live_points_by_id = {
         int(element["id"]): element["stats"]["total_points"]
         for element in live_data["elements"]
     }
-    players = [
-        {
-            "ID": int(element["id"]),
-            "Name": element["web_name"],
-            "Team": team_name_by_id[int(element["team"])],
-            "Position": ELEMENT_TYPE_MAP[int(element["element_type"])],
-            "Cost": element["now_cost"] / 10,
-            "Predicted_Points": live_points_by_id.get(int(element["id"]), 0),
-        }
-        for element in bootstrap["elements"]
-    ]
-    return pd.DataFrame(players).sort_values("ID").reset_index(drop=True)
+    players["Predicted_Points"] = (
+        players["ID"].map(live_points_by_id).fillna(0)
+    )
+    return players.sort_values("ID").reset_index(drop=True)
 
 
 def _serialise_player(player: dict) -> dict:
@@ -145,8 +172,13 @@ def save_actual_optimal(
     ensure_season_in_registry(season)
 
 
-if __name__ == "__main__":
-    season_root = Path(__file__).resolve().parent
+def run_hindsight(season_root: Path | None = None) -> None:
+    """Process every completed, not-yet-recorded gameweek for a season."""
+    season_root = (
+        Path(season_root).resolve()
+        if season_root is not None
+        else Path(__file__).resolve().parent
+    )
     season = season_root.name
     with (season_root / "data" / "constraints.yaml").open(
         encoding="utf-8"
@@ -191,28 +223,44 @@ if __name__ == "__main__":
             if not constraints:
                 print(f"No constraints found for GW{gameweek}; skipping solver.")
             else:
-                projections = build_player_dataframe(bootstrap, live_data)
-                solver = FPLChallengeOptimiser(gameweek, projections)
-                solver.setup_problem(
-                    f"fpl-hindsight-{season.replace('-', '')}-gw{gameweek}"
+                projections_path = (
+                    season_root
+                    / "data"
+                    / "projections"
+                    / f"gw{gameweek}.csv"
                 )
-                solver.total_players_constraint(constraints["total_players"])
-                solver.position_count_constraints(
-                    constraints["position_constraints"]
-                )
-                solver.max_players_from_same_team_constraint(
-                    constraints["max_per_team"]
-                )
-                if constraints.get("budget_max") is not None:
-                    solver.budget_constraint(
-                        constraints["budget_max"],
-                        constraints.get("budget_min", 0),
+                if not projections_path.exists():
+                    print(
+                        f"No saved projections found for GW{gameweek}; "
+                        "skipping solver."
                     )
-                solver.solve()
-                solver.print_players_by_position()
-                save_actual_optimal(
-                    solver.selected_players, season, gameweek, output_path
-                )
+                else:
+                    projections = build_player_dataframe(
+                        projections_path, live_data
+                    )
+                    solver = FPLChallengeOptimiser(gameweek, projections)
+                    solver.setup_problem(
+                        f"fpl-hindsight-{season.replace('-', '')}-gw{gameweek}"
+                    )
+                    solver.total_players_constraint(
+                        constraints["total_players"]
+                    )
+                    solver.position_count_constraints(
+                        constraints["position_constraints"]
+                    )
+                    solver.max_players_from_same_team_constraint(
+                        constraints["max_per_team"]
+                    )
+                    if constraints.get("budget_max") is not None:
+                        solver.budget_constraint(
+                            constraints["budget_max"],
+                            constraints.get("budget_min", 0),
+                        )
+                    solver.solve()
+                    solver.print_players_by_position()
+                    save_actual_optimal(
+                        solver.selected_players, season, gameweek, output_path
+                    )
 
         if not outcome_done:
             process_actual_outcome(
@@ -224,3 +272,7 @@ if __name__ == "__main__":
             )
 
     print("\nHindsight optimisation complete.")
+
+
+if __name__ == "__main__":
+    run_hindsight()
