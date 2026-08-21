@@ -21,44 +21,44 @@
                     "Captain": true
                 },
                 {
-                    "ID": 525,
-                    "Name": "Fernandes",
-                    "Team": "Spurs",
-                    "Cost": 6.0,
-                    "Predicted_Points": 7.6,
+                    "ID": 554,
+                    "Name": "Tzolis",
+                    "Team": "Arsenal",
+                    "Cost": 6.5,
+                    "Predicted_Points": 7.96,
                     "Captain": false
                 },
                 {
-                    "ID": 565,
-                    "Name": "Van Oevelen",
-                    "Team": "Ipswich Town",
+                    "ID": 556,
+                    "Name": "M.Sangaré",
+                    "Team": "Brentford",
                     "Cost": 5.5,
                     "Predicted_Points": 7.76,
                     "Captain": false
                 }
             ],
-            "Goalkeeper": [
-                {
-                    "ID": 564,
-                    "Name": "Morita",
-                    "Team": "Hull City",
-                    "Cost": 4.5,
-                    "Predicted_Points": 6.66,
-                    "Captain": false
-                }
-            ],
             "Forward": [
                 {
-                    "ID": 569,
-                    "Name": "Horníček",
-                    "Team": "Newcastle",
+                    "ID": 561,
+                    "Name": "Gonzalo",
+                    "Team": "Fulham",
                     "Cost": 6.0,
                     "Predicted_Points": 7.16,
                     "Captain": false
                 }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 567,
+                    "Name": "Scherpen",
+                    "Team": "Ipswich Town",
+                    "Cost": 4.5,
+                    "Predicted_Points": 6.66,
+                    "Captain": false
+                }
             ]
         },
-        "Total_Cost": 33.5,
-        "Total_Points": 54.4
+        "Total_Cost": 34.0,
+        "Total_Points": 54.76
     }
 }
