@@ -26,6 +26,11 @@ class FPLChallengeOptimiser:
             plp.LpVariable(f"captain_{player_id}", 0, 1, cat="Integer")
             for player_id in self.player_ids
         ]
+
+        self.model += plp.lpSum(self.captain) == 1
+        for index in range(self.player_count):
+            self.model += self.captain[index] <= self.lineup[index]
+
         self.model += plp.lpSum(
             self.lineup[index]
             * self.projections_data.loc[index, "Predicted_Points"]
@@ -46,11 +51,6 @@ class FPLChallengeOptimiser:
     def force_players_constraint(self, force_index_list):
         for index in force_index_list:
             self.model += self.lineup[index] == 1
-
-    def captain_count_constraint(self, captain_count):
-        self.model += plp.lpSum(self.captain) == captain_count
-        for index in range(self.player_count):
-            self.model += self.captain[index] <= self.lineup[index]
 
     def position_count_constraints(self, position_counts):
         for position, counts in position_counts.items():

@@ -67,15 +67,15 @@ The objective is to maximise total predicted points including a doubled captain 
 maximise  sum(lineup[i] * pts[i]) + sum(captain[i] * pts[i])
 ```
 
-Subject to constraints loaded from `data/constraints.yaml` per gameweek:
+Subject to constraints refreshed from FPL Challenge bootstrap data and written to `data/constraints.yaml` per gameweek:
 
 - Total player count
-- Exactly one captain, who must be in the lineup
+- Exactly one captain, who must be in the lineup (an internal solver invariant)
 - Position minimums and maximums (goalkeeper, defender, midfielder, forward)
 - Maximum players from the same club
 - Budget ceiling and floor (where applicable)
 
-The constraint YAML makes it trivial to encode varying challenge formats without touching the solver logic. Constraints for every gameweek in the season are defined upfront.
+The live bootstrap supplies squad size, budget, positional limits and the per-club cap. `utils/constraints.py` merges event overrides with the default position definitions before updating the current gameweek's YAML entry, with unrelated manual fields and other gameweeks preserved.
 
 The solver also supports interactive player banning and forcing at runtime, using fuzzy name matching to resolve player names to their internal IDs.
 
@@ -107,7 +107,7 @@ The structure below was established for the 2025-26 season and is the template f
 ├── hindsight.py                # Hindsight optimisation across all completed GWs
 ├── data/
 │   ├── config.yaml             # Season config (team ID, descriptions homepage)
-│   ├── constraints.yaml        # Per-GW solver constraints
+│   ├── constraints.yaml        # API-refreshed per-GW solver constraints
 │   ├── projections/            # Saved xPts CSVs per GW
 │   ├── lineups/
 │   │   ├── predicted_optimal.json
@@ -116,7 +116,8 @@ The structure below was established for the 2025-26 season and is the template f
 │       └── challenges.json
 └── utils/
     ├── solver.py               # FPLChallengeOptimiser (ILP via PuLP)
-    ├── projections.py          # Projections generation
+    ├── projections.py          # FPL Copilot/API metadata adapter
+    ├── constraints.py          # Bootstrap constraint fetch and YAML update
     ├── data.py                 # JSON persistence and site mirroring
     ├── decisions.py            # Interactive ban/force with fuzzy matching
     ├── challenges.py           # Challenge metadata scraping

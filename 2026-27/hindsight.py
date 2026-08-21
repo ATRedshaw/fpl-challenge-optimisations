@@ -197,7 +197,6 @@ if __name__ == "__main__":
                     f"fpl-hindsight-{season.replace('-', '')}-gw{gameweek}"
                 )
                 solver.total_players_constraint(constraints["total_players"])
-                solver.captain_count_constraint(constraints["captain_count"])
                 solver.position_count_constraints(
                     constraints["position_constraints"]
                 )

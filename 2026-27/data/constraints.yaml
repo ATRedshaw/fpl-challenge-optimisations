@@ -1,6 +1,5 @@
 GW1:
   total_players: 6
-  captain_count: 1
   max_per_team: 1
   position_constraints:
     Goalkeeper:
@@ -15,3 +14,4 @@ GW1:
     Forward:
       min_count: 1
       max_count: 3
+  budget_max: 999.9
