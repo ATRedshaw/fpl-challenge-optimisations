@@ -39,7 +39,7 @@ def get_completed_gameweeks(events: list) -> list[int]:
     return sorted(
         int(event["id"])
         for event in events
-        if event.get("finished") and event.get("data_checked")
+        if event.get("finished")
     )
 
 

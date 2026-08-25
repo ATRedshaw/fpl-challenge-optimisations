@@ -1,1 +1,70 @@
-{}
+{
+    "1": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 362,
+                    "Name": "Jacquet",
+                    "Team": "Liverpool",
+                    "Cost": 5.0,
+                    "Points": 2,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 481,
+                    "Name": "Anderson",
+                    "Team": "Man City",
+                    "Cost": 6.5,
+                    "Points": 8,
+                    "Captain": true
+                },
+                {
+                    "ID": 554,
+                    "Name": "Tzolis",
+                    "Team": "Arsenal",
+                    "Cost": 6.5,
+                    "Points": 12,
+                    "Captain": false
+                },
+                {
+                    "ID": 556,
+                    "Name": "M.Sangaré",
+                    "Team": "Brentford",
+                    "Cost": 5.5,
+                    "Points": 28,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 561,
+                    "Name": "Gonzalo",
+                    "Team": "Fulham",
+                    "Cost": 6.0,
+                    "Points": 12,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 567,
+                    "Name": "Scherpen",
+                    "Team": "Ipswich Town",
+                    "Cost": 4.5,
+                    "Points": 4,
+                    "Captain": false
+                }
+            ]
+        },
+        "Ranks": {
+            "rank": 23262,
+            "overall_rank": 23262,
+            "percentile_rank": 10
+        },
+        "Total_Cost": 34.0,
+        "Total_Points": 66
+    },
+    "total_players": 398670
+}

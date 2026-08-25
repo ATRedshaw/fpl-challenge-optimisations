@@ -1,1 +1,64 @@
-{}
+{
+    "1": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 40,
+                    "Name": "Rogers",
+                    "Team": "Chelsea",
+                    "Cost": 7.5,
+                    "Points": 16,
+                    "Captain": false
+                },
+                {
+                    "ID": 556,
+                    "Name": "M.Sangaré",
+                    "Team": "Brentford",
+                    "Cost": 5.5,
+                    "Points": 28,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 115,
+                    "Name": "De Cuyper",
+                    "Team": "Brighton",
+                    "Cost": 4.5,
+                    "Points": 17,
+                    "Captain": false
+                },
+                {
+                    "ID": 586,
+                    "Name": "Mendy",
+                    "Team": "Hull City",
+                    "Cost": 4.0,
+                    "Points": 60,
+                    "Captain": true
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 316,
+                    "Name": "Emersonn",
+                    "Team": "Ipswich Town",
+                    "Cost": 5.5,
+                    "Points": 18,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 385,
+                    "Name": "Trafford",
+                    "Team": "Leeds",
+                    "Cost": 5.0,
+                    "Points": 18,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 32.0,
+        "Total_Points": 157
+    }
+}
