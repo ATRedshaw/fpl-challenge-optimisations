@@ -69,18 +69,18 @@
                     "Name": "Rushworth",
                     "Team": "Coventry City",
                     "Cost": 4.5,
-                    "Predicted_Points": 7.2,
+                    "Predicted_Points": 7.8,
                     "Captain": false
                 }
             ],
             "Defender": [
                 {
-                    "ID": 175,
-                    "Name": "van Ewijk",
+                    "ID": 176,
+                    "Name": "Dasilva",
                     "Team": "Coventry City",
                     "Cost": 4.0,
-                    "Predicted_Points": 7.68,
-                    "Captain": false
+                    "Predicted_Points": 15.96,
+                    "Captain": true
                 }
             ],
             "Midfielder": [
@@ -89,15 +89,15 @@
                     "Name": "Grimes",
                     "Team": "Coventry City",
                     "Cost": 5.0,
-                    "Predicted_Points": 7.94,
+                    "Predicted_Points": 7.9,
                     "Captain": false
                 },
                 {
-                    "ID": 289,
-                    "Name": "Crooks",
+                    "ID": 290,
+                    "Name": "Slater",
                     "Team": "Hull City",
                     "Cost": 4.5,
-                    "Predicted_Points": 7.14,
+                    "Predicted_Points": 6.8,
                     "Captain": false
                 }
             ],
@@ -107,20 +107,20 @@
                     "Name": "McBurnie",
                     "Team": "Hull City",
                     "Cost": 5.5,
-                    "Predicted_Points": 16.68,
-                    "Captain": true
+                    "Predicted_Points": 7.86,
+                    "Captain": false
                 },
                 {
                     "ID": 411,
                     "Name": "Haaland",
                     "Team": "Man City",
                     "Cost": 15.5,
-                    "Predicted_Points": 7.01,
+                    "Predicted_Points": 6.85,
                     "Captain": false
                 }
             ]
         },
         "Total_Cost": 39.0,
-        "Total_Points": 53.65
+        "Total_Points": 53.17
     }
 }
