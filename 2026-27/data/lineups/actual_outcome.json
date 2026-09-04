@@ -66,5 +66,72 @@
         "Total_Cost": 34.0,
         "Total_Points": 66
     },
-    "total_players": 398670
+    "2": {
+        "Players": {
+            "Goalkeeper": [
+                {
+                    "ID": 110,
+                    "Name": "Rushworth",
+                    "Team": "Coventry City",
+                    "Cost": 4.5,
+                    "Points": 4,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 176,
+                    "Name": "Dasilva",
+                    "Team": "Coventry City",
+                    "Cost": 4.0,
+                    "Points": 8,
+                    "Captain": true
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 184,
+                    "Name": "Grimes",
+                    "Team": "Coventry City",
+                    "Cost": 5.0,
+                    "Points": 4,
+                    "Captain": false
+                },
+                {
+                    "ID": 290,
+                    "Name": "Slater",
+                    "Team": "Hull City",
+                    "Cost": 4.5,
+                    "Points": 4,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 295,
+                    "Name": "McBurnie",
+                    "Team": "Hull City",
+                    "Cost": 5.5,
+                    "Points": 2,
+                    "Captain": false
+                },
+                {
+                    "ID": 411,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 15.5,
+                    "Points": 13,
+                    "Captain": false
+                }
+            ]
+        },
+        "Ranks": {
+            "rank": 198855,
+            "overall_rank": 54833,
+            "percentile_rank": 80
+        },
+        "Total_Cost": 39.0,
+        "Total_Points": 35
+    },
+    "total_players": 498899
 }

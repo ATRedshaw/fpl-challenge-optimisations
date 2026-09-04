@@ -60,5 +60,67 @@
         },
         "Total_Cost": 32.0,
         "Total_Points": 157
+    },
+    "2": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 173,
+                    "Name": "Thomas",
+                    "Team": "Coventry City",
+                    "Cost": 4.0,
+                    "Points": 16,
+                    "Captain": false
+                },
+                {
+                    "ID": 277,
+                    "Name": "Egan",
+                    "Team": "Hull City",
+                    "Cost": 4.0,
+                    "Points": 18,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 399,
+                    "Name": "Cherki",
+                    "Team": "Man City",
+                    "Cost": 7.5,
+                    "Points": 14,
+                    "Captain": false
+                },
+                {
+                    "ID": 426,
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 12.0,
+                    "Points": 46,
+                    "Captain": true
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 411,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 15.5,
+                    "Points": 13,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 571,
+                    "Name": "Tzolakis",
+                    "Team": "Hull City",
+                    "Cost": 4.5,
+                    "Points": 20,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 47.5,
+        "Total_Points": 127
     }
 }

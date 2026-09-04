@@ -122,5 +122,67 @@
         },
         "Total_Cost": 39.0,
         "Total_Points": 53.17
+    },
+    "3": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 12,
+                    "Name": "Saka",
+                    "Team": "Arsenal",
+                    "Cost": 9.5,
+                    "Predicted_Points": 7.9,
+                    "Captain": false
+                },
+                {
+                    "ID": 426,
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 12.0,
+                    "Predicted_Points": 8.87,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 84,
+                    "Name": "Collins",
+                    "Team": "Brentford",
+                    "Cost": 5.5,
+                    "Predicted_Points": 6.36,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 250,
+                    "Name": "Leno",
+                    "Team": "Fulham",
+                    "Cost": 4.5,
+                    "Predicted_Points": 3.52,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 379,
+                    "Name": "Isak",
+                    "Team": "Liverpool",
+                    "Cost": 9.0,
+                    "Predicted_Points": 8.8,
+                    "Captain": false
+                },
+                {
+                    "ID": 411,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 15.5,
+                    "Predicted_Points": 22.2,
+                    "Captain": true
+                }
+            ]
+        },
+        "Total_Cost": 56.0,
+        "Total_Points": 57.65
     }
 }
