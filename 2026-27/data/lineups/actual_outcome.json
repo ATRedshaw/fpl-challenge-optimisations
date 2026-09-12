@@ -133,5 +133,72 @@
         "Total_Cost": 39.0,
         "Total_Points": 35
     },
-    "total_players": 498899
+    "3": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 12,
+                    "Name": "Saka",
+                    "Team": "Arsenal",
+                    "Cost": 9.5,
+                    "Points": 2,
+                    "Captain": false
+                },
+                {
+                    "ID": 426,
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 12.0,
+                    "Points": 2,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 84,
+                    "Name": "Collins",
+                    "Team": "Brentford",
+                    "Cost": 5.5,
+                    "Points": 1,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 250,
+                    "Name": "Leno",
+                    "Team": "Fulham",
+                    "Cost": 4.5,
+                    "Points": 1,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 379,
+                    "Name": "Isak",
+                    "Team": "Liverpool",
+                    "Cost": 9.0,
+                    "Points": 21,
+                    "Captain": false
+                },
+                {
+                    "ID": 411,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 15.5,
+                    "Points": 26,
+                    "Captain": true
+                }
+            ]
+        },
+        "Ranks": {
+            "rank": 93591,
+            "overall_rank": 45939,
+            "percentile_rank": 45
+        },
+        "Total_Cost": 56.0,
+        "Total_Points": 53
+    },
+    "total_players": 549517
 }

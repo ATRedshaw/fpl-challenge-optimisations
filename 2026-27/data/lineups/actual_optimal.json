@@ -122,5 +122,67 @@
         },
         "Total_Cost": 47.5,
         "Total_Points": 127
+    },
+    "3": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 204,
+                    "Name": "Mitchell",
+                    "Team": "Crystal Palace",
+                    "Cost": 4.5,
+                    "Points": 54,
+                    "Captain": true
+                },
+                {
+                    "ID": 330,
+                    "Name": "Bogle",
+                    "Team": "Leeds",
+                    "Cost": 4.5,
+                    "Points": 20,
+                    "Captain": false
+                },
+                {
+                    "ID": 504,
+                    "Name": "Vuskovic",
+                    "Team": "Brighton",
+                    "Cost": 5.0,
+                    "Points": 18,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 379,
+                    "Name": "Isak",
+                    "Team": "Liverpool",
+                    "Cost": 9.0,
+                    "Points": 21,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 453,
+                    "Name": "Barnes",
+                    "Team": "Newcastle",
+                    "Cost": 6.0,
+                    "Points": 20,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 597,
+                    "Name": "Suzuki",
+                    "Team": "Aston Villa",
+                    "Cost": 5.0,
+                    "Points": 10,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 34.0,
+        "Total_Points": 143
     }
 }
