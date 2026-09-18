@@ -62,10 +62,12 @@
     <p class="eyebrow" style="margin-bottom: 14px;">Machine Learning · Linear Programming · FPL Challenge</p>
     <h1>Finding the optimal lineup<br>for every FPL Challenge.</h1>
     <p>
-      A machine learning model generates per-player expected-point forecasts, which a linear
+      My machine-learning xPts model generates per-player expected-point forecasts, which a linear
       programme then uses to find the mathematically optimal squad for each FPL Challenge
-      constraint set. The pre-gameweek selection is compared against the hindsight optimal to
-      measure how well the model performed. Spoiler: it doesn't always cover itself in glory.
+      constraint set. The latest three-gameweek player projections are also available on
+      <a href="https://xlthm.atredshaw.com/#players" target="_blank" rel="noopener noreferrer">XLTHM</a>.
+      The pre-gameweek selection is compared against the hindsight optimal to measure how well the
+      model performed. Spoiler: it doesn't always cover itself in glory.
     </p>
     <div class="hero-row">
       <button class="hero-summary" id="hero-summary" aria-haspopup="dialog">
@@ -186,7 +188,7 @@
           <div class="pipeline-step">
             <div class="pipeline-step-label">Stage 1</div>
             <div class="pipeline-step-name">ML Forecasting</div>
-            <div class="pipeline-step-desc">A private model produces per-player xPts forecasts from match context and historical performance features.</div>
+            <div class="pipeline-step-desc">My xPts model produces per-player forecasts from match context and historical performance features, with a rolling three-gameweek view published on <a href="https://xlthm.atredshaw.com/#players" target="_blank" rel="noopener noreferrer">XLTHM</a>.</div>
           </div>
           <div class="pipeline-step">
             <div class="pipeline-step-label">Stage 2</div>

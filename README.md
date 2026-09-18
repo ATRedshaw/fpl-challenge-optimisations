@@ -14,7 +14,7 @@ The pipeline has three broad stages: **projection**, **rule adjustment** and **o
 
 ### 1. Expected Points (xPts) Projections
 
-Player projections are sourced from a currently private ML model that generates per-player expected point (xPts) forecasts for each gameweek. The underlying approach uses a range of match context and player performance features to produce these forecasts. The intention is to open this up to the broader FPL community in the future, but for now the outputs are fetched and stored locally as CSVs under `data/projections/`.
+This project uses its own machine-learning xPts model to generate per-player forecasts from match context and player performance features. The optimiser fetches full component-level projections from the authenticated XLTHM API and stores each pre-deadline snapshot under `data/projections/`. A rolling three-gameweek view is publicly available on [XLTHM](https://xlthm.atredshaw.com/#players).
 
 Each projection record carries:
 
@@ -22,7 +22,11 @@ Each projection record carries:
 - `xMins` — expected minutes, used as a scaling factor in downstream calculations
 - `Cost` — player price in millions
 - `Position` and `Team` metadata
-- Component projections including `Projected_Goals`, `Projected_Assists`, `Clean_Sheet`, `Defcon`, `Saves`, `Bonus`, `Appearance` and `Base_Mins`
+- Expected actions including goals, assists, defensive contributions and saves, plus projected BPS and awarded bonus points
+- Appearance, start, attacking, clean-sheet and defensive-contribution probabilities
+- The xPts contribution from each scoring category, plus point thresholds and forecast percentiles
+
+For single-fixture gameweeks, `Clean_Sheet`, `Defcon` and the other action-probability fields are direct probabilities. For double gameweeks they are summed across fixtures, representing the expected number of fixtures in which the threshold is reached. Expected actions and component xPts are also summed across fixtures.
 
 ### 2. Challenge Rule Adjustments
 
@@ -116,7 +120,7 @@ The structure below was established for the 2025-26 season and is the template f
 │       └── challenges.json
 └── utils/
     ├── solver.py               # FPLChallengeOptimiser (ILP via PuLP)
-    ├── projections.py          # FPL Copilot/API metadata adapter
+    ├── projections.py          # XLTHM xPts and FPL Challenge metadata adapter
     ├── constraints.py          # Bootstrap constraint fetch and YAML update
     ├── data.py                 # JSON persistence and site mirroring
     ├── decisions.py            # Interactive ban/force with fuzzy matching
@@ -146,6 +150,12 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+Add the private API key to a `.env` file in the project root:
+
+```dotenv
+XLTHM_API_KEY=your-api-key
+```
+
 To run the optimiser for a specific gameweek from the project root:
 
 ```bash
@@ -166,7 +176,7 @@ python {season}/hindsight.py
 |---|---|
 | `pulp` | Integer linear programming |
 | `pandas` / `numpy` | Data manipulation and numerical computation |
-| `requests` | FPL and FPL Challenge API calls |
+| `requests` | XLTHM, FPL and FPL Challenge API calls |
 | `soccerdata` | FBref xG and player stats via structured scraping |
 | `fuzzywuzzy` / `RapidFuzz` | Player name reconciliation across data sources |
 | `scipy` | Supporting statistical computation |
