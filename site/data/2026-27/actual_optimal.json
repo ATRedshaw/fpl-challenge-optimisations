@@ -184,5 +184,67 @@
         },
         "Total_Cost": 34.0,
         "Total_Points": 143
+    },
+    "4": {
+        "Players": {
+            "Goalkeeper": [
+                {
+                    "ID": 1,
+                    "Name": "Raya",
+                    "Team": "Arsenal",
+                    "Cost": 6.0,
+                    "Points": 14,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 94,
+                    "Name": "Schade",
+                    "Team": "Brentford",
+                    "Cost": 6.0,
+                    "Points": 15,
+                    "Captain": false
+                },
+                {
+                    "ID": 124,
+                    "Name": "Groß",
+                    "Team": "Brighton",
+                    "Cost": 5.6,
+                    "Points": 17,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 389,
+                    "Name": "Matheus N.",
+                    "Team": "Man City",
+                    "Cost": 5.9,
+                    "Points": 18,
+                    "Captain": false
+                },
+                {
+                    "ID": 391,
+                    "Name": "Gvardiol",
+                    "Team": "Man City",
+                    "Cost": 5.6,
+                    "Points": 44,
+                    "Captain": true
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 411,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 15.5,
+                    "Points": 18,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 44.6,
+        "Total_Points": 126
     }
 }

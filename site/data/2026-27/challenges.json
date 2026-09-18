@@ -18,5 +18,21 @@
     "5": {
         "title": "The Shield",
         "description": "Defensive Contributions score 10 points. One player per club."
+    },
+    "6": {
+        "title": "Matchwinner",
+        "description": "Winning Goals are worth an additional 10 points. One player per club. Unlimited budget."
+    },
+    "7": {
+        "title": "Away Days",
+        "description": "Players in away matches earn double points. One player per club. Unlimited budget."
+    },
+    "8": {
+        "title": "Legends",
+        "description": "Players who have been at their club for at least five years score double points. One player per club. Unlimited budget."
+    },
+    "9": {
+        "title": "Trick or Treat",
+        "description": "Players earn 3 points for every successful dribble but lose a point each time they are tackled. One player per club. Unlimited budget."
     }
 }

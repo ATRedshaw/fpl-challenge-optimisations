@@ -246,5 +246,67 @@
         },
         "Total_Cost": 55.7,
         "Total_Points": 67.8
+    },
+    "5": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 98,
+                    "Name": "Janelt",
+                    "Team": "Brentford",
+                    "Cost": 5.0,
+                    "Predicted_Points": 6.42,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 230,
+                    "Name": "Branthwaite",
+                    "Team": "Everton",
+                    "Cost": 5.5,
+                    "Predicted_Points": 16.44,
+                    "Captain": true
+                },
+                {
+                    "ID": 332,
+                    "Name": "Justin",
+                    "Team": "Leeds",
+                    "Cost": 4.5,
+                    "Predicted_Points": 8.17,
+                    "Captain": false
+                },
+                {
+                    "ID": 472,
+                    "Name": "Murillo",
+                    "Team": "Nott'm Forest",
+                    "Cost": 5.5,
+                    "Predicted_Points": 8.2,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 411,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 15.6,
+                    "Predicted_Points": 6.23,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 569,
+                    "Name": "Horníček",
+                    "Team": "Newcastle",
+                    "Cost": 5.0,
+                    "Predicted_Points": 3.83,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 41.1,
+        "Total_Points": 49.29
     }
 }
