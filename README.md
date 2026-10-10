@@ -14,7 +14,7 @@ The pipeline has three broad stages: **projection**, **rule adjustment** and **o
 
 ### 1. Expected Points (xPts) Projections
 
-This project uses my own machine-learning xPts model to generate per-player forecasts from match context and player performance features. The optimiser fetches full component-level projections from the authenticated XLTHM API and stores each pre-deadline snapshot under `data/projections/`. A rolling three-gameweek view is publicly available on [XLTHM](https://xlthm.atredshaw.com/#players).
+This project uses my own machine-learning xPts model to generate per-player forecasts from match context and player performance features. The optimiser fetches full component-level projections from my authenticated XLTHM API and stores each pre-deadline snapshot under `data/projections/`. A rolling three-gameweek view is publicly available on [XLTHM](https://xlthm.atredshaw.com/#players).
 
 Each projection record carries:
 
