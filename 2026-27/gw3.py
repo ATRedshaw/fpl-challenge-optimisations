@@ -1,4 +1,4 @@
-"""Run the 2026-27 Gameweek 2 FPL Challenge optimisation."""
+"""Run the 2026-27 Gameweek 3 FPL Challenge optimisation."""
 
 import sys
 from pathlib import Path
