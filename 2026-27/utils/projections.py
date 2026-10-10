@@ -11,6 +11,7 @@ import pandas as pd
 import requests
 
 XLTHM_PLAYERS_URL = "https://api.xlthm.atredshaw.com/api/players"
+XLTHM_FIXTURES_URL = "https://api.xlthm.atredshaw.com/api/fixtures"
 CHALLENGE_BOOTSTRAP_URL = "https://fplchallenge.premierleague.com/api/bootstrap-static/"
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 ENV_PATH = PROJECT_ROOT / ".env"
@@ -72,12 +73,22 @@ PROJECTION_COLUMNS = [
     "P50",
     "P75",
     "P90",
+    "Fixture_Projections",
 ]
 
 NUMERIC_COLUMNS = [
     column
     for column in PROJECTION_COLUMNS
-    if column not in {"ID", "Name", "Team", "Region", "Position", "Opponent", "Status"}
+    if column not in {
+        "ID",
+        "Name",
+        "Team",
+        "Region",
+        "Position",
+        "Opponent",
+        "Status",
+        "Fixture_Projections",
+    }
 ]
 
 
@@ -311,6 +322,14 @@ def build_projection_dataframe(
                 "P50": percentiles.get("p50"),
                 "P75": percentiles.get("p75"),
                 "P90": percentiles.get("p90"),
+                "Fixture_Projections": [
+                    {
+                        "Fixture_ID": fixture["fixture"],
+                        "Is_Home": fixture["is_home"],
+                        "Projected_Goals": fixture["expected_actions"]["goals"],
+                    }
+                    for fixture in fixtures
+                ],
             }
         )
 
@@ -376,3 +395,46 @@ def generate_projections(
         bootstrap,
         gameweek,
     )
+
+
+def generate_team_projections(
+    gameweek: int,
+    *,
+    api_key: str | None = None,
+    fixtures_url: str = XLTHM_FIXTURES_URL,
+    env_path: Path = ENV_PATH,
+    session: requests.Session | None = None,
+) -> pd.DataFrame:
+    """Fetch expected goals and win probabilities for each side of a fixture."""
+    if not 1 <= int(gameweek) <= 38:
+        raise ValueError("gameweek must be between 1 and 38")
+
+    gameweek = int(gameweek)
+    http = session or requests.Session()
+    key = _load_api_key(api_key, env_path)
+    payload = _get_json(
+        http,
+        fixtures_url,
+        params={"start_gameweek": gameweek, "gameweeks": 1},
+        headers={"Authorization": f"Bearer {key}"},
+    )
+    if not isinstance(payload, Mapping):
+        raise TypeError("XLTHM fixtures response must be an object.")
+
+    rows = []
+    for fixture in payload.get("fixtures", []):
+        forecast = fixture["forecast"]
+        for side in ("home", "away"):
+            rows.append(
+                {
+                    "Fixture_ID": int(fixture["fixture"]),
+                    "Is_Home": side == "home",
+                    "Team_Expected_Goals": float(forecast["expected_goals"][side]),
+                    "Win_Probability": float(
+                        forecast["result_probabilities"][f"{side}_win"]
+                    ),
+                }
+            )
+    if not rows:
+        raise ValueError(f"No XLTHM team projections found for GW{gameweek}.")
+    return pd.DataFrame(rows)
