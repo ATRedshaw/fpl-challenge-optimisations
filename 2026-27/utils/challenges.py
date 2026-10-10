@@ -20,8 +20,8 @@ SEASON = SEASON_ROOT.name
 CONFIG_PATH = SEASON_ROOT / "data" / "config.yaml"
 
 CHALLENGE_PATTERN = re.compile(
-    r'(\d+):\{copy:\{description:"((?:\\.|[^"\\])*)".*?'
-    r'title:"((?:\\.|[^"\\])*)"\}',
+    r'(\d+):\{copy:\{description:("(?:\\.|[^"\\])*"|`(?:\\.|[^`\\])*`).*?'
+    r'title:("(?:\\.|[^"\\])*"|`(?:\\.|[^`\\])*`)\}',
     re.DOTALL,
 )
 INDEX_BUNDLE_PATTERN = re.compile(r"(?:^|/)assets/index-[^/?]+\.js(?:\?.*)?$")
@@ -69,8 +69,16 @@ def discover_js_bundle_url(page_url: str, html: str) -> str:
 
 
 def _decode_js_string(value: str) -> str:
-    # Challenge copy is emitted as JSON-compatible double-quoted JS strings.
-    return json.loads(f'"{value}"')
+    if value.startswith('"'):
+        return json.loads(value)
+
+    def decode_escape(match: re.Match[str]) -> str:
+        escape = match.group(0)
+        if escape[1] in "`$'":
+            return escape[1]
+        return json.loads(f'"{escape}"')
+
+    return re.sub(r"\\(?:u[0-9a-fA-F]{4}|.)", decode_escape, value[1:-1])
 
 
 def parse_challenges(js_content: str) -> dict[str, dict[str, str]]:
