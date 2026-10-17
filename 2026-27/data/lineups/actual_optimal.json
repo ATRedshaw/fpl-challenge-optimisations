@@ -308,5 +308,67 @@
         },
         "Total_Cost": 32.0,
         "Total_Points": 135
+    },
+    "6": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 40,
+                    "Name": "Rogers",
+                    "Team": "Chelsea",
+                    "Cost": 7.8,
+                    "Points": 19,
+                    "Captain": false
+                },
+                {
+                    "ID": 452,
+                    "Name": "Bruno G.",
+                    "Team": "Arsenal",
+                    "Cost": 6.7,
+                    "Points": 19,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 115,
+                    "Name": "De Cuyper",
+                    "Team": "Brighton",
+                    "Cost": 5.0,
+                    "Points": 50,
+                    "Captain": true
+                },
+                {
+                    "ID": 304,
+                    "Name": "O'Shea",
+                    "Team": "Ipswich Town",
+                    "Cost": 4.0,
+                    "Points": 21,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 384,
+                    "Name": "Donnarumma",
+                    "Team": "Man City",
+                    "Cost": 5.5,
+                    "Points": 9,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 598,
+                    "Name": "Cherif",
+                    "Team": "Coventry City",
+                    "Cost": 5.0,
+                    "Points": 22,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 34.0,
+        "Total_Points": 140
     }
 }
