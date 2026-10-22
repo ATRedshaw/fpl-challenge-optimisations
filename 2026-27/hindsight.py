@@ -20,11 +20,12 @@ if hasattr(sys.stdout, "reconfigure"):
 
 
 BASE_URL = "https://fplchallenge.premierleague.com/api"
+FPL_BASE_URL = "https://fantasy.premierleague.com/api"
 HINDSIGHT_PROJECTION_COLUMNS = ["ID", "Name", "Team", "Position", "Cost"]
 
 
-def fetch_bootstrap() -> dict:
-    response = requests.get(f"{BASE_URL}/bootstrap-static/", timeout=60)
+def fetch_bootstrap(base_url: str = BASE_URL) -> dict:
+    response = requests.get(f"{base_url}/bootstrap-static/", timeout=60)
     response.raise_for_status()
     return response.json()
 
@@ -35,11 +36,14 @@ def fetch_live(gameweek: int) -> dict:
     return response.json()
 
 
-def get_completed_gameweeks(events: list) -> list[int]:
+def get_completed_gameweeks(events: list, fpl_events: list) -> list[int]:
+    """Return gameweeks marked finished by either FPL Challenge or regular FPL."""
     return sorted(
-        int(event["id"])
-        for event in events
-        if event.get("finished")
+        {
+            int(event["id"])
+            for event in events + fpl_events
+            if event.get("finished")
+        }
     )
 
 
@@ -206,7 +210,10 @@ def run_hindsight(season_root: Path | None = None) -> None:
 
     print("Fetching bootstrap data...")
     bootstrap = fetch_bootstrap()
-    completed_gameweeks = get_completed_gameweeks(bootstrap["events"])
+    fpl_bootstrap = fetch_bootstrap(FPL_BASE_URL)
+    completed_gameweeks = get_completed_gameweeks(
+        bootstrap["events"], fpl_bootstrap["events"]
+    )
     print(f"Completed gameweeks: {completed_gameweeks}")
 
     for gameweek in completed_gameweeks:

@@ -370,5 +370,67 @@
         },
         "Total_Cost": 34.0,
         "Total_Points": 140
+    },
+    "7": {
+        "Players": {
+            "Goalkeeper": [
+                {
+                    "ID": 1,
+                    "Name": "Raya",
+                    "Team": "Arsenal",
+                    "Cost": 6.1,
+                    "Points": 18,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 53,
+                    "Name": "Manzambi",
+                    "Team": "Aston Villa",
+                    "Cost": 5.9,
+                    "Points": 22,
+                    "Captain": false
+                },
+                {
+                    "ID": 156,
+                    "Name": "Neto",
+                    "Team": "Chelsea",
+                    "Cost": 6.5,
+                    "Points": 60,
+                    "Captain": true
+                },
+                {
+                    "ID": 427,
+                    "Name": "Mbeumo",
+                    "Team": "Man Utd",
+                    "Cost": 7.8,
+                    "Points": 16,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 379,
+                    "Name": "Isak",
+                    "Team": "Liverpool",
+                    "Cost": 9.0,
+                    "Points": 18,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 504,
+                    "Name": "Vuskovic",
+                    "Team": "Brighton",
+                    "Cost": 5.1,
+                    "Points": 11,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 40.4,
+        "Total_Points": 145
     }
 }

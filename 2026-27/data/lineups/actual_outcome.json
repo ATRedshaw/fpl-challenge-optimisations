@@ -401,5 +401,72 @@
         "Total_Cost": 55.4,
         "Total_Points": 24
     },
-    "total_players": 620576
+    "7": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 4,
+                    "Name": "Gabriel",
+                    "Team": "Arsenal",
+                    "Cost": 7.9,
+                    "Points": 32,
+                    "Captain": true
+                },
+                {
+                    "ID": 533,
+                    "Name": "Mukiele",
+                    "Team": "Sunderland",
+                    "Cost": 5.4,
+                    "Points": 6,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 40,
+                    "Name": "Rogers",
+                    "Team": "Chelsea",
+                    "Cost": 7.9,
+                    "Points": 4,
+                    "Captain": false
+                },
+                {
+                    "ID": 427,
+                    "Name": "Mbeumo",
+                    "Team": "Man Utd",
+                    "Cost": 7.8,
+                    "Points": 16,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 295,
+                    "Name": "McBurnie",
+                    "Team": "Hull City",
+                    "Cost": 5.5,
+                    "Points": 4,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 597,
+                    "Name": "Suzuki",
+                    "Team": "Aston Villa",
+                    "Cost": 5.0,
+                    "Points": 16,
+                    "Captain": false
+                }
+            ]
+        },
+        "Ranks": {
+            "rank": 2014,
+            "overall_rank": 13582,
+            "percentile_rank": 5
+        },
+        "Total_Cost": 39.5,
+        "Total_Points": 78
+    },
+    "total_players": 630165
 }
