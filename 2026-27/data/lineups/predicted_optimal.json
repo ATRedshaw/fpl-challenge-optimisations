@@ -432,5 +432,67 @@
         },
         "Total_Cost": 39.5,
         "Total_Points": 55.62
+    },
+    "8": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 4,
+                    "Name": "Gabriel",
+                    "Team": "Arsenal",
+                    "Cost": 7.9,
+                    "Predicted_Points": 10.46,
+                    "Captain": false
+                },
+                {
+                    "ID": 87,
+                    "Name": "Ajer",
+                    "Team": "Brentford",
+                    "Cost": 4.5,
+                    "Predicted_Points": 7.5,
+                    "Captain": false
+                },
+                {
+                    "ID": 254,
+                    "Name": "Robinson",
+                    "Team": "Fulham",
+                    "Cost": 4.4,
+                    "Predicted_Points": 6.98,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 350,
+                    "Name": "A.Becker",
+                    "Team": "Liverpool",
+                    "Cost": 5.5,
+                    "Predicted_Points": 6.2,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 411,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 15.7,
+                    "Predicted_Points": 5.0,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 426,
+                    "Name": "B.Fernandes",
+                    "Team": "Man Utd",
+                    "Cost": 11.8,
+                    "Predicted_Points": 21.2,
+                    "Captain": true
+                }
+            ]
+        },
+        "Total_Cost": 49.8,
+        "Total_Points": 57.34
     }
 }
