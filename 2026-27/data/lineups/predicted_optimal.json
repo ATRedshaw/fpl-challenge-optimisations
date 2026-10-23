@@ -441,58 +441,58 @@
                     "Name": "Gabriel",
                     "Team": "Arsenal",
                     "Cost": 7.9,
-                    "Predicted_Points": 10.46,
-                    "Captain": false
-                },
-                {
-                    "ID": 87,
-                    "Name": "Ajer",
-                    "Team": "Brentford",
-                    "Cost": 4.5,
-                    "Predicted_Points": 7.5,
-                    "Captain": false
+                    "Predicted_Points": 20.96,
+                    "Captain": true
                 },
                 {
                     "ID": 254,
                     "Name": "Robinson",
                     "Team": "Fulham",
                     "Cost": 4.4,
-                    "Predicted_Points": 6.98,
-                    "Captain": false
-                }
-            ],
-            "Goalkeeper": [
-                {
-                    "ID": 350,
-                    "Name": "A.Becker",
-                    "Team": "Liverpool",
-                    "Cost": 5.5,
-                    "Predicted_Points": 6.2,
+                    "Predicted_Points": 7.5,
                     "Captain": false
                 }
             ],
             "Forward": [
                 {
-                    "ID": 411,
-                    "Name": "Haaland",
-                    "Team": "Man City",
-                    "Cost": 15.7,
-                    "Predicted_Points": 5.0,
+                    "ID": 165,
+                    "Name": "João Pedro",
+                    "Team": "Chelsea",
+                    "Cost": 7.9,
+                    "Predicted_Points": 4.29,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 226,
+                    "Name": "Pickford",
+                    "Team": "Everton",
+                    "Cost": 5.5,
+                    "Predicted_Points": 5.66,
                     "Captain": false
                 }
             ],
             "Midfielder": [
                 {
+                    "ID": 398,
+                    "Name": "Foden",
+                    "Team": "Man City",
+                    "Cost": 6.8,
+                    "Predicted_Points": 8.06,
+                    "Captain": false
+                },
+                {
                     "ID": 426,
                     "Name": "B.Fernandes",
                     "Team": "Man Utd",
                     "Cost": 11.8,
-                    "Predicted_Points": 21.2,
-                    "Captain": true
+                    "Predicted_Points": 9.62,
+                    "Captain": false
                 }
             ]
         },
-        "Total_Cost": 49.8,
-        "Total_Points": 57.34
+        "Total_Cost": 44.3,
+        "Total_Points": 56.09
     }
 }
