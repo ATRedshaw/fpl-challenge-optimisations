@@ -432,5 +432,67 @@
         },
         "Total_Cost": 40.4,
         "Total_Points": 145
+    },
+    "8": {
+        "Players": {
+            "Defender": [
+                {
+                    "ID": 4,
+                    "Name": "Gabriel",
+                    "Team": "Arsenal",
+                    "Cost": 7.9,
+                    "Points": 68,
+                    "Captain": true
+                },
+                {
+                    "ID": 356,
+                    "Name": "Virgil",
+                    "Team": "Liverpool",
+                    "Cost": 6.4,
+                    "Points": 18,
+                    "Captain": false
+                },
+                {
+                    "ID": 539,
+                    "Name": "O'Nien",
+                    "Team": "Sunderland",
+                    "Cost": 3.9,
+                    "Points": 18,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 166,
+                    "Name": "N.Jackson",
+                    "Team": "Aston Villa",
+                    "Cost": 6.6,
+                    "Points": 13,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 385,
+                    "Name": "Trafford",
+                    "Team": "Leeds",
+                    "Cost": 5.0,
+                    "Points": 10,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 457,
+                    "Name": "J.Murphy",
+                    "Team": "Newcastle",
+                    "Cost": 5.9,
+                    "Points": 12,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 35.7,
+        "Total_Points": 139
     }
 }

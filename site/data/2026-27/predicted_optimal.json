@@ -494,5 +494,67 @@
         },
         "Total_Cost": 44.3,
         "Total_Points": 56.09
+    },
+    "9": {
+        "Players": {
+            "Goalkeeper": [
+                {
+                    "ID": 1,
+                    "Name": "Raya",
+                    "Team": "Arsenal",
+                    "Cost": 6.2,
+                    "Predicted_Points": 4.08,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 166,
+                    "Name": "N.Jackson",
+                    "Team": "Aston Villa",
+                    "Cost": 6.7,
+                    "Predicted_Points": 5.04,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 286,
+                    "Name": "Belloumi",
+                    "Team": "Hull City",
+                    "Cost": 5.2,
+                    "Predicted_Points": 6.57,
+                    "Captain": false
+                },
+                {
+                    "ID": 400,
+                    "Name": "Doku",
+                    "Team": "Man City",
+                    "Cost": 7.5,
+                    "Predicted_Points": 14.0,
+                    "Captain": true
+                },
+                {
+                    "ID": 512,
+                    "Name": "Kudus",
+                    "Team": "Spurs",
+                    "Cost": 6.5,
+                    "Predicted_Points": 6.18,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 449,
+                    "Name": "Hall",
+                    "Team": "Newcastle",
+                    "Cost": 5.3,
+                    "Predicted_Points": 5.86,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 37.4,
+        "Total_Points": 41.73
     }
 }
