@@ -34,5 +34,9 @@
     "9": {
         "title": "Trick or Treat",
         "description": "Players earn 3 points for every successful dribble but lose a point each time they are tackled. One player per club. Unlimited budget."
+    },
+    "10": {
+        "title": "Spectacular",
+        "description": "Your players earn +1 point for every shot on target from outside the penalty area and +5 points for every goal scored from outside the penalty area. One player per club. Unlimited budget."
     }
 }
