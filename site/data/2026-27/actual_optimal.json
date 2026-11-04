@@ -494,5 +494,67 @@
         },
         "Total_Cost": 35.7,
         "Total_Points": 139
+    },
+    "9": {
+        "Players": {
+            "Goalkeeper": [
+                {
+                    "ID": 109,
+                    "Name": "Verbruggen",
+                    "Team": "Brighton",
+                    "Cost": 4.6,
+                    "Points": 11,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 112,
+                    "Name": "Van Hecke",
+                    "Team": "Spurs",
+                    "Cost": 4.9,
+                    "Points": 15,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 166,
+                    "Name": "N.Jackson",
+                    "Team": "Aston Villa",
+                    "Cost": 6.9,
+                    "Points": 17,
+                    "Captain": false
+                },
+                {
+                    "ID": 295,
+                    "Name": "McBurnie",
+                    "Team": "Hull City",
+                    "Cost": 5.5,
+                    "Points": 18,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 264,
+                    "Name": "Bobb",
+                    "Team": "Fulham",
+                    "Cost": 5.5,
+                    "Points": 19,
+                    "Captain": false
+                },
+                {
+                    "ID": 400,
+                    "Name": "Doku",
+                    "Team": "Man City",
+                    "Cost": 7.5,
+                    "Points": 46,
+                    "Captain": true
+                }
+            ]
+        },
+        "Total_Cost": 34.9,
+        "Total_Points": 126
     }
 }

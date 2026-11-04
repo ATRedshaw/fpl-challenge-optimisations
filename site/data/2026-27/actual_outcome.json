@@ -535,5 +535,72 @@
         "Total_Cost": 44.3,
         "Total_Points": 86
     },
-    "total_players": 636838
+    "9": {
+        "Players": {
+            "Goalkeeper": [
+                {
+                    "ID": 1,
+                    "Name": "Raya",
+                    "Team": "Arsenal",
+                    "Cost": 6.2,
+                    "Points": 5,
+                    "Captain": false
+                }
+            ],
+            "Midfielder": [
+                {
+                    "ID": 156,
+                    "Name": "Neto",
+                    "Team": "Chelsea",
+                    "Cost": 6.6,
+                    "Points": 1,
+                    "Captain": false
+                },
+                {
+                    "ID": 286,
+                    "Name": "Belloumi",
+                    "Team": "Hull City",
+                    "Cost": 5.2,
+                    "Points": 9,
+                    "Captain": false
+                },
+                {
+                    "ID": 400,
+                    "Name": "Doku",
+                    "Team": "Man City",
+                    "Cost": 7.5,
+                    "Points": 46,
+                    "Captain": true
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 166,
+                    "Name": "N.Jackson",
+                    "Team": "Aston Villa",
+                    "Cost": 6.9,
+                    "Points": 17,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 449,
+                    "Name": "Hall",
+                    "Team": "Newcastle",
+                    "Cost": 5.3,
+                    "Points": 2,
+                    "Captain": false
+                }
+            ]
+        },
+        "Ranks": {
+            "rank": 7854,
+            "overall_rank": 2804,
+            "percentile_rank": 10
+        },
+        "Total_Cost": 37.7,
+        "Total_Points": 80
+    },
+    "total_players": 649150
 }
