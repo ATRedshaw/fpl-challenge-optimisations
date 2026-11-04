@@ -44,6 +44,13 @@ body {
   color: var(--text-muted);
 }
 .wrap    { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.inline-link {
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.inline-link:hover,
+.inline-link:focus-visible { color: var(--text); }
 
 /* ── Header ───────────────────────────────────────────────────────────────── */
 #site-header {
