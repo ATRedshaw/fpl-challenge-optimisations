@@ -38,5 +38,17 @@
     "10": {
         "title": "Spectacular",
         "description": "Your players earn +1 point for every shot on target from outside the penalty area and +5 points for every goal scored from outside the penalty area. One player per club. Unlimited budget."
+    },
+    "11": {
+        "title": "Make the Call",
+        "description": "Players who come on as a substitute earn triple points. One player per club. Unlimited budget."
+    },
+    "12": {
+        "title": "Wonderkids",
+        "description": "Players aged 23 or under at the final Gameweek 12 deadline earn double points. One player per club. Unlimited budget."
+    },
+    "13": {
+        "title": "Dribbling: 20",
+        "description": "Players earn +1 point for every successful dribble and a one-off +5 points for three or more. One player per club. Unlimited budget."
     }
 }
