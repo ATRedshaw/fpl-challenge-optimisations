@@ -556,5 +556,67 @@
         },
         "Total_Cost": 34.9,
         "Total_Points": 126
+    },
+    "10": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 52,
+                    "Name": "Alysson",
+                    "Team": "Aston Villa",
+                    "Cost": 4.9,
+                    "Points": 32,
+                    "Captain": true
+                },
+                {
+                    "ID": 457,
+                    "Name": "J.Murphy",
+                    "Team": "Newcastle",
+                    "Cost": 5.9,
+                    "Points": 16,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 167,
+                    "Name": "Delap",
+                    "Team": "Nott'm Forest",
+                    "Cost": 5.4,
+                    "Points": 13,
+                    "Captain": false
+                },
+                {
+                    "ID": 249,
+                    "Name": "Barry",
+                    "Team": "Everton",
+                    "Cost": 5.6,
+                    "Points": 16,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 385,
+                    "Name": "Trafford",
+                    "Team": "Leeds",
+                    "Cost": 5.0,
+                    "Points": 10,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 504,
+                    "Name": "Vuskovic",
+                    "Team": "Brighton",
+                    "Cost": 5.2,
+                    "Points": 12,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 32.0,
+        "Total_Points": 99
     }
 }
