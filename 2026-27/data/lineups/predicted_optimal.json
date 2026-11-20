@@ -627,7 +627,7 @@
                     "Name": "Gabriel",
                     "Team": "Arsenal",
                     "Cost": 8.1,
-                    "Predicted_Points": 5.22,
+                    "Predicted_Points": 5.26,
                     "Captain": false
                 },
                 {
@@ -635,7 +635,7 @@
                     "Name": "Ajer",
                     "Team": "Brentford",
                     "Cost": 4.5,
-                    "Predicted_Points": 4.66,
+                    "Predicted_Points": 4.82,
                     "Captain": false
                 },
                 {
@@ -643,115 +643,7 @@
                     "Name": "Van Hecke",
                     "Team": "Spurs",
                     "Cost": 5.1,
-                    "Predicted_Points": 4.82,
-                    "Captain": false
-                }
-            ],
-            "Goalkeeper": [
-                {
-                    "ID": 109,
-                    "Name": "Verbruggen",
-                    "Team": "Brighton",
-                    "Cost": 4.7,
-                    "Predicted_Points": 4.17,
-                    "Captain": false
-                }
-            ],
-            "Midfielder": [
-                {
-                    "ID": 154,
-                    "Name": "Palmer",
-                    "Team": "Chelsea",
-                    "Cost": 9.8,
-                    "Predicted_Points": 4.79,
-                    "Captain": false
-                }
-            ],
-            "Forward": [
-                {
-                    "ID": 411,
-                    "Name": "Haaland",
-                    "Team": "Man City",
-                    "Cost": 15.8,
-                    "Predicted_Points": 11.02,
-                    "Captain": true
-                }
-            ]
-        },
-        "Total_Cost": 48.0,
-        "Total_Points": 34.68
-    },
-    "12": {
-        "Players": {
-            "Midfielder": [
-                {
-                    "ID": 53,
-                    "Name": "Manzambi",
-                    "Team": "Aston Villa",
-                    "Cost": 6.2,
-                    "Predicted_Points": 7.8,
-                    "Captain": false
-                },
-                {
-                    "ID": 591,
-                    "Name": "Enciso",
-                    "Team": "Ipswich Town",
-                    "Cost": 5.5,
-                    "Predicted_Points": 7.96,
-                    "Captain": false
-                }
-            ],
-            "Forward": [
-                {
-                    "ID": 138,
-                    "Name": "Kostoulas",
-                    "Team": "Brighton",
-                    "Cost": 5.8,
-                    "Predicted_Points": 8.6,
-                    "Captain": false
-                }
-            ],
-            "Defender": [
-                {
-                    "ID": 334,
-                    "Name": "Muharemović",
-                    "Team": "Leeds",
-                    "Cost": 5.1,
-                    "Predicted_Points": 18.36,
-                    "Captain": true
-                },
-                {
-                    "ID": 555,
-                    "Name": "Silva",
-                    "Team": "Bournemouth",
-                    "Cost": 5.1,
-                    "Predicted_Points": 8.04,
-                    "Captain": false
-                }
-            ],
-            "Goalkeeper": [
-                {
-                    "ID": 496,
-                    "Name": "Kinsky",
-                    "Team": "Spurs",
-                    "Cost": 4.4,
-                    "Predicted_Points": 6.76,
-                    "Captain": false
-                }
-            ]
-        },
-        "Total_Cost": 32.1,
-        "Total_Points": 57.52
-    },
-    "13": {
-        "Players": {
-            "Goalkeeper": [
-                {
-                    "ID": 1,
-                    "Name": "Raya",
-                    "Team": "Arsenal",
-                    "Cost": 6.2,
-                    "Predicted_Points": 3.83,
+                    "Predicted_Points": 4.69,
                     "Captain": false
                 }
             ],
@@ -761,7 +653,105 @@
                     "Name": "Rogers",
                     "Team": "Chelsea",
                     "Cost": 8.2,
-                    "Predicted_Points": 7.65,
+                    "Predicted_Points": 4.78,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 109,
+                    "Name": "Verbruggen",
+                    "Team": "Brighton",
+                    "Cost": 4.7,
+                    "Predicted_Points": 3.91,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 411,
+                    "Name": "Haaland",
+                    "Team": "Man City",
+                    "Cost": 15.8,
+                    "Predicted_Points": 10.84,
+                    "Captain": true
+                }
+            ]
+        },
+        "Total_Cost": 46.4,
+        "Total_Points": 34.3
+    },
+    "12": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 53,
+                    "Name": "Manzambi",
+                    "Team": "Aston Villa",
+                    "Cost": 6.2,
+                    "Predicted_Points": 7.68,
+                    "Captain": false
+                },
+                {
+                    "ID": 591,
+                    "Name": "Enciso",
+                    "Team": "Ipswich Town",
+                    "Cost": 5.5,
+                    "Predicted_Points": 8.16,
+                    "Captain": false
+                }
+            ],
+            "Forward": [
+                {
+                    "ID": 138,
+                    "Name": "Kostoulas",
+                    "Team": "Brighton",
+                    "Cost": 5.8,
+                    "Predicted_Points": 8.5,
+                    "Captain": false
+                }
+            ],
+            "Defender": [
+                {
+                    "ID": 334,
+                    "Name": "Muharemović",
+                    "Team": "Leeds",
+                    "Cost": 5.1,
+                    "Predicted_Points": 18.8,
+                    "Captain": true
+                },
+                {
+                    "ID": 555,
+                    "Name": "Silva",
+                    "Team": "Bournemouth",
+                    "Cost": 5.1,
+                    "Predicted_Points": 7.78,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 529,
+                    "Name": "Roefs",
+                    "Team": "Sunderland",
+                    "Cost": 4.8,
+                    "Predicted_Points": 6.84,
+                    "Captain": false
+                }
+            ]
+        },
+        "Total_Cost": 32.5,
+        "Total_Points": 57.76
+    },
+    "13": {
+        "Players": {
+            "Midfielder": [
+                {
+                    "ID": 40,
+                    "Name": "Rogers",
+                    "Team": "Chelsea",
+                    "Cost": 8.2,
+                    "Predicted_Points": 7.6,
                     "Captain": false
                 },
                 {
@@ -769,7 +759,7 @@
                     "Name": "Doku",
                     "Team": "Man City",
                     "Cost": 7.5,
-                    "Predicted_Points": 19.46,
+                    "Predicted_Points": 19.82,
                     "Captain": true
                 },
                 {
@@ -777,7 +767,7 @@
                     "Name": "Kudus",
                     "Team": "Spurs",
                     "Cost": 6.6,
-                    "Predicted_Points": 8.22,
+                    "Predicted_Points": 8.02,
                     "Captain": false
                 }
             ],
@@ -786,8 +776,8 @@
                     "ID": 166,
                     "Name": "N.Jackson",
                     "Team": "Aston Villa",
-                    "Cost": 7.1,
-                    "Predicted_Points": 6.85,
+                    "Cost": 7.2,
+                    "Predicted_Points": 6.84,
                     "Captain": false
                 }
             ],
@@ -797,12 +787,22 @@
                     "Name": "Hall",
                     "Team": "Newcastle",
                     "Cost": 5.2,
-                    "Predicted_Points": 5.6,
+                    "Predicted_Points": 5.52,
+                    "Captain": false
+                }
+            ],
+            "Goalkeeper": [
+                {
+                    "ID": 571,
+                    "Name": "Tzolakis",
+                    "Team": "Hull City",
+                    "Cost": 4.7,
+                    "Predicted_Points": 3.83,
                     "Captain": false
                 }
             ]
         },
-        "Total_Cost": 40.8,
-        "Total_Points": 51.61
+        "Total_Cost": 39.4,
+        "Total_Points": 51.63
     }
 }
